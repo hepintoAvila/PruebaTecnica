@@ -8,6 +8,38 @@ function buildQueryString(opcion) {
 
   return queryString;
 }
+const setCredenciales = async (password) => {
+ 
+  let token = localStorage.getItem("token");
+  if (token) {
+    
+      let textoCifradoBase64 = localStorage.getItem("textoCifradoBase64");
+      let token = localStorage.getItem("token");
+
+      const passwords = password;
+      if (
+        textoCifradoBase64.length > 0 ||
+        textoCifradoBase64 !== "undefined" ||
+        textoCifradoBase64 !== "null"
+      ) {
+        const desencriptado = await desencriptar(
+          passwords,
+          textoCifradoBase64
+        );
+        if (desencriptado) {
+          if (token === desencriptado) {
+            return true;
+          } else {
+            return false
+          }
+        } else {
+          return false
+        }
+      }
+  }
+  
+}
+
 
 const obtenerRespuesta = async (url) => {
   try {
@@ -59,37 +91,47 @@ const derivacionDeClaveBasadaEnContraseña = async (
   );
 };
 
-const bufferABase64 = (buffer) =>
-  btoa(String.fromCharCode(...new Uint8Array(buffer)));
-const base64ABuffer = (buffer) =>
-  Uint8Array.from(atob(buffer), (c) => c.charCodeAt(0));
-const LONGITUD_SAL = 16;
-const LONGITUD_VECTOR_INICIALIZACION = LONGITUD_SAL;
+
 
 const desencriptar = async (contraseña, encriptadoEnBase64) => {
-  const decoder = new TextDecoder();
-  const datosEncriptados = base64ABuffer(encriptadoEnBase64);
-  const sal = datosEncriptados.slice(0, LONGITUD_SAL);
-  const vectorInicializacion = datosEncriptados.slice(
-    0 + LONGITUD_SAL,
-    LONGITUD_SAL + LONGITUD_VECTOR_INICIALIZACION
-  );
-  const clave = await derivacionDeClaveBasadaEnContraseña(
-    contraseña,
-    sal,
-    100000,
-    256,
-    "SHA-256"
-  );
-  const datosDesencriptadosComoBuffer = await window.crypto.subtle.decrypt(
-    { name: "AES-CBC", iv: vectorInicializacion },
-    clave,
-    datosEncriptados.slice(LONGITUD_SAL + LONGITUD_VECTOR_INICIALIZACION)
-  );
-  return decoder.decode(datosDesencriptadosComoBuffer);
+
+  if (encriptadoEnBase64) {
+    console.log('encriptadoEnBase64',encriptadoEnBase64);
+    const base64ABuffer = (buffer) =>
+      Uint8Array.from(atob(buffer), (c) => c.charCodeAt(0));
+    const LONGITUD_SAL = 16;
+    const LONGITUD_VECTOR_INICIALIZACION = LONGITUD_SAL;
+
+    const decoder = new TextDecoder();
+    const datosEncriptados = base64ABuffer(encriptadoEnBase64);
+    if (datosEncriptados) {
+      const sal = datosEncriptados.slice(0, LONGITUD_SAL);
+      const vectorInicializacion = datosEncriptados.slice(
+        0 + LONGITUD_SAL,
+        LONGITUD_SAL + LONGITUD_VECTOR_INICIALIZACION
+      );
+      const clave = await derivacionDeClaveBasadaEnContraseña(
+        contraseña,
+        sal,
+        100000,
+        256,
+        "SHA-256"
+      );
+      const datosDesencriptadosComoBuffer = await window.crypto.subtle.decrypt(
+        { name: "AES-CBC", iv: vectorInicializacion },
+        clave,
+        datosEncriptados.slice(LONGITUD_SAL + LONGITUD_VECTOR_INICIALIZACION)
+      );
+      return decoder.decode(datosDesencriptadosComoBuffer);
+    }
+  }
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
+
+
+
+
   const $usuario = document.querySelector("#lusuario"),
     $password = document.querySelector("#lpassword"),
     $botonLogin = document.querySelector("#botonLogin");
@@ -117,20 +159,32 @@ document.addEventListener("DOMContentLoaded", async () => {
     //Obtener respuesta de la EndPoint
     obtenerRespuesta(url)
       .then(async (respuesta) => {
+        console.log('respuesta',respuesta);
         if (respuesta[0].ok) {
-          localStorage.removeItem("textoCifradoBase64");
-          localStorage.removeItem("token");
-          localStorage.removeItem("nombreUsuario");
-          localStorage.removeItem("rol");
-          localStorage.removeItem("Cuestionarios");
-          localStorage.removeItem("idCuestionario");
-          localStorage.removeItem("CuestionariosById");
-          localStorage.removeItem("datosBasicosCuestionario");
-          localStorage.setItem("textoCifradoBase64", respuesta[0].encriptado);
-          localStorage.setItem("nombreUsuario", respuesta[0].nombre);
-          localStorage.setItem("rol", respuesta[0].rol);
-          localStorage.setItem("token", respuesta[0].token);
-        } else {
+              localStorage.removeItem("textoCifradoBase64");
+              localStorage.removeItem("token");
+              localStorage.removeItem("nombreUsuario");
+              localStorage.removeItem("rol");
+              localStorage.removeItem("Cuestionarios");
+              localStorage.removeItem("idCuestionario");
+              localStorage.removeItem("CuestionariosById");
+              localStorage.removeItem("datosBasicosCuestionario");
+              localStorage.removeItem("CalificacionPromedio");
+              localStorage.removeItem("seccion");
+              localStorage.removeItem("CalificacionPorcentual");
+              localStorage.removeItem("timer");
+              localStorage.removeItem("NumeroCorrectas");
+              localStorage.removeItem("datosResultadosById");
+              localStorage.removeItem("tokenSesion");
+              
+              localStorage.setItem("token", respuesta[0].token);
+              localStorage.setItem("tokenSesion", respuesta[0].token);
+              localStorage.setItem("textoCifradoBase64", respuesta[0].encriptado);
+              localStorage.setItem("textoCifradoBase64", respuesta[0].encriptado);
+              localStorage.setItem("nombreUsuario", respuesta[0].nombre);
+              localStorage.setItem("rol", respuesta[0].rol);
+              window.location.href = "http://localhost/PruebaTecnica/index.html";
+          } else {
           localStorage.setItem("seccion", 0);
           Swal.fire("Error:: su usuario o contraseña son incorrectas");
         }
@@ -138,37 +192,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       .catch((error) => {
         Swal.fire("Error:: su usuario o contraseña son incorrectas");
       });
-    let token = localStorage.getItem("token");
-    if (token) {
-      try {
-        let textoCifradoBase64 = localStorage.getItem("textoCifradoBase64");
-        let token = localStorage.getItem("token");
+      
 
-        const passwords = password;
-        if (
-          textoCifradoBase64.length > 0 ||
-          textoCifradoBase64 !== "undefined" ||
-          textoCifradoBase64 !== "null"
-        ) {
-          const desencriptado = await desencriptar(
-            passwords,
-            textoCifradoBase64
-          );
-          if (desencriptado) {
-            if (token === desencriptado) {
-              localStorage.setItem("tokenSesion", token);
-              Swal.fire("OK:: Inicio de session...");
-              window.location.href = "http://localhost/app_quiz/";
-            } else {
-              Swal.fire("Error:: su usuario o contraseña son incorrectas");
-            }
-          } else {
-            Swal.fire("Error:: la contraseña es incorrecta");
-          }
-        }
-      } catch (e) {
-        console.error("Error", e);
-      }
-    }
   };
+
+        
+
+
 });
