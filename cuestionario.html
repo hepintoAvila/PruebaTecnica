@@ -120,15 +120,40 @@
                     <div class="text-container" id="titulo">
                         
                         <script>
-                                let titulo = datosBasicosTitulo();
+                            function datosBasicosTitulo(datosBasicos) {
+    
+                                    const basicos = JSON.parse(datosBasicos);
+                                    const h1s = document.createElement("h1");
+                                    const spans = document.createElement("span");
+                                    spans.classList.add("text-container");
+                                    spans.textContent = basicos.Titulo;
+                                    h1s.appendChild(spans);
+                                    return h1s;
+                                }
+                             
+                                let datosBasicosCuestionario = localStorage.getItem("datosBasicosCuestionario");
+                                let titulo = datosBasicosTitulo(datosBasicosCuestionario);
                                 const tituloCuestionario = document.querySelector("#titulo");
                                 tituloCuestionario.appendChild(titulo); 
+                        
+
  
                         </script>
                     </div>
                     <p class="text-container" id="descripcion"></p>
                 <script>
-                        let descripcion = datosBasicosDescripcion();
+                    function datosBasicosDescripcion(datosBasicos) {
+     
+                        const basicos = JSON.parse(datosBasicos);
+                        const h1s = document.createElement("p");
+                        const spans = document.createElement("span");
+                        spans.classList.add("text-container");
+                        spans.textContent = 'DESCRIPCIÓN: ' + basicos.Descripcion;
+                        h1s.appendChild(spans);
+                        return h1s;
+                    }
+                    let datosBasicosdescripcion = localStorage.getItem("datosBasicosCuestionario");
+                        let descripcion = datosBasicosDescripcion(datosBasicosdescripcion);
                        const descripcionCuestionario = document.querySelector("#descripcion");
                         descripcionCuestionario.appendChild(descripcion); 
                 </script>
@@ -141,9 +166,17 @@
                     let datosBasicos = localStorage.getItem("datosBasicosCuestionario");
                     const basicos = JSON.parse(datosBasicos);
                 
-                
-                
-                let tiempo = datosBasicosTiempoPrueba();
+                    function datosBasicosTiempoPrueba(datosBasicos) {
+                        const basicos = JSON.parse(datosBasicos);
+                        const h1s = document.createElement("p");
+                        const spans = document.createElement("span");
+                        spans.classList.add("text-container");
+                        spans.textContent = 'TIEMPO DE LA PRUEBA: ' + basicos.tiempoPrueba;
+                        h1s.appendChild(spans);
+                        return h1s;
+                    }
+                    let datostiempoPrueba= localStorage.getItem("datosBasicosCuestionario");
+                let tiempo = datosBasicosTiempoPrueba(datostiempoPrueba);
                 const tiempoPruebaCuestionario = document.querySelector("#tiempoPrueba");
                 tiempoPruebaCuestionario.appendChild(tiempo); 
 

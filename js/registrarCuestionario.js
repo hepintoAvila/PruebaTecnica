@@ -16,7 +16,7 @@
       $Titulo = document.querySelector("#Titulo"),
       $Descripcion = document.querySelector("#Descripcion"),
       $FechaInicio = document.querySelector("#fechaInicio"),
-      $Tema = document.querySelector("#tema"),
+      $Tema = document.querySelector("#Tema"),
       $FechaFinal = document.querySelector("#fechaFinal"),
       $TiempoPrueba = document.querySelector("#tiempoPrueba"),
   

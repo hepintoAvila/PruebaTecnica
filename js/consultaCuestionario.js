@@ -88,34 +88,3 @@ function loadQuestions() {
 
 
 }
-function datosBasicosTitulo() {
-    let datosBasicos = localStorage.getItem("datosBasicosCuestionario");
-    const basicos = JSON.parse(datosBasicos);
-    const h1s = document.createElement("h1");
-    const spans = document.createElement("span");
-    spans.classList.add("text-container");
-    spans.textContent = basicos.Titulo;
-    h1s.appendChild(spans);
-    return h1s;
-}
-function datosBasicosDescripcion() {
-    let datosBasicos = localStorage.getItem("datosBasicosCuestionario");
-    const basicos = JSON.parse(datosBasicos);
-    const h1s = document.createElement("p");
-    const spans = document.createElement("span");
-    spans.classList.add("text-container");
-    spans.textContent = 'DESCRIPCIÓN: ' + basicos.Descripcion;
-    h1s.appendChild(spans);
-    return h1s;
-}
-function datosBasicosTiempoPrueba() {
-    let datosBasicos = localStorage.getItem("datosBasicosCuestionario");
-    const basicos = JSON.parse(datosBasicos);
-    const h1s = document.createElement("p");
-    const spans = document.createElement("span");
-    spans.classList.add("text-container");
-    spans.textContent = 'TIEMPO DE LA PRUEBA: ' + basicos.tiempoPrueba;
-    h1s.appendChild(spans);
-    return h1s;
-}
-

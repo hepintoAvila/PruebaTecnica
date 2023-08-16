@@ -23,7 +23,7 @@
         localStorage.removeItem("datosBasicosCuestionario");
         localStorage.removeItem("Cuestionarios");
         
-    const url = `https://api.compucel.co/v4/?accion=consultaResultados&id=${id}`;
+    const url = `https://api.compucel.co/v4/?accion=consultaResultados&id=${id}&nombreUsuario=${btoa(localStorage.getItem("nombreUsuario"))}`;
     fetch(url, {
         method: "GET",
         headers: {
@@ -53,23 +53,25 @@
 
 }
 
-function consultaResultadosLoadPage() {
+function consultaResultadosLoadPage(callback) {
 
  // Load questions dynamically
                                 
  const quizForm = document.querySelector('#quiz-form');
 
      const numeroID = obtenerNumeroDeID();
-     console.log('numeroID',numeroID);
+ 
      if (Number(numeroID)>0) {
 
         consultaResultados(numeroID,()=>{
          // Questions and options - You can load these from a JSON file as well
          const questions = JSON.parse(localStorage.getItem("datosResultadosById"));
 
+         const rol = localStorage.getItem("rol");
          for (let i = 0; i < questions.length; i++) {
              const question = questions[i];
              const answer = questions[i].answer;
+             const respuesta = questions[i].respuesta;
              const id = questions[i].id;
              const idCuestionario = questions[i].idCuestionario;
              
@@ -81,14 +83,18 @@ function consultaResultadosLoadPage() {
                      ${question.options.map((option, index) => 
                         `
                          <li>
-                             <input type="radio" name="respondidas${i}" value="${id}-${idCuestionario}-${Number(index+1)}"  ${index===Number(answer-1)?'checked':''}>
+                             <input type="radio" name="respondidas${i}" value="${id}-${idCuestionario}-${Number(index+1)}"  ${rol==='instructor' && index===Number(answer-1)?'checked':''}>
                              <label>${option}</label>
                          </li>
                      `).join('')}
-                     <li><label>La respuesta Correcta era la opción : ${Number(answer-1)}</label> </li>
+                     <li>
+                      
+                     <label>La respuesta Correcta era la opción: ${Number(answer)} y usted respondio la : ${Number(respuesta)} </label> 
+                     </li>
                      </ul>`;
              quizForm.appendChild(questionElement);
          }
+         callback();
             
         });
 
