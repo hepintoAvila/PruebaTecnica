@@ -23,6 +23,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     localStorage.removeItem("tokenSesion");
     localStorage.removeItem("Cuestionarios");
     
-    window.location.href = "http://localhost/PruebaTecnica/index.html";
+    window.location.href = "http://prueba.tecnica.compucel.co";
   };
 });

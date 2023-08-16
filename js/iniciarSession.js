@@ -181,7 +181,7 @@ document.addEventListener("DOMContentLoaded", async () => {
               localStorage.setItem("textoCifradoBase64", respuesta[0].encriptado);
               localStorage.setItem("nombreUsuario", respuesta[0].nombre);
               localStorage.setItem("rol", respuesta[0].rol);
-              window.location.href = "http://localhost/PruebaTecnica/index.html";
+              window.location.href = "http://prueba.tecnica.compucel.co";
           } else {
           localStorage.setItem("seccion", 0);
           Swal.fire("Error:: su usuario o contraseña son incorrectas");

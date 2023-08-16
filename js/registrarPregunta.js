@@ -126,12 +126,12 @@ document.addEventListener("DOMContentLoaded", async () => {
             const celdaBotonVista = fila.insertCell();
             const botonVista = document.createElement('button');
             const navLinks = document.createElement("a");
-            navLinks.setAttribute("href", `http://localhost/PruebaTecnica/cuestionario.html?id=${cuestionario.id}`);
+            navLinks.setAttribute("href", `http://prueba.tecnica.compucel.co/cuestionario.html?id=${cuestionario.id}`);
             botonVista.appendChild(navLinks);
             botonVista.textContent = 'Ver Cuestionario';
             botonVista.addEventListener('click', () => {
                 
-                window.location.href = `http://localhost/PruebaTecnica/cuestionario.html?id=${cuestionario.id}`;
+                window.location.href = `http://prueba.tecnica.compucel.co/cuestionario.html?id=${cuestionario.id}`;
             });
             celdaBotonModal.appendChild(botonModal);
             celdaBoton.appendChild(botonEliminar);
