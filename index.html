@@ -230,7 +230,7 @@
             <div class="row">
                 <div class="col-lg-5">
                     <div class="text-container">
-                        <div class="section-title">INTRO</div>
+                        <div class="section-title">RETO</div>
                         <h2>FUTUROS RESIDENTES</h2>
                         <p>Se te ha asignado la tarea de crear una aplicación de cuestionario en línea que
                             permita a los usuarios realizar cuestionarios y ver sus puntajes. La aplicación debe
@@ -301,7 +301,7 @@
                     }
                     
                     // Agregar botón de eliminar,agregar preguntas
-                    const textButton = (cuestionario.Resuelta==='S') ? 'Consultar Resultados': 'Ver Cuestionario';
+                    const textButton = (cuestionario.Resuelta==='S') ? 'Ver Resultados': 'Presentar Evaluación';
                     const celdaBotonVista = fila.insertCell();
                     const botonVista = document.createElement('button');
                     const navLinks = document.createElement("a");
@@ -358,7 +358,7 @@
                 <div class="col-lg-8">
                     <div class="text-container">
                         <div class="section-title">EVALUACIONES PENDIENTES</div>
-                        <h2 class="black">Esta es una lista clasificada por fecha de caducidad.</h2>
+                        <h2 class="black">Esta es una lista clasificada por fecha de vencimiento.</h2>
                     </div>
                     <table id="contenedor-tabla-pendiente" class="table table-hover"></table>
                 </div> <!-- end of row -->
@@ -491,9 +491,8 @@
                 <div class="col-lg-6">
                     <div class="text-container">
                         <div class="section-title">REGISTRAR CUESTIONARIO</div>
-                        <h2>Registre en este formulario los datos básicos del cuestionario</h2>
-                        <p>Para crear una aplicación de cuestionario en línea diligence los siguientes datos de este
-                            formulario </p>
+                        <h2>Registre en este formulario los datos solicitados.</h2>
+                        <p>Para desarrollar una aplicación de cuestionario en línea, completa los siguientes datos en este formulario de diligencia.</p>
                     </div> <!-- end of text-container -->
                 </div> <!-- end of col -->
                 <div class="col-lg-6">
@@ -527,6 +526,11 @@
                             <div class="help-block with-errors"></div>
 
                         </div>
+                        <div class="form-group">
+                                <input type="text" class="form-control-input" id="Tema" required>
+                                <label class="label-control" for="cname">Tema o Nivele de  Dificultad</label>
+                                <div class="help-block with-errors"></div>
+                        </div>
                         <script>
                             const value = document.querySelector("#value");
                             const input = document.querySelector("#tiempoPrueba");
@@ -558,6 +562,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
+                    <div class="text-container">
+                        <div class="section-title">LISTA DE EVALUACIONES</div>
+                        <h2 class="black">En esta lista, podrás encontrar todas las evaluaciones registradas bajo tu usuario.</h2>
+                    </div>
                     <table id="contenedor-tabla" class="table table-striped">
                     </table>
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"

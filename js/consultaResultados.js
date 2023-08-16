@@ -82,10 +82,11 @@ function consultaResultadosLoadPage() {
                         `
                          <li>
                              <input type="radio" name="respondidas${i}" value="${id}-${idCuestionario}-${Number(index+1)}"  ${index===Number(answer-1)?'checked':''}>
-                             <label>${id}-.${option}</label>
+                             <label>${option}</label>
                          </li>
                      `).join('')}
-                 </ul>`;
+                     <li><label>La respuesta Correcta era la opción : ${Number(answer-1)}</label> </li>
+                     </ul>`;
              quizForm.appendChild(questionElement);
          }
             

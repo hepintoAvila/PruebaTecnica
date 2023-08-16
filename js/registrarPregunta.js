@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             // Agregar botón de eliminar,agregar preguntas
             const celdaBoton = fila.insertCell();
             const botonEliminar = document.createElement('button');
-            botonEliminar.textContent = 'Eliminar';
+            botonEliminar.textContent = 'Eliminar Cuestionario';
             botonEliminar.addEventListener('click', () => {
                 eliminarCuestionario(cuestionario.id);
             });

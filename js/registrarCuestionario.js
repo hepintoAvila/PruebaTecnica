@@ -16,9 +16,8 @@
       $Titulo = document.querySelector("#Titulo"),
       $Descripcion = document.querySelector("#Descripcion"),
       $FechaInicio = document.querySelector("#fechaInicio"),
-      $HoraInicial = document.querySelector("#horaInicial"),
+      $Tema = document.querySelector("#tema"),
       $FechaFinal = document.querySelector("#fechaFinal"),
-      $HoraFinal = document.querySelector("#horaFinal"),
       $TiempoPrueba = document.querySelector("#tiempoPrueba"),
   
     $btnRegistrarCuestionario.onclick = async (e) => {
@@ -29,19 +28,24 @@
       const fechaInicio = $FechaInicio.value;
       const fechaFinal = $FechaFinal.value;
       const tiempoPrueba = $TiempoPrueba.value;
+      const tema = $Tema.value;
+
       if (!titulo) {
         return alert("No hay titulo registrado");
       }
       if (!descripcion) {
         return alert("No hay descripcion registrada");
       }
- 
+      if (!tema) {
+        return alert("No hay descripcion registrada");
+      }
         const objectForm = {
           titulo: btoa(titulo),
           descripcion: btoa(descripcion),
           fechaInicio: btoa(fechaInicio),
           fechaFinal: btoa(fechaFinal),
           tiempoPrueba: btoa(tiempoPrueba),
+          tema: btoa(tema),
           nombreUsuario:btoa(localStorage.getItem("nombreUsuario"))
         };
   
