@@ -65,35 +65,6 @@
                 <li class="nav-item">
                     <a class="nav-link page-scroll" href="index.html">INICIO <span class="sr-only">(current)</span></a>
                 </li>
-                <script>
-        function imprimirNav() {
-                    const token = localStorage.getItem("token");
-                    const navItem = document.createElement("li");
-                    const navLink = document.createElement("a");
-                    navLink.classList.add("nav-link", "page-scroll");
-    
-                    if (token) {
-                      navLink.setAttribute("href", "#cerrarSesion");
-                      navItem.classList.add("nav-item");
-                      navLink.textContent = "SALIR";                 
-                    } else {
-                      navLink.setAttribute("href", "#login");  
-                      navItem.classList.add("nav-item");
-                      navLink.textContent = "LOG IN";
-    
-                    }
-                  
-                    navItem.appendChild(navLink);
-                    return navItem;
-            }
-                  
-                  // Llamar a la función para obtener el elemento <li> adecuado
-                  const navElements = imprimirNav();
-                  
-                  // Agregar el elemento <li> al contenedor de la lista <ul>
-                  const navList = document.querySelector("#navbarsItemsDefault");
-                  navList.appendChild(navElements);
-                </script>
             </ul>
             <span class="nav-item social-icons">
                 <span class="fa-stack">
@@ -199,7 +170,7 @@
                 } else {
                     clearInterval(temporizador);
                     const numeroID = obtenerNumeroDeID();
-                   window.location.href = `http://localhost/app_quiz/resultados.html?id=${numeroID}`;
+                   window.location.href = `http://localhost/PruebaTecnica/resultados.html?id=${numeroID}`;
                 }
                 }
             
@@ -232,7 +203,7 @@
                     }
                     enviarCuestionario(valores);
                     const numeroID = obtenerNumeroDeID();
-                   window.location.href = `http://localhost/app_quiz/resultados.html?id=${numeroID}`;
+                   window.location.href = `http://localhost/PruebaTecnica/resultados.html?id=${numeroID}`;
                 });
                     </script>
                         <div id="result-container"></div>

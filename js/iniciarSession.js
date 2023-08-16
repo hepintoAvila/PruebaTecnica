@@ -1,3 +1,4 @@
+
 function buildQueryString(opcion) {
   let datos = opcion;
   let queryString = datos[0]
@@ -130,8 +131,6 @@ const desencriptar = async (contraseña, encriptadoEnBase64) => {
 document.addEventListener("DOMContentLoaded", async () => {
 
 
-
-
   const $usuario = document.querySelector("#lusuario"),
     $password = document.querySelector("#lpassword"),
     $botonLogin = document.querySelector("#botonLogin");
@@ -159,7 +158,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     //Obtener respuesta de la EndPoint
     obtenerRespuesta(url)
       .then(async (respuesta) => {
-        console.log('respuesta',respuesta);
         if (respuesta[0].ok) {
               localStorage.removeItem("textoCifradoBase64");
               localStorage.removeItem("token");

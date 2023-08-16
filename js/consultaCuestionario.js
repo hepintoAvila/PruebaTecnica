@@ -31,6 +31,7 @@ function consultaCuestionario(id, callback) {
             localStorage.removeItem("Cuestionarios");
             localStorage.setItem("CuestionariosById", JSON.stringify(data.data.Preguntas));
             localStorage.setItem("datosBasicosCuestionario", JSON.stringify(data.data.Cuestionario));
+            localStorage.setItem("timer", data.data.Cuestionario.tiempoPrueba);
             callback();
         })
         .catch((error) => {
@@ -53,6 +54,7 @@ function loadQuestions() {
         consultaCuestionario(numeroID, () => {
             // Questions and options - You can load these from a JSON file as well
             let CuestionariosById = localStorage.getItem("CuestionariosById");
+            let rol = localStorage.getItem("rol");
             const questions = JSON.parse(CuestionariosById);
             for (let i = 0; i < questions.length; i++) {
                 const question = questions[i];
@@ -69,8 +71,8 @@ function loadQuestions() {
 
                     `
                       <li>
-                          <input type="radio" name="respondidas${i}" value="${id}-${idCuestionario}-${Number(index + 1)}"  ${index === Number(answer - 1) ? 'checked' : ''}>
-                          <label>${id}-.${option}</label>
+                          <input type="radio" name="respondidas${i}" value="${id}-${idCuestionario}-${Number(index + 1)}"  ${index === Number(answer - 1) && (rol ==='instructor') ? 'checked' : ''}>
+                          <label>${option}</label>
                       </li>
                   `).join('')}
               </ul>

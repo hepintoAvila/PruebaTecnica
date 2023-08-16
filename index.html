@@ -1,41 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+
     <!-- SEO Meta Tags -->
     <meta name="description" content="QUIZ es un prueba realizada para la postulacion de   desarrollo">
     <meta name="author" content="Inovatik">
 
     <!-- OG Meta Tags to improve the way the post looks when you share the page on LinkedIn, Facebook, Google+ -->
-	<meta property="og:site_name" content="" /> <!-- website name -->
-	<meta property="og:site" content="" /> <!-- website link -->
-	<meta property="og:title" content=""/> <!-- title shown in the actual shared post -->
-	<meta property="og:description" content="" /> <!-- description shown in the actual shared post -->
-	<meta property="og:image" content="" /> <!-- image link, make sure it's jpg -->
-	<meta property="og:url" content="" /> <!-- where do you want your post to link to -->
-	<meta property="og:type" content="article" />
+    <meta property="og:site_name" content="" /> <!-- website name -->
+    <meta property="og:site" content="" /> <!-- website link -->
+    <meta property="og:title" content="" /> <!-- title shown in the actual shared post -->
+    <meta property="og:description" content="" /> <!-- description shown in the actual shared post -->
+    <meta property="og:image" content="" /> <!-- image link, make sure it's jpg -->
+    <meta property="og:url" content="" /> <!-- where do you want your post to link to -->
+    <meta property="og:type" content="article" />
 
     <!-- Website Title -->
     <title>QUIZ</title>
-    
+
     <!-- Styles -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700&display=swap&subset=latin-ext" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700&display=swap&subset=latin-ext"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600&display=swap&subset=latin-ext"
+        rel="stylesheet">
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/fontawesome-all.css" rel="stylesheet">
     <link href="css/swiper.css" rel="stylesheet">
-	<link href="css/magnific-popup.css" rel="stylesheet">
-	<link href="css/styles.css" rel="stylesheet">
-	
-	<!-- Favicon  -->
+    <link href="css/magnific-popup.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <!-- Favicon  -->
     <link rel="icon" href="images/favicon.png">
 </head>
+
 <body data-spy="scroll" data-target=".fixed-top">
-    
+
     <!-- Preloader -->
-	<div class="spinner-wrapper">
+    <div class="spinner-wrapper">
         <div class="spinner">
             <div class="bounce1"></div>
             <div class="bounce2"></div>
@@ -43,85 +46,120 @@
         </div>
     </div>
     <!-- end of preloader -->
-    
+
     <nav class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top">
         <!-- Text Logo - Use this if you don't have a graphic logo -->
         <!-- <a class="navbar-brand logo-text page-scroll" href="index.html">Aria</a> -->
-    
+
         <!-- Image Logo -->
         <a class="navbar-brand logo-image" href="index.html"><img src="images/logo.svg" alt="alternative"></a>
-        
+
         <!-- Mobile Menu Toggle Button -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-awesome fas fa-bars"></span>
             <span class="navbar-toggler-awesome fas fa-times"></span>
         </button>
         <!-- end of mobile menu toggle button -->
-    
+
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul id="navbarsItemsDefault" class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link page-scroll" href="#header">INICIO <span class="sr-only">(current)</span></a>
                 </li>
-                <!-- Dropdown Menu -->          
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle page-scroll" href="#about" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">CREAR CUESTIONARIO</a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#registrarCustionario"><span class="item-text">REGISTRAR CUESTIONARIO</span></a>
-                        <div class="dropdown-items-divide-hr"></div>                       
-                    </div>
-                </li>
-                
+                <!-- Dropdown Menu -->
+
                 <!-- end of dropdown menu -->
                 <script>
-    function imprimirNav2() {
-                    const token = localStorage.getItem("token");
-                    const navItems = document.createElement("li");
-                    const navLinks = document.createElement("a");
-                    navLinks.classList.add("nav-link", "page-scroll");
-    
-                    if (token) {
-                      navItems.classList.add("nav-item");
-                      navLinks.setAttribute("href", "#asistentes");
-                      navLinks.textContent = "ASISTENTES";                     
-                    } else {
-    
-                      navLinks.setAttribute("href", "#registrarse");
-                      navLinks.textContent = "REGISTRARSE";  
+                    function imprimiregistrarCustionario() {
+                        const rol = localStorage.getItem("rol");
+                        const navItems = document.createElement("li");
+                        const navLinks = document.createElement("a");
+
+                        navLinks.classList.add("nav-link", "page-scroll");
+
+
+                        if (rol === 'instructor') {
+
+                            navItems.classList.add("nav-item");
+                            navLinks.setAttribute("href", "#registrarCustionario");
+                            navLinks.textContent = "REGISTRAR CUESTIONARIO";
+                        } else {
+
+                            navLinks.setAttribute("href", "#");
+                            navLinks.textContent = "";
+                        }
+
+                        navItems.appendChild(navLinks);
+                        return navItems;
                     }
-                  
-                    navItems.appendChild(navLinks);
-                    return navItems;
-            }
-        function imprimirNav() {
-                    const token = localStorage.getItem("token");
-                    const navItem = document.createElement("li");
-                    const navLink = document.createElement("a");
-                    navLink.classList.add("nav-link", "page-scroll");
-    
-                    if (token) {
-                      navLink.setAttribute("href", "#cerrarSesion");
-                      navItem.classList.add("nav-item");
-                      navLink.textContent = "SALIR";                 
-                    } else {
-                      navLink.setAttribute("href", "#login");  
-                      navItem.classList.add("nav-item");
-                      navLink.textContent = "LOG IN";
-    
+                    function verListaEvaluaciones() {
+                        const rol = localStorage.getItem("rol");
+                        const navItems = document.createElement("li");
+                        const navLinks = document.createElement("a");
+                        navLinks.classList.add("nav-link", "page-scroll");
+
+                        if (rol === 'Aprendiz') {
+                            navItems.classList.add("nav-item");
+                            navLinks.setAttribute("href", "#verListaEvaluaciones");
+                            navLinks.textContent = "VER EVALUACIONES PENDIENTES";
+                        } else {
+
+                            navLinks.setAttribute("href", "#");
+                            navLinks.textContent = "";
+                        }
+
+                        navItems.appendChild(navLinks);
+                        return navItems;
                     }
-                  
-                    navItem.appendChild(navLink);
-                    return navItem;
-            }
-                  
-                  // Llamar a la función para obtener el elemento <li> adecuado
-                  const navElement = imprimirNav();
-                  const navElements = imprimirNav2();
-                  
-                  // Agregar el elemento <li> al contenedor de la lista <ul>
-                  const navList = document.querySelector("#navbarsItemsDefault");
-                  navList.appendChild(navElement);
-                  navList.appendChild(navElements);
+                    function imprimirNav2() {
+                        const token = localStorage.getItem("token");
+                        const navItems = document.createElement("li");
+                        const navLinks = document.createElement("a");
+                        navLinks.classList.add("nav-link", "page-scroll");
+
+                        if (!token) {
+                            navItems.classList.add("nav-item");
+                            navLinks.setAttribute("href", "#registrarse");
+                            navLinks.textContent = "REGISTRARSE";
+                        }
+
+                        navItems.appendChild(navLinks);
+                        return navItems;
+                    }
+                    function imprimirNav() {
+                        const token = localStorage.getItem("token");
+                        const navItem = document.createElement("li");
+                        const navLink = document.createElement("a");
+                        navLink.classList.add("nav-link", "page-scroll");
+
+                        if (token) {
+                            navLink.setAttribute("href", "#cerrarSesion");
+                            navItem.classList.add("nav-item");
+                            navLink.textContent = "SALIR";
+                        } else {
+                            navLink.setAttribute("href", "#login");
+                            navItem.classList.add("nav-item");
+                            navLink.textContent = "LOG IN";
+
+                        }
+
+                        navItem.appendChild(navLink);
+                        return navItem;
+                    }
+
+                    // Llamar a la función para obtener el elemento <li> adecuado 
+                    const navRegistrarCustionario = imprimiregistrarCustionario();
+                    const navVerListaEvaluaciones = verListaEvaluaciones();
+                    const navElement = imprimirNav();
+                    const navElements = imprimirNav2();
+
+                    // Agregar el elemento <li> al contenedor de la lista <ul>
+                    const navList = document.querySelector("#navbarsItemsDefault");
+                    navList.appendChild(navVerListaEvaluaciones);
+                    navList.appendChild(navRegistrarCustionario);
+                    navList.appendChild(navElement);
+                    navList.appendChild(navElements);
                 </script>
             </ul>
             <span class="nav-item social-icons">
@@ -140,7 +178,7 @@
             </span>
         </div>
     </nav> <!-- end of navbar -->
-    <!-- end of navbar -->
+
     <!-- Header -->
     <header id="header" class="header">
         <div class="header-content">
@@ -157,23 +195,23 @@
                                     const sLink = document.createElement("span");
                                     sLink.classList.add("text-container");
                                     if (token) {
-                                      sLink.textContent = "Bienvenido, " + rol + ". " + nombreUsuario;
+                                        sLink.textContent = "Bienvenido, " + rol + ". " + nombreUsuario;
                                     } else {
                                         sLink.textContent = "";
                                     }
                                     hItem.appendChild(sLink);
                                     return hItem;
-                                  }
-                                  
-                                  // Llamar a la función para obtener el elemento <li> adecuado
-                                  const hElement = imprimirH1();
-                                  
-                                  // Agregar el elemento <li> al contenedor de la lista <ul>
-                                  const hList = document.querySelector("#bienvenido");
-                                  hList.appendChild(hElement);
-                                </script> 
-                             
-                            
+                                }
+
+                                // Llamar a la función para obtener el elemento <li> adecuado
+                                const hElement = imprimirH1();
+
+                                // Agregar el elemento <li> al contenedor de la lista <ul>
+                                const hList = document.querySelector("#bienvenido");
+                                hList.appendChild(hElement);
+                            </script>
+
+
                             <h1>AULAQUIZ <span id="js-rotating">EVALUACIONES</span></h1>
                             <p class="p-heading p-large">AULAQUIZ es lo máximo en Evaluaiones de las TIC</p>
                             <a class="btn-solid-lg page-scroll" href="#Wintro">DESCÚBRANOS</a>
@@ -183,7 +221,7 @@
             </div> <!-- end of container -->
         </div> <!-- end of header-content -->
     </header> <!-- end of header -->
-    <!-- end of header -->
+
 
 
     <!-- Intro -->
@@ -193,10 +231,13 @@
                 <div class="col-lg-5">
                     <div class="text-container">
                         <div class="section-title">INTRO</div>
-                        <h2>We Offer Some Of The Best Business Growth Services In Town</h2>
-                        <p>Launching a new company or developing the market position of an existing one can be quite an overwhelming processs at times.</p>
-                        <p class="testimonial-text">"Our mission here at Aira is to get you through those tough moments relying on our team's expertise in starting and growing companies."</p>
-                        <div class="testimonial-author">Louise Donovan - CEO</div>
+                        <h2>FUTUROS RESIDENTES</h2>
+                        <p>Se te ha asignado la tarea de crear una aplicación de cuestionario en línea que
+                            permita a los usuarios realizar cuestionarios y ver sus puntajes. La aplicación debe
+                            tener al menos 5 preguntas de opción múltiple y los usuarios deben poder
+                            seleccionar sus respuestas y enviar el cuestionario para su evaluación.</p>
+                        <p class="testimonial-text">"En este reto coloque mi creatividad, y profesionalismos para entregar lo mejor de mi como ingeniero y ser humano"</p>
+                        <div class="testimonial-author">Holmes Elias Pinto Avila</div>
                     </div> <!-- end of text-container -->
                 </div> <!-- end of col -->
                 <div class="col-lg-7">
@@ -206,133 +247,257 @@
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
         </div> <!-- end of container -->
-    </div> <!-- end of basic-1 -->
-<!-- cerrar Sesion -->                                                          
-<div id="cerrarSesion" class="form-1">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4"></div>
-            <div class="col-lg-4">
-               
-                <!-- Call Me Form -->
-					<div class="form-group">
-                        <button  id="cerrarLogin" class="form-control-submit-button">SING OUT</button>
-                    </div>
-                <!-- end of call me form -->
-            </div> <!-- end of col -->
-            <div class="col-lg-4"></div>
-        </div> <!-- end of row -->
-    </div> <!-- end of container -->
-</div> <!-- end of form-1 -->
+    </div> <!-- end of intro -->
 
- 
+    <div id="cerrarSesion" class="form-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4"></div>
+                <div class="col-lg-4">
 
-  <!-- Call Me -->                                                          
-  <div id="registrarse" class="form-1">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="text-container">
-                    <div class="section-title">REGISTRATE</div>
-                    <h2 class="white">Si deseas acceder a las opciones de esta plataforma, por favor completa y envía este formulario.</h2>
-                </div>
-            </div> <!-- end of col -->
-            <div class="col-lg-6">
-               
-                <!-- Call Me Form -->
-                <form id="sessionForm" data-toggle="validator" data-focus="true">
+                    <!-- Call Me Form -->
                     <div class="form-group">
-                        <input type="text" class="form-control-input" id="lname" name="lname" required>
-                        <label class="label-control" for="lname">Nombre de Usuario</label>
-                        <div class="help-block with-errors"></div>
+                        <button id="cerrarLogin" class="form-control-submit-button">SING OUT</button>
                     </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control-input" id="password" name="password" required>
-                        <label class="label-control" for="password">Constraseña</label>
-                        <div class="help-block with-errors"></div>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" class="form-control-input" id="lemail" name="lemail" required>
-                        <label class="label-control" for="lemail">Email</label>
-                        <div class="help-block with-errors"></div>
-                    </div>
-                    <div class="form-group">
-                        <select class="form-control-select" id="lrol" required>
-                            <option class="select-option" value="" disabled selected>Rol</option>
-                            <option class="select-option" value="instructor">Instructores</option>
-                            <option class="select-option" value="aprendis">Aprendices</option>
-                        
-                        </select>
-                        <div class="help-block with-errors"></div>
-                    </div>
-                    <div class="form-group">
-                        <button  id="btnRegistrar" class="form-control-submit-button">REGISTRARSE</button>
-                    </div>
-                    <div class="form-message">
-                        <div id="lmsgSubmit" class="h3 text-center hidden"></div>
-                    </div>
-                </form>
-                <!-- end of call me form -->
-                
-            </div> <!-- end of col -->
-        </div> <!-- end of row -->
-    </div> <!-- end of container -->
-</div> <!-- end of form-1 -->
-<!-- end of call me -->
+                    <!-- end of call me form -->
+                </div> <!-- end of col -->
+                <div class="col-lg-4"></div>
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of cerrarSesion -->
 
-<!-- Call Me -->                                                          
-<div id="login" class="form-1">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="text-container">
-                    <div class="section-title">SING IN</div>
-                    <h2 class="white">Si deseas acceder, como usuario registrado, por favor completa y envía este formulario</h2>
-                </div>
-            </div> <!-- end of col -->
-            <div class="col-lg-6">
-               
-                <!-- Call Me Form -->
-                <form id="loginForm" data-toggle="validator" data-focus="true">
-                    <div class="form-group">
-                        <input type="text" class="form-control-input" id="lusuario" name="lusuario" required>
-                        <label class="label-control" for="lusuario">Usuario</label>
-                        <div class="help-block with-errors"></div>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control-input" id="lpassword" name="lpassword" required>
-                        <label class="label-control" for="lpassword">Constraseña</label>
-                        <div class="help-block with-errors"></div>
-                    </div>
+
+    <div id="verListaEvaluaciones" class="basic-1">
+        <script>
+            const roles = localStorage.getItem("rol");
+
+            if (!roles) {
+                const adminDiv = document.querySelector('#verListaEvaluaciones');
+                console.log('adminDiv', adminDiv);
+                adminDiv.style.display = adminDiv.style.display === 'none' ? 'block' : 'none';
+            }
+
+            function generarTablaCuestionarioPendientes(datos) {
+                const tabla = document.createElement('table');
+                tabla.classList.add('contenedor-tabla-pendiente');
+
+                // Crear encabezado de la tabla
+                const encabezado = tabla.createTHead();
+                const encabezadoFila = encabezado.insertRow();
+                for (const propiedad in datos[0]) {
+                    const th = document.createElement('th');
+                    th.textContent = propiedad;
+                    encabezadoFila.appendChild(th);
+                }
+                encabezadoFila.appendChild(document.createElement('th')); // Columna vacía para los botones
+
+                // Crear filas de la tabla
+                const cuerpo = tabla.createTBody();
+                datos.forEach((cuestionario) => {
+                    const fila = cuerpo.insertRow();
+                    for (const propiedad in cuestionario) {
+                        const celda = fila.insertCell();
+                        celda.textContent = cuestionario[propiedad];
+                    }
                     
-                    <div class="form-group">
-                        <button  id="botonLogin" class="form-control-submit-button">SING IN</button>
-                    </div>
-                    <div class="form-message">
-                        <div id="lmsgSubmit" class="h3 text-center hidden"></div>
-                    </div>
-                </form>
-                <!-- end of call me form -->
-                
-            </div> <!-- end of col -->
-        </div> <!-- end of row -->
-    </div> <!-- end of container -->
-</div> <!-- end of form-1 -->
-<!-- end of call me -->
+                    // Agregar botón de eliminar,agregar preguntas
+                    const textButton = (cuestionario.Resuelta==='S') ? 'Consultar Resultados': 'Ver Cuestionario';
+                    const celdaBotonVista = fila.insertCell();
+                    const botonVista = document.createElement('button');
+                    const navLinks = document.createElement("a");
+                    navLinks.setAttribute("href", `http://localhost/PruebaTecnica/cuestionario.html?id=${cuestionario.id}`);
+                    botonVista.appendChild(navLinks);
+                    botonVista.textContent = textButton;
+                    botonVista.addEventListener('click', () => {
+                        (cuestionario.Resuelta==='S') ? window.location.href = `http://localhost/PruebaTecnica/resultados.html?id=${cuestionario.id}`:window.location.href = `http://localhost/PruebaTecnica/cuestionario.html?id=${cuestionario.id}`
+                    });
 
+                    celdaBotonVista.appendChild(botonVista);
+                });
+
+                return tabla;
+            }
+            function consultarAllCuestionariosPendientes(callback) {
+
+                const url = `https://api.compucel.co/v4/?accion=consultaAllCuestionarioPendientes&nombreUsuario=${btoa(localStorage.getItem("nombreUsuario"))}`;
+                fetch(url, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+
+                        localStorage.removeItem("Pendientes");
+                        localStorage.setItem("Pendientes", JSON.stringify(data.data.Pendientes));
+                        callback();
+
+                    })
+                    .catch((error) => {
+                        console.error("Error al enviar la solicitud:", error);
+                    });
+
+            }
+
+            consultarAllCuestionariosPendientes(() => {
+                let datos = localStorage.getItem("Pendientes");
+                let Cuestionarios = JSON.parse(datos);
+                // Generar la tabla y agregarla al contenedor
+                if (Array.isArray(Cuestionarios)) {
+                    const contenedorTabla = document.querySelector('#contenedor-tabla-pendiente');
+                    const tablaGenerada = generarTablaCuestionarioPendientes(Cuestionarios);
+                    contenedorTabla.appendChild(tablaGenerada);
+                }
+            });
+
+        </script>
+        <div class="basic-1">
+            <div class="row">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-8">
+                    <div class="text-container">
+                        <div class="section-title">EVALUACIONES PENDIENTES</div>
+                        <h2 class="black">Esta es una lista clasificada por fecha de caducidad.</h2>
+                    </div>
+                    <table id="contenedor-tabla-pendiente" class="table table-hover"></table>
+                </div> <!-- end of row -->
+                <div class="col-lg-2"></div>
+            </div> <!-- end of container -->
+        </div> <!-- end of form-1 -->
+        <!-- end of call me -->
+    </div> <!-- end of verListaEvaluaciones-1 -->
+    <!-- Call Me -->
+    <div id="login" class="form-1">
+        <script>
+            
+
+            if (localStorage.getItem("rol")) {
+                const loginDiv = document.querySelector('#login');
+                loginDiv.style.display = loginDiv.style.display === 'none' ? 'block' : 'none';
+            }
+        </script>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="text-container">
+                        <div class="section-title">SING IN</div>
+                        <h2 class="white">Si deseas acceder, como usuario registrado, por favor completa y envía este
+                            formulario</h2>
+                    </div>
+                </div> <!-- end of col -->
+                <div class="col-lg-6">
+
+                    <!-- Call Me Form -->
+                    <form id="loginForm" data-toggle="validator" data-focus="true">
+                        <div class="form-group">
+                            <input type="text" class="form-control-input" id="lusuario" name="lusuario" required>
+                            <label class="label-control" for="lusuario">Usuario</label>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control-input" id="lpassword" name="lpassword" required>
+                            <label class="label-control" for="lpassword">Constraseña</label>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <button id="botonLogin" class="form-control-submit-button">SING IN</button>
+                        </div>
+                        <div class="form-message">
+                            <div id="lmsgSubmit" class="h3 text-center hidden"></div>
+                        </div>
+                    </form>
+                    <!-- end of call me form -->
+
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of form-1 -->
+
+    <!-- Call Me -->
+    <div id="registrarse" class="basic-1">
+        <script>
+            
+
+            if (localStorage.getItem("rol")) {
+                const registrarseDiv = document.querySelector('#registrarse');
+                registrarseDiv.style.display = registrarseDiv.style.display === 'none' ? 'block' : 'none';
+            }
+        </script>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="text-container">
+                        <div class="section-title">REGISTRATE</div>
+                        <h2 class="black">Si deseas acceder a las opciones de esta plataforma, por favor completa y
+                            envía este formulario.</h2>
+                    </div>
+                </div> <!-- end of col -->
+                <div class="col-lg-6">
+
+                    <!-- Call Me Form -->
+                    <form id="sessionForm" data-toggle="validator" data-focus="true">
+                        <div class="form-group">
+                            <input type="text" class="form-control-input" id="lname" name="lname" required>
+                            <label class="label-control" for="lname">Nombre de Usuario</label>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control-input" id="password" name="password" required>
+                            <label class="label-control" for="password">Constraseña</label>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control-input" id="lemail" name="lemail" required>
+                            <label class="label-control" for="lemail">Email</label>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control-select" id="lrol" required>
+                                <option class="select-option" value="" disabled selected>Rol</option>
+                                <option class="select-option" value="instructor">Instructores</option>
+                                <option class="select-option" value="aprendis">Aprendices</option>
+
+                            </select>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group">
+                            <button id="btnRegistrar" class="form-control-submit-button">REGISTRARSE</button>
+                        </div>
+                        <div class="form-message">
+                            <div id="lmsgSubmit" class="h3 text-center hidden"></div>
+                        </div>
+                    </form>
+                    <!-- end of call me form -->
+
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of form-1 -->
     <!-- registrarCustionario -->
-    <div id="registrarCustionario" class="form-2">
+    <div id="registrarCustionario" class="form-2" style="display: none;">
+        <script>
+            const rol = localStorage.getItem("rol");
+
+            if (rol === 'instructor') {
+                const adminDiv = document.querySelector('#registrarCustionario');
+                adminDiv.style.display = adminDiv.style.display === 'none' ? 'block' : 'none';
+            }
+        </script>
+
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="text-container">
                         <div class="section-title">REGISTRAR CUESTIONARIO</div>
                         <h2>Registre en este formulario los datos básicos del cuestionario</h2>
-                        <p>Para crear una aplicación de cuestionario en línea diligence los siguientes datos de este formulario </p>
+                        <p>Para crear una aplicación de cuestionario en línea diligence los siguientes datos de este
+                            formulario </p>
                     </div> <!-- end of text-container -->
                 </div> <!-- end of col -->
                 <div class="col-lg-6">
-                    
+
                     <!-- Contact Form -->
                     <form id="registrarCuestionarioForm" data-toggle="validator" data-focus="false">
                         <div class="form-group">
@@ -342,30 +507,33 @@
                         </div>
                         <div class="form-group">
                             <p>Fecha Inicial de la evaluación </p>
-                                      <input type="datetime-local" class="form-control-input" id="fechaInicio" required   value="2023-08-01T19:30">
-                            
+                            <input type="datetime-local" class="form-control-input" id="fechaInicio" required
+                                value="2023-08-01T19:30">
+
                             <div class="help-block with-errors"></div>
                         </div>
-                           <div class="form-group">
-                            <p>Fecha Final de la evaluación </p>
-                                  <input type="datetime-local" class="form-control-input" id="fechaFinal" required  value="2023-08-01T19:30" >
-                            
-                            <div class="help-block with-errors"></div>
-                        </div>
- 
                         <div class="form-group">
-                            <input type="range" id="tiempoPrueba" name="tiempoPrueba" min="0" max="90" value="15" step="1" />
+                            <p>Fecha Final de la evaluación </p>
+                            <input type="datetime-local" class="form-control-input" id="fechaFinal" required
+                                value="2023-08-01T19:30">
+
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="range" id="tiempoPrueba" name="tiempoPrueba" min="0" max="90" value="15"
+                                step="1" />
                             <p>Tiempo de la Evaluación en Minutos : <output id="value"></output></p>
                             <div class="help-block with-errors"></div>
-                            
+
                         </div>
-                        <script>                       
-                        const value = document.querySelector("#value");
-                        const input = document.querySelector("#tiempoPrueba");
-                        value.textContent = input.value;
-                        input.addEventListener("input", (event) => {
-                        value.textContent = event.target.value;
-                        });
+                        <script>
+                            const value = document.querySelector("#value");
+                            const input = document.querySelector("#tiempoPrueba");
+                            value.textContent = input.value;
+                            input.addEventListener("input", (event) => {
+                                value.textContent = event.target.value;
+                            });
                         </script>
                         <div class="form-group">
                             <textarea class="form-control-textarea" id="Descripcion" required></textarea>
@@ -373,137 +541,63 @@
                             <div class="help-block with-errors"></div>
                         </div>
                         <div class="form-group">
-                            <button type="submit" id="btnRegistrarCuestionario" class="form-control-submit-button">REGISTRAR</button>
+                            <button type="submit" id="btnRegistrarCuestionario"
+                                class="form-control-submit-button">REGISTRAR</button>
                         </div>
                         <div class="form-message">
                             <div id="cmsgSubmit" class="h3 text-center hidden"></div>
                         </div>
                     </form>
-                    
+
                     <!-- end of contact form -->
 
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
-    
-        </div> <!-- end of container -->
 
-   
-  
-      <div class="container">
+        </div> <!-- end of container -->
+        <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <table id="contenedor-tabla" class="table table-striped">
-                        <script>  
-                         
-
-                    </script>
                     </table>
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Crear Pregunta</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div id="inputsContainer">
-                                    <div class="form-group">
-                                        <label for="message-text" class="col-form-label">Pregunta:</label>
-                                        <textarea class="form-control" id="pregunta"></textarea>
-                                    </div>
-                                <div class="form-group">
-                                    <button type="button" class="eliminar-campo">-</button><button type="button" id="agregarCampo">+</button>
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Crear Pregunta</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
-                            
-                                </form>
-                            </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div id="inputsContainer">
+                                            <div class="form-group">
+                                                <label for="message-text" class="col-form-label">Pregunta:</label>
+                                                <textarea class="form-control" id="pregunta"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="button" class="eliminar-campo">-</button><button
+                                                    type="button" id="agregarCampo">+</button>
+                                            </div>
+
+                                    </form>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button type="button" id="enviarPregunta" class="btn btn-primary">Enviar</button>
                             </div>
-                            </div>
                         </div>
                     </div>
-
-           
-        </div> 
-    </div> 
-</div> <!-- end of form-2 -->
-    <!-- Footer -->
-    <div class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="text-container about">
-                        <h4>Few Words About Aria</h4>
-                        <p class="white">We're passionate about delivering the best business growth services for companies just starting out as startups or industry players that have established their market position a long tima ago.</p>
-                    </div> <!-- end of text-container -->
-                </div> <!-- end of col -->
-                <div class="col-md-2">
-                    <div class="text-container">
-                        <h4>Links</h4>
-                        <ul class="list-unstyled li-space-lg white">
-                            <li>
-                                <a class="white" href="#your-link">startupguide.com</a>
-                            </li>
-                        </ul>
-                    </div> <!-- end of text-container -->
-                </div> <!-- end of col -->
-                <div class="col-md-2">
-                    <div class="text-container">
-                        <h4>Tools</h4>
-                        <ul class="list-unstyled li-space-lg">
-                            <li>
-                                <a class="white" href="#your-link">businessgrowth.com</a>
-                            </li>
-                            <li>
-                               <a class="white" href="#your-link">influencers.com</a>
-                            </li>
-                            <li class="media">
-                                <a class="white" href="#your-link">optimizer.net</a>
-                            </li>
-                        </ul>
-                    </div> <!-- end of text-container -->
-                </div> <!-- end of col -->
-                <div class="col-md-2">
-                    <div class="text-container">
-                        <h4>Partners</h4>
-                        <ul class="list-unstyled li-space-lg">
-                            <li>
-                                <a class="white" href="#your-link">unicorns.com</a>
-                            </li>
-                            <li>
-                                <a class="white" href="#your-link">staffmanager.com</a>
-                            </li>
-                            <li>
-                                <a class="white" href="#your-link">association.gov</a>
-                            </li>
-                        </ul>
-                    </div> <!-- end of text-container -->
-                </div> <!-- end of col -->
-            </div> <!-- end of row -->
-        </div> <!-- end of container -->
-    </div> <!-- end of footer -->  
-    <!-- end of footer -->
+                </div>
 
 
-    <!-- Copyright -->
-    <div class="copyright">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <p class="p-small">Copyright © 2020 <a href="https://inovatik.com">Template by Inovatik</a></p>
-                </div> <!-- end of col -->
-            </div> <!-- enf of row -->
-        </div> <!-- end of container -->
-    </div> <!-- end of copyright --> 
-    <!-- end of copyright -->
-    
-    	
+            </div>
+        </div>
+    </div> <!-- end of registrarCustionario-->
+
     <!-- Scripts -->
     <script src="js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
     <script src="js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
@@ -520,7 +614,8 @@
     <script src="js/cerrarSession.js"></script> <!-- Custom scripts -->
     <script src="js/registrarCuestionario.js"></script> <!-- Custom scripts -->
     <script src="js/registrarPregunta.js"></script> <!-- Custom scripts -->
-    
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
+
 </html>
