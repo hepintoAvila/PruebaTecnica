@@ -9,17 +9,17 @@ function buildQueryString(opcion) {
 
     return queryString;
 }
- 
+
 document.addEventListener("DOMContentLoaded", async () => {
 
-        $enviarPregunta = document.querySelector("#enviarPregunta"),
+    $enviarPregunta = document.querySelector("#enviarPregunta"),
         $pregunta = document.querySelector("#pregunta"),
         $correctas = document.querySelectorAll(".resp-correcta"),
         enviarPregunta.addEventListener('click', (e) => {
             e.preventDefault();
             const preguntas = $pregunta.value;
             const correcta = $correctas.value;
-            
+
             const camposInputs = document.querySelectorAll('input[name="respuesta[]"]');
             const camposCorrectas = document.querySelectorAll('input[name="correcta[]"]');
             const valores = [];
@@ -28,24 +28,24 @@ document.addEventListener("DOMContentLoaded", async () => {
                 valores.push(input.value);
             });
             camposCorrectas.forEach(input => {
-                if(input.checked){
+                if (input.checked) {
                     valorCorrecto.push(input.value);
                 }
-                
+
             });
             if (!valorCorrecto[0]) {
                 return alert("Por favor, seleccione la respuesta correcta");
-              }
-              if (!preguntas) {
+            }
+            if (!preguntas) {
                 return alert("Por favor, Digite la pregunta");
-              }
+            }
             const opcion = [valores];
             const queryString1 = JSON.stringify(opcion);
             const objectForm = {
                 pregunta: btoa(preguntas),
                 idCuestionario: btoa(localStorage.getItem("idCuestionario")),
                 nombreUsuario: btoa(localStorage.getItem("nombreUsuario")),
-                correcta:btoa(valorCorrecto[0])
+                correcta: btoa(valorCorrecto[0])
             };
             const opcion2 = [objectForm];
             const queryString2 = buildQueryString(opcion2);
@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             botonVista.appendChild(navLinks);
             botonVista.textContent = 'Ver Cuestionario';
             botonVista.addEventListener('click', () => {
-                
+
                 window.location.href = `http://prueba.tecnica.compucel.co/cuestionario.html?id=${cuestionario.id}`;
             });
             celdaBotonModal.appendChild(botonModal);
@@ -161,7 +161,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 Swal.fire("" + data.data[0].message + "");
                 if (data.data[0].status === '202') {
-                    console.log('Cuestionarios', data.data.Cuestionarios)
                     localStorage.removeItem("Cuestionarios");
                     localStorage.setItem("Cuestionarios", data.data.Cuestionarios);
                 }
@@ -182,27 +181,28 @@ document.addEventListener("DOMContentLoaded", async () => {
         })
             .then((response) => response.json())
             .then((data) => {
-                    
-                    localStorage.removeItem("Cuestionarios");
-                    localStorage.setItem("Cuestionarios",JSON.stringify(data.data.Cuestionarios));
-                    callback();
-                
+
+                localStorage.removeItem("Cuestionarios");
+                localStorage.setItem("Cuestionarios", JSON.stringify(data.data.Cuestionarios));
+                callback();
+
             })
             .catch((error) => {
                 console.error("Error al enviar la solicitud:", error);
             });
 
     }
-                         
-                        consultarAllCuestionarios(()=>{
-                            let datos = localStorage.getItem("Cuestionarios");
-                        let Cuestionarios = JSON.parse(datos);
-                            // Generar la tabla y agregarla al contenedor
-                        if (Array.isArray(Cuestionarios)) {
-                            const contenedorTabla = document.querySelector('#contenedor-tabla');
-                            const tablaGenerada = generarTablaCuestionario(Cuestionarios);
-                            contenedorTabla.appendChild(tablaGenerada);
-                        }});
+    if (localStorage.getItem("rol")) {
+        consultarAllCuestionarios(() => {
+            let datos = localStorage.getItem("Cuestionarios");
+            let Cuestionarios = JSON.parse(datos);
+            // Generar la tabla y agregarla al contenedor
+            if (Array.isArray(Cuestionarios)) {
+                const contenedorTabla = document.querySelector('#contenedor-tabla');
+                const tablaGenerada = generarTablaCuestionario(Cuestionarios);
+                contenedorTabla.appendChild(tablaGenerada);
+            }
+        });
+    }
 
-                         
 });

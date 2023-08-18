@@ -660,11 +660,10 @@ input[type='checkbox'] {
 	-webkit-backface-visibility: hidden;
 }
 
-.navbar-custom .navbar-brand.logo-text {
+.navbar-custom .navbar-brand.logo-text{
 	margin-top: 0.25rem;
 	margin-bottom: 0.25rem;
 	font: 700 2.25rem/1.5rem "Montserrat", sans-serif;
-	color: #fff;
 	text-decoration: none;
 }
 
@@ -672,7 +671,20 @@ input[type='checkbox'] {
 	margin-top: 0.75rem;
 	margin-bottom: 0.5rem;
 }
-
+.navbar-btn{
+	padding: 0.625rem 0.75rem 0.625rem 0.75rem;
+	text-decoration: none;
+	transition: all 0.2s ease;
+	margin-bottom: 0.5rem;
+	background-color: transparent;
+	color:#fff;
+	font: 150 0.8rem/0.2rem "Montserrat", sans-serif;
+	border: none;
+    outline: none;
+}
+.nav-btn.active .nav-btn:hover{
+	color: #14bf98;
+}
 .navbar-custom .nav-item .nav-link {
 	padding: 0.625rem 0.75rem 0.625rem 0.75rem;
 	color: #fff;

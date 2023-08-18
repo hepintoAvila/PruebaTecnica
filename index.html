@@ -31,6 +31,18 @@
     <link href="css/swiper.css" rel="stylesheet">
     <link href="css/magnific-popup.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
+    <script src="js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
+    <script src="js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
+    <script src="js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
+    <script src="js/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
+    <script src="js/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
+    <script src="js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
+    <script src="js/morphext.min.js"></script> <!-- Morphtext rotating text in the header -->
+    <script src="js/isotope.pkgd.min.js"></script> <!-- Isotope for filter -->
+    <script src="js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
+    <script src="js/scripts.js"></script> <!-- Custom scripts -->
+    <script src="js/listas/listaPendientes.js"></script> <!-- Custom scripts -->
+    
     <!-- Favicon  -->
     <link rel="icon" href="images/favicon.png">
 </head>
@@ -67,99 +79,8 @@
                 <li class="nav-item">
                     <a class="nav-link page-scroll" href="#header">INICIO <span class="sr-only">(current)</span></a>
                 </li>
-                <!-- Dropdown Menu -->
-
-                <!-- end of dropdown menu -->
                 <script>
-                    function imprimiregistrarCustionario() {
-                        const rol = localStorage.getItem("rol");
-                        const navItems = document.createElement("li");
-                        const navLinks = document.createElement("a");
 
-                        navLinks.classList.add("nav-link", "page-scroll");
-
-
-                        if (rol === 'instructor') {
-
-                            navItems.classList.add("nav-item");
-                            navLinks.setAttribute("href", "#registrarCustionario");
-                            navLinks.textContent = "REGISTRAR CUESTIONARIO";
-                        } else {
-
-                            navLinks.setAttribute("href", "#");
-                            navLinks.textContent = "";
-                        }
-
-                        navItems.appendChild(navLinks);
-                        return navItems;
-                    }
-                    function verListaEvaluaciones() {
-                        const rol = localStorage.getItem("rol");
-                        const navItems = document.createElement("li");
-                        const navLinks = document.createElement("a");
-                        navLinks.classList.add("nav-link", "page-scroll");
-
-                        if (rol === 'Aprendiz') {
-                            navItems.classList.add("nav-item");
-                            navLinks.setAttribute("href", "#verListaEvaluaciones");
-                            navLinks.textContent = "VER EVALUACIONES PENDIENTES";
-                        } else {
-
-                            navLinks.setAttribute("href", "#");
-                            navLinks.textContent = "";
-                        }
-
-                        navItems.appendChild(navLinks);
-                        return navItems;
-                    }
-                    function imprimirNav2() {
-                        const token = localStorage.getItem("token");
-                        const navItems = document.createElement("li");
-                        const navLinks = document.createElement("a");
-                        navLinks.classList.add("nav-link", "page-scroll");
-
-                        if (!token) {
-                            navItems.classList.add("nav-item");
-                            navLinks.setAttribute("href", "#registrarse");
-                            navLinks.textContent = "REGISTRARSE";
-                        }
-
-                        navItems.appendChild(navLinks);
-                        return navItems;
-                    }
-                    function imprimirNav() {
-                        const token = localStorage.getItem("token");
-                        const navItem = document.createElement("li");
-                        const navLink = document.createElement("a");
-                        navLink.classList.add("nav-link", "page-scroll");
-
-                        if (token) {
-                            navLink.setAttribute("href", "#cerrarSesion");
-                            navItem.classList.add("nav-item");
-                            navLink.textContent = "SALIR";
-                        } else {
-                            navLink.setAttribute("href", "#login");
-                            navItem.classList.add("nav-item");
-                            navLink.textContent = "LOG IN";
-
-                        }
-
-                        navItem.appendChild(navLink);
-                        return navItem;
-                    }
-
-                    // Llamar a la función para obtener el elemento <li> adecuado 
-                    const navRegistrarCustionario = imprimiregistrarCustionario();
-                    const navVerListaEvaluaciones = verListaEvaluaciones();
-                    const navElement = imprimirNav();
-                    const navElements = imprimirNav2();
-
-                    // Agregar el elemento <li> al contenedor de la lista <ul>
-                    const navList = document.querySelector("#navbarsItemsDefault");
-                    navList.appendChild(navVerListaEvaluaciones);
-                    navList.appendChild(navRegistrarCustionario);
-                    navList.appendChild(navElement);
-                    navList.appendChild(navElements);
                 </script>
             </ul>
             <span class="nav-item social-icons">
@@ -187,14 +108,13 @@
                     <div class="col-lg-12">
                         <div class="text-container" id="bienvenido">
                             <script>
-                                function imprimirH1() {
-                                    const token = localStorage.getItem("token");
+                                function Bienvenida() {
                                     let nombreUsuario = localStorage.getItem("nombreUsuario");
                                     let rol = localStorage.getItem("rol");
                                     const hItem = document.createElement("h1");
                                     const sLink = document.createElement("span");
                                     sLink.classList.add("text-container");
-                                    if (token) {
+                                    if (token = localStorage.getItem("token")) {
                                         sLink.textContent = "Bienvenido, " + rol + ". " + nombreUsuario;
                                     } else {
                                         sLink.textContent = "";
@@ -202,10 +122,8 @@
                                     hItem.appendChild(sLink);
                                     return hItem;
                                 }
-
                                 // Llamar a la función para obtener el elemento <li> adecuado
-                                const hElement = imprimirH1();
-
+                                const hElement = Bienvenida();
                                 // Agregar el elemento <li> al contenedor de la lista <ul>
                                 const hList = document.querySelector("#bienvenido");
                                 hList.appendChild(hElement);
@@ -249,108 +167,27 @@
         </div> <!-- end of container -->
     </div> <!-- end of intro -->
 
-    <div id="cerrarSesion" class="form-1">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4"></div>
-                <div class="col-lg-4">
-
-                    <!-- Call Me Form -->
-                    <div class="form-group">
-                        <button id="cerrarLogin" class="form-control-submit-button">SING OUT</button>
-                    </div>
-                    <!-- end of call me form -->
-                </div> <!-- end of col -->
-                <div class="col-lg-4"></div>
-            </div> <!-- end of row -->
-        </div> <!-- end of container -->
-    </div> <!-- end of cerrarSesion -->
-
-
     <div id="verListaEvaluaciones" class="basic-1">
         <script>
-            const roles = localStorage.getItem("rol");
-
-            if (!roles) {
+                /* LISTAR PENDIENTES*/
+            if (!localStorage.getItem("rol")) {
                 const adminDiv = document.querySelector('#verListaEvaluaciones');
-                console.log('adminDiv', adminDiv);
                 adminDiv.style.display = adminDiv.style.display === 'none' ? 'block' : 'none';
             }
 
-            function generarTablaCuestionarioPendientes(datos) {
-                const tabla = document.createElement('table');
-                tabla.classList.add('contenedor-tabla-pendiente');
 
-                // Crear encabezado de la tabla
-                const encabezado = tabla.createTHead();
-                const encabezadoFila = encabezado.insertRow();
-                for (const propiedad in datos[0]) {
-                    const th = document.createElement('th');
-                    th.textContent = propiedad;
-                    encabezadoFila.appendChild(th);
-                }
-                encabezadoFila.appendChild(document.createElement('th')); // Columna vacía para los botones
-
-                // Crear filas de la tabla
-                const cuerpo = tabla.createTBody();
-                datos.forEach((cuestionario) => {
-                    const fila = cuerpo.insertRow();
-                    for (const propiedad in cuestionario) {
-                        const celda = fila.insertCell();
-                        celda.textContent = cuestionario[propiedad];
+            if (localStorage.getItem("rol")) {
+                
+                consultarAllCuestionariosPendientes(() => {
+                    let datos = localStorage.getItem("Pendientes");
+                    let Cuestionarios = JSON.parse(datos);
+                    if (Array.isArray(Cuestionarios)) {
+                        const contenedorTabla = document.querySelector('#contenedor-tabla-pendiente');
+                        const tablaGenerada = generarTablaCuestionarioPendientes(Cuestionarios);
+                        contenedorTabla.appendChild(tablaGenerada);
                     }
-                    
-                    // Agregar botón de eliminar,agregar preguntas
-                    const textButton = (cuestionario.Resuelta==='S') ? 'Ver Resultados': 'Presentar Evaluación';
-                    const celdaBotonVista = fila.insertCell();
-                    const botonVista = document.createElement('button');
-                    const navLinks = document.createElement("a");
-                    navLinks.setAttribute("href", `http://prueba.tecnica.compucel.co/cuestionario.html?id=${cuestionario.id}`);
-                    botonVista.appendChild(navLinks);
-                    botonVista.textContent = textButton;
-                    botonVista.addEventListener('click', () => {
-                        (cuestionario.Resuelta==='S') ? window.location.href = `http://prueba.tecnica.compucel.co/resultados.html?id=${cuestionario.id}`:window.location.href = `http://prueba.tecnica.compucel.co/cuestionario.html?id=${cuestionario.id}`
-                    });
-
-                    celdaBotonVista.appendChild(botonVista);
                 });
-
-                return tabla;
             }
-            function consultarAllCuestionariosPendientes(callback) {
-
-                const url = `https://api.compucel.co/v4/?accion=consultaAllCuestionarioPendientes&nombreUsuario=${btoa(localStorage.getItem("nombreUsuario"))}`;
-                fetch(url, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                })
-                    .then((response) => response.json())
-                    .then((data) => {
-
-                        localStorage.removeItem("Pendientes");
-                        localStorage.setItem("Pendientes", JSON.stringify(data.data.Pendientes));
-                        callback();
-
-                    })
-                    .catch((error) => {
-                        console.error("Error al enviar la solicitud:", error);
-                    });
-
-            }
-
-            consultarAllCuestionariosPendientes(() => {
-                let datos = localStorage.getItem("Pendientes");
-                let Cuestionarios = JSON.parse(datos);
-                // Generar la tabla y agregarla al contenedor
-                if (Array.isArray(Cuestionarios)) {
-                    const contenedorTabla = document.querySelector('#contenedor-tabla-pendiente');
-                    const tablaGenerada = generarTablaCuestionarioPendientes(Cuestionarios);
-                    contenedorTabla.appendChild(tablaGenerada);
-                }
-            });
-
         </script>
         <div class="basic-1">
             <div class="row">
@@ -605,25 +442,21 @@
             </div>
         </div>
     </div> <!-- end of registrarCustionario-->
-
+ 
     <!-- Scripts -->
-    <script src="js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
-    <script src="js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
-    <script src="js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
-    <script src="js/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
-    <script src="js/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
-    <script src="js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
-    <script src="js/morphext.min.js"></script> <!-- Morphtext rotating text in the header -->
-    <script src="js/isotope.pkgd.min.js"></script> <!-- Isotope for filter -->
-    <script src="js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
-    <script src="js/scripts.js"></script> <!-- Custom scripts -->
-    <script src="js/registroUsuario.js"></script> <!-- Custom scripts -->
-    <script src="js/iniciarSession.js"></script> <!-- Custom scripts -->
-    <script src="js/cerrarSession.js"></script> <!-- Custom scripts -->
-    <script src="js/registrarCuestionario.js"></script> <!-- Custom scripts -->
-    <script src="js/registrarPregunta.js"></script> <!-- Custom scripts -->
 
+    <script src="js/buttons/btnCerrarSession.js"></script> <!-- Custom scripts -->
+    <script src="js/buttons/btnRegistrarse.js"></script> <!-- Custom scripts -->
+    <script src="js/buttons/brnRegistrarCuestionario.js"></script> <!-- Custom scripts -->
+    <script src="js/scripts/registroUsuario.js"></script> <!-- Custom scripts -->
+    <script src="js/scripts/iniciarSession.js"></script> <!-- Custom scripts -->
+    <script src="js/scripts/registrarCuestionario.js"></script> <!-- Custom scripts -->
+    <script src="js/scripts/registrarPregunta.js"></script> <!-- Custom scripts -->
+    <script src="js/scripts/clear.js"></script> <!-- Custom scripts -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        clearPage();
+        </script>
 </body>
 
 </html>

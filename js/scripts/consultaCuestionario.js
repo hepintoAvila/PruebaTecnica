@@ -17,6 +17,7 @@ function obtenerNumeroDeID() {
 
 function consultaCuestionario(id, callback) {
 
+    if(Number(id)>0){
     const url = `https://api.compucel.co/v4/?accion=consultaCuestionario&id=${id}`;
     fetch(url, {
         method: "GET",
@@ -37,7 +38,7 @@ function consultaCuestionario(id, callback) {
         .catch((error) => {
             console.error("Error al enviar la solicitud:", error);
         });
-
+    }   
 }
 
 function loadQuestions() {
