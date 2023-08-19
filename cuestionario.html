@@ -1,42 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+
     <!-- SEO Meta Tags -->
     <meta name="description" content="">
     <meta name="author" content="Inovatik">
 
     <!-- OG Meta Tags to improve the way the post looks when you share the page on LinkedIn, Facebook, Google+ -->
-	<meta property="og:site_name" content="" /> <!-- website name -->
-	<meta property="og:site" content="" /> <!-- website link -->
-	<meta property="og:title" content=""/> <!-- title shown in the actual shared post -->
-	<meta property="og:description" content="" /> <!-- description shown in the actual shared post -->
-	<meta property="og:image" content="" /> <!-- image link, make sure it's jpg -->
-	<meta property="og:url" content="" /> <!-- where do you want your post to link to -->
-	<meta property="og:type" content="article" />
+    <meta property="og:site_name" content="" /> <!-- website name -->
+    <meta property="og:site" content="" /> <!-- website link -->
+    <meta property="og:title" content="" /> <!-- title shown in the actual shared post -->
+    <meta property="og:description" content="" /> <!-- description shown in the actual shared post -->
+    <meta property="og:image" content="" /> <!-- image link, make sure it's jpg -->
+    <meta property="og:url" content="" /> <!-- where do you want your post to link to -->
+    <meta property="og:type" content="article" />
 
     <!-- Website Title -->
     <title>Cuestionario</title>
-    
+
     <!-- Styles -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700&display=swap&subset=latin-ext" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700&display=swap&subset=latin-ext"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600&display=swap&subset=latin-ext"
+        rel="stylesheet">
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/fontawesome-all.css" rel="stylesheet">
     <link href="css/swiper.css" rel="stylesheet">
-	<link href="css/magnific-popup.css" rel="stylesheet">
+    <link href="css/magnific-popup.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
-    <script src="js/consultaCuestionario.js"></script> <!-- Custom scripts --> 
-    <script src="js/enviarCuestionario.js"></script> <!-- Custom scripts --> 
-    	<!-- Favicon  -->
+    <script src="js/scripts/consultaCuestionario.js"></script> <!-- Custom scripts -->
+    <script src="js/scripts/enviarCuestionario.js"></script> <!-- Custom scripts -->
+ 
+    <!-- Favicon  -->
     <link rel="icon" href="images/favicon.png">
 </head>
+
 <body data-spy="scroll" data-target=".fixed-top">
-    
+
     <!-- Preloader -->
-	<div class="spinner-wrapper">
+    <div class="spinner-wrapper">
         <div class="spinner">
             <div class="bounce1"></div>
             <div class="bounce2"></div>
@@ -44,22 +49,23 @@
         </div>
     </div>
     <!-- end of preloader -->
-    
+
 
     <nav class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top">
         <!-- Text Logo - Use this if you don't have a graphic logo -->
         <!-- <a class="navbar-brand logo-text page-scroll" href="index.html">Aria</a> -->
-    
+
         <!-- Image Logo -->
         <a class="navbar-brand logo-image" href="index.html"><img src="images/logo.svg" alt="alternative"></a>
-        
+
         <!-- Mobile Menu Toggle Button -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-awesome fas fa-bars"></span>
             <span class="navbar-toggler-awesome fas fa-times"></span>
         </button>
         <!-- end of mobile menu toggle button -->
-    
+
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul id="navbarsItemsDefault" class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -88,8 +94,10 @@
     <header id="header" class="ex-header">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
-                    <h1>Presentar Evaluación</h1>
+                <div class="col-lg-4"><p><span  class="contador" id="contador">--:--</span><span id="tiempoPrueba"></span></p></div>
+                <div class="col-lg-8"><p class="text-container-title" id="titulo"></p></div>
+                <div class="col-lg-4">
+                    
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
         </div> <!-- end of container -->
@@ -103,7 +111,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumbs">
-                        <a href="index.html">Home</a><i class="fa fa-angle-double-right"></i><span>Presentar Evaluación</span>
+                        <a href="index.html">Home</a><i class="fa fa-angle-double-right"></i><span>Presentar
+                            Evaluación</span>
                     </div> <!-- end of breadcrumbs -->
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
@@ -116,164 +125,114 @@
     <div class="ex-basic-2">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="text-container" id="titulo">
-                        
-                        <script>
-                            function datosBasicosTitulo(datosBasicos) {
-    
-                                    const basicos = JSON.parse(datosBasicos);
-                                    const h1s = document.createElement("h1");
-                                    const spans = document.createElement("span");
-                                    spans.classList.add("text-container");
-                                    spans.textContent = basicos.Titulo;
-                                    h1s.appendChild(spans);
-                                    return h1s;
-                                }
-                             
-                                let datosBasicosCuestionario = localStorage.getItem("datosBasicosCuestionario");
-                                let titulo = datosBasicosTitulo(datosBasicosCuestionario);
-                                const tituloCuestionario = document.querySelector("#titulo");
-                                tituloCuestionario.appendChild(titulo); 
-                        
-
  
-                        </script>
-                    </div>
-                    <p class="text-container" id="descripcion"></p>
-                <script>
-                    function datosBasicosDescripcion(datosBasicos) {
-     
+                <div class="col-lg-12">
+                       <p class="text-container" id="descripcion"></p>
+                       <script>
+                        //SE TOMA EL TIEMPO DEL localStore en caso de rest la página
+                        let timerLocal = localStorage.getItem("timer");
+                        let datosBasicos = localStorage.getItem("datosBasicosCuestionario");
                         const basicos = JSON.parse(datosBasicos);
-                        const h1s = document.createElement("p");
-                        const spans = document.createElement("span");
-                        spans.classList.add("text-container");
-                        spans.textContent = 'DESCRIPCIÓN: ' + basicos.Descripcion;
-                        h1s.appendChild(spans);
-                        return h1s;
-                    }
-                    let datosBasicosdescripcion = localStorage.getItem("datosBasicosCuestionario");
-                        let descripcion = datosBasicosDescripcion(datosBasicosdescripcion);
-                       const descripcionCuestionario = document.querySelector("#descripcion");
-                        descripcionCuestionario.appendChild(descripcion); 
-                </script>
-
-
-                <p>Tiempo restante: <span id="contador">--:--</span><span id="tiempoPrueba"></span></p>
-            <script>
-                let timerLocal = localStorage.getItem("timer");
-                
-                    let datosBasicos = localStorage.getItem("datosBasicosCuestionario");
-                    const basicos = JSON.parse(datosBasicos);
-                
-                    function datosBasicosTiempoPrueba(datosBasicos) {
-                        const basicos = JSON.parse(datosBasicos);
-                        const h1s = document.createElement("p");
-                        const spans = document.createElement("span");
-                        spans.classList.add("text-container");
-                        spans.textContent = 'TIEMPO DE LA PRUEBA: ' + basicos.tiempoPrueba;
-                        h1s.appendChild(spans);
-                        return h1s;
-                    }
-                    let datostiempoPrueba= localStorage.getItem("datosBasicosCuestionario");
-                let tiempo = datosBasicosTiempoPrueba(datostiempoPrueba);
-                const tiempoPruebaCuestionario = document.querySelector("#tiempoPrueba");
-                tiempoPruebaCuestionario.appendChild(tiempo); 
-
-                
-
-                const tiempoLimiteEnSegundos = Number(basicos.tiempoPrueba * 60); // 5 minutos en segundos
-                const contador = document.getElementById('contador');
-                const cuestionarioForm = document.getElementById('cuestionario');
-                let tiempoRestante = tiempoLimiteEnSegundos;
-                if(timerLocal){
-                     tiempoRestante = timerLocal; 
-                }
-                function updateContador() {
-                const minutos = Math.floor(tiempoRestante / 60);
-                const segundos = tiempoRestante % 60;
-                contador.textContent = `${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
-                }
-            
-                function decrementarTiempo() {
-                if (tiempoRestante > 0) {
-                    tiempoRestante--;
-                    localStorage.setItem("timer",tiempoRestante);
-                    updateContador();
-                } else {
-                    clearInterval(temporizador);
-                    const numeroID = obtenerNumeroDeID();
-                   window.location.href = `http://prueba.tecnica.compucel.co/resultados.html?id=${numeroID}`;
-                }
-                }
-            
-                const temporizador = setInterval(decrementarTiempo, 1000);
-            
+                        const tiempoLimiteEnSegundos = Number(basicos.tiempoPrueba * 60); // 5 minutos en segundos
+                        
   
+                        let tiempoRestante = tiempoLimiteEnSegundos;
+                       
+                        if (timerLocal) {
+                            tiempoRestante = timerLocal;
+                        }
+                        function updateContador() {
+                            const minutos = Math.floor(tiempoRestante / 60);
+                            const segundos = tiempoRestante % 60;
+                            document.querySelector('#contador').textContent = `${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+                        }
 
-                updateContador();
-  </script>
+                        function decrementarTiempo() {
+                            if (tiempoRestante > 0) {
+                                tiempoRestante--;
+                                localStorage.setItem("timer", tiempoRestante);
+                                updateContador();
+                            } else {
+                                clearInterval(temporizador);
+                                const numeroID = obtenerNumeroDeID();
+                                const valores = getCuestionario();
+                                    enviarCuestionario(valores);
+                                    window.location.href = `http://prueba.tecnica.compucel.co/resultados.html?id=${numeroID}`;
+                            }
+                        }
+
+                        const temporizador = setInterval(decrementarTiempo, 1000);
+                        updateContador();
+
+                    </script>
                     <div class="quiz-container">
-                        <div class="quiz-container">
-                            <div class="row">
+                           
                                 <div class="col-lg-12">
                                     <form id="quiz-form">
                                         <script>
-                                            loadQuestions(); 
+                                            loadQuestions(() => {
+                                                let titulo = datosBasicosTitulo();
+                                                const tituloCuestionario = document.querySelector("#titulo");
+                                                tituloCuestionario.appendChild(titulo);
+
+                                                let descripcion = datosBasicosDescripcion();
+                                                const descripcionCuestionario = document.querySelector("#descripcion");
+                                                descripcionCuestionario.appendChild(descripcion);
+
+                                                let calificaciones = datosPuntuacion();
+                                                const datosPuntuaciones = document.querySelector("#datosPuntuaciones");
+                                                datosPuntuaciones.appendChild(calificaciones);
+
+                                                let tiempo = datosBasicosTiempoPrueba(localStorage.getItem("datosBasicosCuestionario"));
+                                                const tiempoPruebaCuestionario = document.querySelector("#tiempoPrueba");
+                                                tiempoPruebaCuestionario.appendChild(tiempo);
+                                            }); 
                                         </script>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <button type="button" id="btnEnviarPreguntas" class="form-control-submit-button">SALIR</button>
-                        
-                                </div>
-                            </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <button type="button" id="btnEnviarPreguntas" class="form-control-submit-button">EVIAR
+                                                RESPUESTAS</button>
+                            
+                                        </div>
+                                    </div>
                             </form>
-                            <div id="result-container"></div>
-                        </div>
-                    <script>
-                 $btnEnviarPreguntas = document.querySelector("#btnEnviarPreguntas"),
-                btnEnviarPreguntas.addEventListener('click', (event) => {
-                event.preventDefault();
-                //clearInterval(temporizador);
-                    const valores = [];
-                    let CuestionariosById = localStorage.getItem("CuestionariosById");
-                    const questions = JSON.parse(CuestionariosById);
-                    const quizForm = document.getElementById('quiz-form');
-                    const formData = new FormData(quizForm);
-                    for (let i = 0; i < questions.length; i++) {
-                        valores.push(formData.get(`respondidas${i}`));
-                    }
-                    enviarCuestionario(valores);
-                    const numeroID = obtenerNumeroDeID();
-                   window.location.href = `http://prueba.tecnica.compucel.co/resultados.html?id=${numeroID}`;
-                });
-                    </script>
-                        <div id="result-container"></div>
+                          </div>
+                        <script>
+                            $btnEnviarPreguntas = document.querySelector("#btnEnviarPreguntas"),
+                                btnEnviarPreguntas.addEventListener('click', (event) => {
+                                    event.preventDefault();
+                                    const valores = getCuestionario();
+                                    enviarCuestionario(valores);
+                                    const numeroID = obtenerNumeroDeID();
+                                    window.location.href = `http://prueba.tecnica.compucel.co/resultados.html?id=${numeroID}`;
+                                });
+                        </script>
+  
                     </div>
                     <!-- end of text-container -->
                 </div>
+ 
             </div> <!-- end of row -->
         </div> <!-- end of container -->
     </div> <!-- end of ex-basic -->
     <!-- end of terms content -->
+</div> <!-- end of ex-basic -->
 
-    
     <!-- Breadcrumbs -->
     <div class="ex-basic-1">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumbs">
-                        <a href="index.html">Home</a><i class="fa fa-angle-double-right"></i><span>Presentar Evaluación</span>
+                        <a href="index.html">Home</a><i class="fa fa-angle-double-right"></i><span>Presentar
+                            Evaluación</span>
                     </div> <!-- end of breadcrumbs -->
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
         </div> <!-- end of container -->
     </div> <!-- end of ex-basic-1 -->
     <!-- end of breadcrumbs -->
-	
+
     <!-- Scripts -->
     <script src="js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
     <script src="js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
@@ -284,8 +243,9 @@
     <script src="js/morphext.min.js"></script> <!-- Morphtext rotating text in the header -->
     <script src="js/isotope.pkgd.min.js"></script> <!-- Isotope for filter -->
     <script src="js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
-    <script src="js/scripts.js"></script> <!-- Custom scripts --> 
+    <script src="js/scripts.js"></script> <!-- Custom scripts -->
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
+
 </html>

@@ -28,7 +28,7 @@
     <link href="css/swiper.css" rel="stylesheet">
 	<link href="css/magnific-popup.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
-    <script src="js/consultaResultados.js"></script> <!-- Custom scripts --> 
+    <script src="js/scripts/consultaResultados.js"></script> <!-- Custom scripts --> 
     	<!-- Favicon  -->
     <link rel="icon" href="images/favicon.png">
 </head>
@@ -116,46 +116,26 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="text-container" id="titulo">
-                        
- 
-                    </div>
-                    <p class="text-container" id="descripcion"></p>
-                    <p class="text-container" id="datosPuntuaciones"></p>
- 
                 <div class="quiz-container">
                     <div class="row">
                         <div class="col-lg-12">
                             <form id="quiz-form">
                                 <script>
-                                    consultaResultadosLoadPage(()=>{
-                                        let titulo = datosBasicosTitulo();
-                                    const tituloCuestionario = document.querySelector("#titulo");
-                                    tituloCuestionario.appendChild(titulo); 
-                                    
-                                    let descripcion = datosBasicosDescripcion();
-                                    const descripcionCuestionario = document.querySelector("#descripcion");
-                                        descripcionCuestionario.appendChild(descripcion);
-                                        
-                                        let calificaciones = datosPuntuacion();
-                                        const datosPuntuaciones = document.querySelector("#datosPuntuaciones");
-                                        datosPuntuaciones.appendChild(calificaciones);  
-                                    }); 
-
-
+                                    consultaResultadosLoadPage();
                                 </script>
+
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <button type="button" id="btnEnviarPreguntas" class="form-control-submit-button">RESPONDER</button>
+                            <button type="button" id="btnEnviarPreguntas" class="form-control-submit-button">SALIR</button>
                 
                         </div>
                         <script>
                         $btnEnviarPreguntas = document.querySelector("#btnEnviarPreguntas"),
                         btnEnviarPreguntas.addEventListener('click', (event) => {
                         event.preventDefault();
-                        window.location.href = `http://localhost/PruebaTecnica/`;
+                        window.location.href = `http://prueba.tecnica.compucel.co/`;
                         });
                     </script>
                     </div>

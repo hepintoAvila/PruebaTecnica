@@ -22,10 +22,13 @@ function generarTablaCuestionarioPendientes(datos) {
         }
 
         // Agregar botón de eliminar,agregar preguntas
-        const textButton = (cuestionario.Resuelta === 'S') ? 'Ver Resultados' : 'Presentar Evaluación';
+        const textButton = (cuestionario.Resuelta === 'S') ? 'Detalles' : 'Presentar';
         const celdaBotonVista = fila.insertCell();
         const botonVista = document.createElement('button');
         const navLinks = document.createElement("a");
+ 
+        botonVista.classList.add("list-btn");
+
         navLinks.setAttribute("href", `http://prueba.tecnica.compucel.co/cuestionario.html?id=${cuestionario.id}`);
         botonVista.appendChild(navLinks);
         botonVista.textContent = textButton;

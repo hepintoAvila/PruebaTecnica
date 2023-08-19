@@ -41,7 +41,8 @@ function consultaCuestionario(id, callback) {
     }   
 }
 
-function loadQuestions() {
+
+function loadQuestions(callback) {
 
     // Load questions dynamically
 
@@ -62,17 +63,20 @@ function loadQuestions() {
                 const answer = questions[i].answer;
                 const id = questions[i].id;
                 const idCuestionario = questions[i].idCuestionario;
-
+                
+      
                 const questionElement = document.createElement('div');
                 questionElement.classList.add('question');
                 questionElement.innerHTML = `
-              <p>${question.question}</p>
+              <p class ="questionTitle"><strong>${question.question}</strong></p>
+              ${question.imagen ==='SIMG' ? '<img class="rounded float-start" src="http://api.compucel.co/IMG/pruebaTecnica/SIMG.png"  width="2" height="4"></img>' : `<img class="rounded float-start" src="${question.imagen}"  width="200" height="250"></img>`}
+              
               <ul>
                   ${question.options.map((option, index) =>
 
                     `
-                      <li>
-                          <input type="radio" name="respondidas${i}" value="${id}-${idCuestionario}-${Number(index + 1)}"  ${index === Number(answer - 1) && (rol ==='instructor') ? 'checked' : ''}>
+                      <li >
+                          <input type="radio" class="form-check-input" name="respondidas${i}" value="${id}-${idCuestionario}-${Number(index + 1)}"  ${index === Number(answer - 1) && (rol ==='instructor') ? 'checked' : ''}>
                           <label>${option}</label>
                       </li>
                   `).join('')}
@@ -80,12 +84,38 @@ function loadQuestions() {
           `;
                 quizForm.appendChild(questionElement);
             }
+            callback()
         });
 
-
-
-
     }
-
-
 }
+function datosBasicosTitulo() {
+    let datosBasicos = localStorage.getItem("datosBasicosCuestionario");
+    const basicos = JSON.parse(datosBasicos);
+    const h1s = document.createElement("h1");
+    const spans = document.createElement("span");
+    spans.classList.add("text-container");
+    spans.textContent = basicos.Titulo;
+    h1s.appendChild(spans);
+    return h1s;
+}
+function datosBasicosDescripcion() {
+    let datosBasicos = localStorage.getItem("datosBasicosCuestionario");
+    const basicos = JSON.parse(datosBasicos);
+    const h1s = document.createElement("p");
+    const spans = document.createElement("span");
+    spans.classList.add("text-container");
+    spans.textContent = 'DESCRIPCIÓN: ' + basicos.Descripcion;
+    h1s.appendChild(spans);
+    return h1s;
+}
+function datosBasicosTiempoPrueba(datosBasicos) {
+    const basicos = JSON.parse(datosBasicos);
+    const h1s = document.createElement("p");
+    const spans = document.createElement("span");
+    spans.classList.add("text-container");
+    spans.textContent = 'TIEMPO DE LA PRUEBA: ' + basicos.tiempoPrueba;
+    h1s.appendChild(spans);
+    return h1s;
+}
+ 

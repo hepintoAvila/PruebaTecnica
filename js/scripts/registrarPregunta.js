@@ -12,14 +12,14 @@ function buildQueryString(opcion) {
 
 document.addEventListener("DOMContentLoaded", async () => {
 
-    $enviarPregunta = document.querySelector("#enviarPregunta"),
-        $pregunta = document.querySelector("#pregunta"),
-        $correctas = document.querySelectorAll(".resp-correcta"),
-        enviarPregunta.addEventListener('click', (e) => {
-            e.preventDefault();
-            const preguntas = $pregunta.value;
-            const correcta = $correctas.value;
 
+
+    document.querySelector("#enviarPregunta").addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            const $pregunta = document.querySelector("#pregunta"),
+            preguntas = $pregunta.value;
+ 
             const camposInputs = document.querySelectorAll('input[name="respuesta[]"]');
             const camposCorrectas = document.querySelectorAll('input[name="correcta[]"]');
             const valores = [];
@@ -48,21 +48,37 @@ document.addEventListener("DOMContentLoaded", async () => {
                 correcta: btoa(valorCorrecto[0])
             };
             const opcion2 = [objectForm];
+
             const queryString2 = buildQueryString(opcion2);
-            const url = `https://api.compucel.co/v4/?accion=registrarPregunta&models=${queryString1}&${queryString2}`;
+            const imageObjets = [JSON.parse(localStorage.getItem("imageObject"))];
+            const imageObjet = buildQueryString(imageObjets);
+            const base64String = localStorage.getItem('image');
+            console.log('base64String-image',base64String);
+            const url = `https://api.compucel.co/v4/?accion=registrarPregunta&models=${queryString1}&${queryString2}&${imageObjet}`;
             fetch(url, {
-                method: "GET",
+                method: "POST",
+                body: JSON.stringify(base64String),
                 headers: {
-                    "Content-Type": "application/json",
+                    'enctype': 'multipart/form-data',
                 },
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    Swal.fire("" + data.data[0].message + "");
+                    
+                        localStorage.removeItem('image');
+                        localStorage.removeItem('imageObject');
+                        Swal.fire("" + data.data[0].message + "");
+                    
+                    
                 })
                 .catch((error) => {
                     console.error("Error al enviar la solicitud:", error);
+                }).finally(() => {
+                    setTimeout(function () {
+                    window.location.href = "http://prueba.tecnica.compucel.co";
+                    }, 3000);
                 });
+                 
         });
 
 
@@ -72,8 +88,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         const newInputContainer = document.createElement('div');
         newInputContainer.className = 'input-container';
         newInputContainer.innerHTML = `
-        <input type="radio" class="resp-correcta" name="correcta[]" id="${inputsContainer.childElementCount - 1}" value="${inputsContainer.childElementCount - 1}"><input type="text" name="respuesta[]" placeholder="Respuesta ${inputsContainer.childElementCount - 1}" required>
-      <button type="button" class="eliminar-campo">-</button>
+        <input type="radio" class="resp-correcta" name="correcta[]" id="${inputsContainer.childElementCount - 1}" value="${inputsContainer.childElementCount - 1}"><button type="button" class="eliminar-campo">-</button><input type="textarea" class="respuestaInput" name="respuesta[]" placeholder="Respuesta ${inputsContainer.childElementCount - 1}" required></textarea>
+      
     `;
         inputsContainer.appendChild(newInputContainer);
 
@@ -111,14 +127,28 @@ document.addEventListener("DOMContentLoaded", async () => {
             // Agregar botón de eliminar,agregar preguntas
             const celdaBoton = fila.insertCell();
             const botonEliminar = document.createElement('button');
-            botonEliminar.textContent = 'Eliminar Cuestionario';
+            botonEliminar.classList.add("list-btn");
+            botonEliminar.textContent = 'Eliminar';
             botonEliminar.addEventListener('click', () => {
-                eliminarCuestionario(cuestionario.id);
+                Swal.fire({
+                    title: 'ELIMINAR ENCUESTA',
+                    text: "Esta seguro que desea eliminar el registro?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                        eliminarCuestionario(cuestionario.id);
+                    }
+                  })
+                
             });
             const celdaBotonModal = fila.insertCell();
             const botonModal = document.createElement('button');
-            botonModal.textContent = 'Crear Pregunta';
-
+            botonModal.textContent = 'Preguntas';
+            botonModal.classList.add("list-btn");
             botonModal.addEventListener('click', (event) => {
 
                 abrirModal(cuestionario.id);
@@ -128,7 +158,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             const navLinks = document.createElement("a");
             navLinks.setAttribute("href", `http://prueba.tecnica.compucel.co/cuestionario.html?id=${cuestionario.id}`);
             botonVista.appendChild(navLinks);
-            botonVista.textContent = 'Ver Cuestionario';
+            botonVista.textContent = 'Detalles';
+            botonVista.classList.add("list-btn");
             botonVista.addEventListener('click', () => {
 
                 window.location.href = `http://prueba.tecnica.compucel.co/cuestionario.html?id=${cuestionario.id}`;

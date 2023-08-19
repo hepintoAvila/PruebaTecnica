@@ -42,7 +42,7 @@
     <script src="js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
     <script src="js/scripts.js"></script> <!-- Custom scripts -->
     <script src="js/listas/listaPendientes.js"></script> <!-- Custom scripts -->
-    
+
     <!-- Favicon  -->
     <link rel="icon" href="images/favicon.png">
 </head>
@@ -154,7 +154,8 @@
                             permita a los usuarios realizar cuestionarios y ver sus puntajes. La aplicación debe
                             tener al menos 5 preguntas de opción múltiple y los usuarios deben poder
                             seleccionar sus respuestas y enviar el cuestionario para su evaluación.</p>
-                        <p class="testimonial-text">"En este reto coloque mi creatividad, y profesionalismos para entregar lo mejor de mi como ingeniero y ser humano"</p>
+                        <p class="testimonial-text">"En este reto coloque mi creatividad, y profesionalismos para
+                            entregar lo mejor de mi como ingeniero y ser humano"</p>
                         <div class="testimonial-author">Holmes Elias Pinto Avila</div>
                     </div> <!-- end of text-container -->
                 </div> <!-- end of col -->
@@ -169,15 +170,13 @@
 
     <div id="verListaEvaluaciones" class="basic-1">
         <script>
-                /* LISTAR PENDIENTES*/
+            /* LISTAR PENDIENTES*/
             if (!localStorage.getItem("rol")) {
                 const adminDiv = document.querySelector('#verListaEvaluaciones');
                 adminDiv.style.display = adminDiv.style.display === 'none' ? 'block' : 'none';
             }
 
-
             if (localStorage.getItem("rol")) {
-                
                 consultarAllCuestionariosPendientes(() => {
                     let datos = localStorage.getItem("Pendientes");
                     let Cuestionarios = JSON.parse(datos);
@@ -207,7 +206,7 @@
     <!-- Call Me -->
     <div id="login" class="form-1">
         <script>
-            
+
 
             if (localStorage.getItem("rol")) {
                 const loginDiv = document.querySelector('#login');
@@ -255,7 +254,7 @@
     <!-- Call Me -->
     <div id="registrarse" class="basic-1">
         <script>
-            
+
 
             if (localStorage.getItem("rol")) {
                 const registrarseDiv = document.querySelector('#registrarse');
@@ -315,9 +314,7 @@
     <!-- registrarCustionario -->
     <div id="registrarCustionario" class="form-2" style="display: none;">
         <script>
-            const rol = localStorage.getItem("rol");
-
-            if (rol === 'instructor') {
+            if (localStorage.getItem("rol") === 'instructor') {
                 const adminDiv = document.querySelector('#registrarCustionario');
                 adminDiv.style.display = adminDiv.style.display === 'none' ? 'block' : 'none';
             }
@@ -329,7 +326,9 @@
                     <div class="text-container">
                         <div class="section-title">REGISTRAR CUESTIONARIO</div>
                         <h2>Registre en este formulario los datos solicitados.</h2>
-                        <p>Para desarrollar una aplicación de cuestionario en línea, completa los siguientes datos en este formulario de diligencia.</p>
+                        <p>Para desarrollar una aplicación de cuestionario en línea, completa los siguientes datos en
+                            este
+                            formulario de diligencia.</p>
                     </div> <!-- end of text-container -->
                 </div> <!-- end of col -->
                 <div class="col-lg-6">
@@ -364,9 +363,9 @@
 
                         </div>
                         <div class="form-group">
-                                <input type="text" class="form-control-input" id="Tema" name="Tema"  required>
-                                <label class="label-control" for="cname">Tema o Nivele de  Dificultad</label>
-                                <div class="help-block with-errors"></div>
+                            <input type="text" class="form-control-input" id="Tema" name="Tema" required>
+                            <label class="label-control" for="cname">Tema o Nivele de Dificultad</label>
+                            <div class="help-block with-errors"></div>
                         </div>
                         <script>
                             const value = document.querySelector("#value");
@@ -401,7 +400,8 @@
                 <div class="col-lg-12">
                     <div class="text-container">
                         <div class="section-title">LISTA DE EVALUACIONES</div>
-                        <h2 class="black">En esta lista, podrás encontrar todas las evaluaciones registradas bajo tu usuario.</h2>
+                        <h2 class="black">En esta lista, podrás encontrar todas las evaluaciones registradas bajo tu
+                            usuario.</h2>
                     </div>
                     <table id="contenedor-tabla" class="table table-striped">
                     </table>
@@ -418,15 +418,84 @@
                                 <div class="modal-body">
                                     <form>
                                         <div id="inputsContainer">
-                                            <div class="form-group">
+                                            <div class="mb-3"> 
+                                           
+                                                
                                                 <label for="message-text" class="col-form-label">Pregunta:</label>
                                                 <textarea class="form-control" id="pregunta"></textarea>
+                                            
+                                            </div>
+                                            <div class="mb-3"> 
+                                           
+                                               <input type="file" id="imagenInput"  class="form-imagenInput">
+                                                <img id="imagenCargada" src="#" alt="Imagen Cargada">
+                                            </div>
+                                            <div class="mb-3"> 
+                                                <script>
+                                                    
+                                                        const handleAcceptedFiles = (selectedFile) => {
+                                                            const datosfiles = {
+                                                                filename: selectedFile.name,
+                                                                size: selectedFile.size,
+                                                                formattedSize: selectedFile.formattedSize,
+                                                                lastModified: selectedFile.lastModified,
+                                                                type: selectedFile.type,
+                                                                };
+                                                                return datosfiles;
+                                                            
+                                                        };
+                                                         
+                                                    // Obtener referencia al elemento de entrada de imagen
+                                                    const imagenInput = document.getElementById("imagenInput");
+                                                    // Obtener referencia al elemento de imagen donde se mostrará la imagen cargada
+                                                    const imagenCargada = document.getElementById("imagenCargada");
+                                                    // Obtener referencia al botón de subir imagen
+                                                   
+                                                    // Agregar un evento de cambio al input de imagen
+                                                    imagenInput.addEventListener("change", function (event) {
+                                                        const file = event.target.files[0]; // Obtener el archivo seleccionado
+                                                        localStorage.removeItem('image');
+                                                        localStorage.removeItem('imageObject');
+                                                        if (file) {
+                                                                    const datosfiles = handleAcceptedFiles(file)
+                                                                    localStorage.setItem('imageObject',JSON.stringify(datosfiles))
+                                                                    const reader = new FileReader();
+                                                                    reader.readAsArrayBuffer(file);
+                                                                    // Cuando la lectura del archivo termine
+                                                                    reader.onload = function () {
+                                                                    // Convertir el contenido del archivo a una cadena base64
+                                                                    const base64String = btoa(
+                                                                        new Uint8Array(reader.result)
+                                                                        .reduce((data, byte) => data + String.fromCharCode(byte), '')
+                                                                    );
+                                                                    console.log('base64String',base64String);
+                                                                    localStorage.setItem('image',base64String)
+                                                                    };
+                                                                    
+                                                                    
+                                                            // Validar el tipo de archivo
+                                                            if (file.type.startsWith("image/")) {
+                                                                // Crear un objeto URL para la imagen
+                                                                const imageUrl = URL.createObjectURL(file);
+                                                                // Mostrar la imagen en el elemento de imagen
+                                                                imagenCargada.src = imageUrl;
+                                                            } else {
+                                                                alert("Por favor, selecciona un archivo de imagen.");
+                                                            }
+                                                        }
+                                                    });
+
+                                    
+                                                </script>
                                             </div>
                                             <div class="form-group">
-                                                <button type="button" class="eliminar-campo">-</button><button
-                                                    type="button" id="agregarCampo">+</button>
+                                                <label for="message-text" class="col-form-label">Agregar
+                                                    Respuestas</label>
+                                                <div class="form-group">
+                                                    <button
+                                                        type="button" id="agregarCampo" class="agregar-campo">+</button>
+                                                </div>
                                             </div>
-
                                     </form>
                                 </div>
                             </div>
@@ -442,7 +511,7 @@
             </div>
         </div>
     </div> <!-- end of registrarCustionario-->
- 
+
     <!-- Scripts -->
 
     <script src="js/buttons/btnCerrarSession.js"></script> <!-- Custom scripts -->
@@ -456,7 +525,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         clearPage();
-        </script>
+    </script>
 </body>
 
 </html>

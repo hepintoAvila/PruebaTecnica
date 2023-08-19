@@ -12,7 +12,6 @@ function buildQueryString(opcion) {
 
 function enviarCuestionario(valores) {
 
-            console.log('enviarCuestionario',valores)
             const opcion = [valores];
             const queryString1 = JSON.stringify(opcion);
             const objectForm = {
@@ -36,3 +35,15 @@ function enviarCuestionario(valores) {
                 });
 
 };
+function getCuestionario() {
+    const valores = [];
+    let CuestionariosById = localStorage.getItem("CuestionariosById");
+    const questions = JSON.parse(CuestionariosById);
+    const quizForm = document.getElementById('quiz-form');
+    const formData = new FormData(quizForm);
+
+    for (let i = 0; i < questions.length; i++) {
+        valores.push(formData.get(`respondidas${i}`));
+    }
+    return valores;
+}
