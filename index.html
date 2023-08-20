@@ -44,7 +44,7 @@
     <script src="js/listas/listaPendientes.js"></script> <!-- Custom scripts -->
     <script src="js/listas/listasEvaluaciones.js"></script> <!-- Custom scripts -->
     <script src="js/scripts/registrarCuestionario.js"></script> <!-- Custom scripts -->
-
+    <script src="js/scripts/imagenCargada.js"></script> <!-- Custom scripts -->
     <!-- Favicon  -->
     <link rel="icon" href="images/favicon.png">
 </head>
@@ -66,7 +66,6 @@
         <!-- <a class="navbar-brand logo-text page-scroll" href="index.html">Aria</a> -->
 
         <!-- Image Logo -->
-        <a class="navbar-brand logo-image" href="index.html"><img src="images/logo.svg" alt="alternative"></a>
 
         <!-- Mobile Menu Toggle Button -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
@@ -99,46 +98,48 @@
         </div>
     </nav> <!-- end of navbar -->
 
-    <!-- Header -->
     <header id="header" class="header">
         <div class="header-content">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="text-container" id="bienvenido">
-                            <script>
-                                function Bienvenida() {
-                                    let nombreUsuario = localStorage.getItem("nombreUsuario");
-                                    let rol = localStorage.getItem("rol");
-                                    const hItem = document.createElement("h1");
-                                    const sLink = document.createElement("span");
-                                    sLink.classList.add("text-container");
-                                    if (token = localStorage.getItem("token")) {
-                                        sLink.textContent = "Bienvenido, " + rol + ". " + nombreUsuario;
-                                    } else {
-                                        sLink.textContent = "";
-                                    }
-                                    hItem.appendChild(sLink);
-                                    return hItem;
-                                }
-                                // Llamar a la función para obtener el elemento <li> adecuado
-                                const hElement = Bienvenida();
-                                // Agregar el elemento <li> al contenedor de la lista <ul>
-                                const hList = document.querySelector("#bienvenido");
-                                hList.appendChild(hElement);
-                            </script>
-                            <h1>AULAQUIZ <span id="js-rotating">EVALUACIONES</span></h1>
-                            <p class="p-heading p-large">AULAQUIZ es lo máximo en Evaluaiones de las TIC</p>
-                            <a class="btn-solid-lg page-scroll" href="#Wintro">DESCÚBRANOS</a>
-                        </div>
+
                     </div> <!-- end of col -->
                 </div> <!-- end of row -->
             </div> <!-- end of container -->
         </div> <!-- end of header-content -->
     </header> <!-- end of header -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
 
 
-
+    <div id="bienvenido" class="bienvenido">
+        <script>
+            function Bienvenida() {
+                let nombreUsuario = localStorage.getItem("nombreUsuario");
+                let rol = localStorage.getItem("rol");
+                const hItem = document.createElement("h1");
+                const sLink = document.createElement("span");
+                sLink.classList.add("text-container");
+                if (token = localStorage.getItem("token")) {
+                    sLink.textContent = "Bienvenido, " + rol + ". " + nombreUsuario;
+                } else {
+                    sLink.textContent = "";
+                }
+                hItem.appendChild(sLink);
+                return hItem;
+            }
+            // Llamar a la función para obtener el elemento <li> adecuado
+            const hElement = Bienvenida();
+            // Agregar el elemento <li> al contenedor de la lista <ul>
+            const hList = document.querySelector("#bienvenido");
+            hList.appendChild(hElement);
+        </script>
+    </div>
+</div> <!-- end of row -->
+</div> <!-- end of container -->
+</div> 
     <!-- Intro -->
     <div id="intro" class="basic-1">
         <div class="container">
@@ -315,7 +316,7 @@
                     </div> <!-- end of text-container -->
                 </div> <!-- end of col -->
                 <div class="col-lg-6">
-                    <div class="cart-template.full-cart">
+                    <div class="cart-form">
                     <!-- Contact Form -->
                     <form id="registrarCuestionarioForm" data-toggle="validator" data-focus="false">
                         <div class="form-group">
@@ -414,62 +415,6 @@
                                                 <img id="imagenCargada" src="#" alt="Imagen Cargada">
                                             </div>
                                             <div class="mb-3"> 
-                                                <script>
-                                                    
-                                                        const handleAcceptedFiles = (selectedFile) => {
-                                                            const datosfiles = {
-                                                                filename: selectedFile.name,
-                                                                size: selectedFile.size,
-                                                                formattedSize: selectedFile.formattedSize,
-                                                                lastModified: selectedFile.lastModified,
-                                                                type: selectedFile.type,
-                                                                };
-                                                                return datosfiles;
-                                                            
-                                                        };
-                                                         
-                                                    // Obtener referencia al elemento de entrada de imagen
-                                                    const imagenInput = document.getElementById("imagenInput");
-                                                    // Obtener referencia al elemento de imagen donde se mostrará la imagen cargada
-                                                    const imagenCargada = document.getElementById("imagenCargada");
-                                                    // Obtener referencia al botón de subir imagen
-                                                   
-                                                    // Agregar un evento de cambio al input de imagen
-                                                    imagenInput.addEventListener("change", function (event) {
-                                                        const file = event.target.files[0]; // Obtener el archivo seleccionado
-                                                        localStorage.removeItem('image');
-                                                        localStorage.removeItem('imageObject');
-                                                        if (file) {
-                                                                    const datosfiles = handleAcceptedFiles(file)
-                                                                    localStorage.setItem('imageObject',JSON.stringify(datosfiles))
-                                                                    const reader = new FileReader();
-                                                                    reader.readAsArrayBuffer(file);
-                                                                    // Cuando la lectura del archivo termine
-                                                                    reader.onload = function () {
-                                                                    // Convertir el contenido del archivo a una cadena base64
-                                                                    const base64String = btoa(
-                                                                        new Uint8Array(reader.result)
-                                                                        .reduce((data, byte) => data + String.fromCharCode(byte), '')
-                                                                    );
-                                                                    console.log('base64String',base64String);
-                                                                    localStorage.setItem('image',base64String)
-                                                                    };
-                                                                    
-                                                                    
-                                                            // Validar el tipo de archivo
-                                                            if (file.type.startsWith("image/")) {
-                                                                // Crear un objeto URL para la imagen
-                                                                const imageUrl = URL.createObjectURL(file);
-                                                                // Mostrar la imagen en el elemento de imagen
-                                                                imagenCargada.src = imageUrl;
-                                                            } else {
-                                                                alert("Por favor, selecciona un archivo de imagen.");
-                                                            }
-                                                        }
-                                                    });
-
-                                    
-                                                </script>
                                             </div>
                                             <div class="form-group">
                                                 <label for="message-text" class="col-form-label">Agregar

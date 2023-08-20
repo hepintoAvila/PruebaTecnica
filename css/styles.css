@@ -53,7 +53,7 @@ html {
 }
 
 body, p {
-	color: #787976; 
+	color: #113448; 
 	font: 400 1rem/1.5625rem "Open Sans", sans-serif;
 }
 
@@ -344,50 +344,16 @@ strong {
 	}
 }
 
-.cart-template.full-cart {
-	.cart {
-		.table.cart-items {
-			.product-item {
-				td.product-image {
-					position: relative;
-				}
-				td.quantity {
-					width: 100%;
-					float: left;
-					margin: 0 1em 3em 1em;
-					clear: both;
-					.comotegusta {
-						top: 45px;
-					}
-					.swapUnit {
-						top: 45px;
-					}
-				}
-				td.quantity-price {
-					top: inherit;
-					position: relative;
-					float: left;
-					right: inherit;
-					align-items: flex-end;
-					justify-content: flex-end;
-					width: 45%;
-				}
-				td.product-price {
-					.best-price {
-						margin-bottom: 1em;
-					}
-				}
-				td.item-remove {
-					position: relative;
-					right: 0;
-					left: 0;
-					bottom: 0;
-					margin: 0 1.4em 0 0;
-					float: right;
-				}
-			}
-		}
-	}
+.cart-form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 1.5em 2em;
+	z-index: 1;
+	border-bottom: 4px solid transparent;
+	transition: all .2s linear;
+	background: #00afaa 0% 0% no-repeat padding-box;
 }
 .full-cart {
 	.cart {
@@ -398,6 +364,7 @@ strong {
 						float: inherit;
 					}
 					padding-bottom: 0 !important;
+					
 				}
 			}
 		}
@@ -415,7 +382,7 @@ strong {
 	justify-content: center;
 	align-items: center;
 	z-index: 9;
-	background: #FCE7A3 0% 0% no-repeat padding-box;
+	background: #00afaa 0% 0% no-repeat padding-box;
 	color: #333D49;
 	font-size: 10px;
 	&::before{
@@ -426,7 +393,7 @@ strong {
 	  display: block;
 	  width: 15px;
 	  height: 15px;
-	  background-color: #FCE7A3;
+	  background-color: #00afaa;
 	  transform: rotate(-45deg);
 	}
   }
@@ -667,14 +634,17 @@ input[type='checkbox'] {
 .form-control-submit-button {
 	display: inline-block;
 	width: 100%;
-	height: 3.125rem;
-	border: 0.125rem solid #14bf98;
+	border-width: 0px!important;
+    border-radius: 50px;
+    font-size: 18px;
 	border-radius: 0.25rem;
-	background-color: #14bf98;
-	color: #fff;
+	background-image:linear-gradient(100deg,#0080c4 0%,#074f70 100%);
+ 
+	color: #FFFFFF!important;
 	font: 700 0.75rem/1.75rem "Montserrat", sans-serif;
 	cursor: pointer;
 	transition: all 0.2s;
+	
 }
 
 .form-control-submit-button:hover {
@@ -2389,7 +2359,7 @@ a:hover.back-to-top {
 
 	/* Intro */
 	.basic-1 {
-		padding-top: 6.875rem;
+		padding-top: 0.875rem;
 	}
 
 	.basic-1 .text-container {
@@ -2534,7 +2504,7 @@ a:hover.back-to-top {
 
 	/* Contact */
 	.form-2 {
-		padding-top: 6.875rem;
+		padding-top: 0.875rem;
 	}
 
 	.form-2 .text-container {
@@ -2703,7 +2673,14 @@ a:hover.back-to-top {
 	.counter .image-container {
 		margin-right: 1.5rem;
 	}
-
+.bienvenido{
+	width: 100%;
+	margin-right: auto;
+	margin-left: auto;
+	padding-top: 2rem;
+	color: #00afaa!important;
+	text-align: center;
+}
 	.counter .text-container {
 		margin-top: 0.375rem;
 		margin-right: 2.5rem;

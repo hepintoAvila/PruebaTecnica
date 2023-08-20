@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             pregunta: btoa(preguntas),
             idCuestionario: btoa(localStorage.getItem("idCuestionario")),
             nombreUsuario: btoa(localStorage.getItem("nombreUsuario")),
-            correcta: btoa(valorCorrecto[0])
+            correcta: btoa(valorCorrecto.join(','))
         };
         const opcion2 = [objectForm];
 
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 console.error("Error al enviar la solicitud:", error);
             }).finally(() => {
                 setTimeout(function () {
-                    window.location.href = "http://prueba.tecnica.compucel.co";
+                   window.location.href = "http://prueba.tecnica.compucel.co";
                 }, 3000);
             });
 
@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const newInputContainer = document.createElement('div');
         newInputContainer.className = 'input-container';
         newInputContainer.innerHTML = `
-        <input type="radio" class="resp-correcta" name="correcta[]" id="${inputsContainer.childElementCount - 1}" value="${inputsContainer.childElementCount - 1}"><button type="button" class="eliminar-campo">-</button><input type="textarea" class="respuestaInput" name="respuesta[]" placeholder="Respuesta ${inputsContainer.childElementCount - 1}" required></textarea>
+        <input type="checkbox" class="resp-correcta" name="correcta[]" id="${inputsContainer.childElementCount - 1}" value="${inputsContainer.childElementCount - 1}"><button type="button" class="eliminar-campo">-</button><input type="textarea" class="respuestaInput" name="respuesta[]" placeholder="Respuesta ${inputsContainer.childElementCount - 1}" required></textarea>
       
     `;
         inputsContainer.appendChild(newInputContainer);
