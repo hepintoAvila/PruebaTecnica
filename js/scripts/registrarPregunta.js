@@ -12,75 +12,71 @@ function buildQueryString(opcion) {
 
 document.addEventListener("DOMContentLoaded", async () => {
 
-
-
     document.querySelector("#enviarPregunta").addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            const $pregunta = document.querySelector("#pregunta"),
+        e.preventDefault();
+
+        const $pregunta = document.querySelector("#pregunta"),
             preguntas = $pregunta.value;
- 
-            const camposInputs = document.querySelectorAll('input[name="respuesta[]"]');
-            const camposCorrectas = document.querySelectorAll('input[name="correcta[]"]');
-            const valores = [];
-            const valorCorrecto = [];
-            camposInputs.forEach(input => {
-                valores.push(input.value);
-            });
-            camposCorrectas.forEach(input => {
-                if (input.checked) {
-                    valorCorrecto.push(input.value);
-                }
 
-            });
-            if (!valorCorrecto[0]) {
-                return alert("Por favor, seleccione la respuesta correcta");
-            }
-            if (!preguntas) {
-                return alert("Por favor, Digite la pregunta");
-            }
-            const opcion = [valores];
-            const queryString1 = JSON.stringify(opcion);
-            const objectForm = {
-                pregunta: btoa(preguntas),
-                idCuestionario: btoa(localStorage.getItem("idCuestionario")),
-                nombreUsuario: btoa(localStorage.getItem("nombreUsuario")),
-                correcta: btoa(valorCorrecto[0])
-            };
-            const opcion2 = [objectForm];
-
-            const queryString2 = buildQueryString(opcion2);
-            const imageObjets = [JSON.parse(localStorage.getItem("imageObject"))];
-            const imageObjet = buildQueryString(imageObjets);
-            const base64String = localStorage.getItem('image');
-            console.log('base64String-image',base64String);
-            const url = `https://api.compucel.co/v4/?accion=registrarPregunta&models=${queryString1}&${queryString2}&${imageObjet}`;
-            fetch(url, {
-                method: "POST",
-                body: JSON.stringify(base64String),
-                headers: {
-                    'enctype': 'multipart/form-data',
-                },
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    
-                        localStorage.removeItem('image');
-                        localStorage.removeItem('imageObject');
-                        Swal.fire("" + data.data[0].message + "");
-                    
-                    
-                })
-                .catch((error) => {
-                    console.error("Error al enviar la solicitud:", error);
-                }).finally(() => {
-                    setTimeout(function () {
-                    window.location.href = "http://prueba.tecnica.compucel.co";
-                    }, 3000);
-                });
-                 
+        const camposInputs = document.querySelectorAll('input[name="respuesta[]"]');
+        const camposCorrectas = document.querySelectorAll('input[name="correcta[]"]');
+        const valores = [];
+        const valorCorrecto = [];
+        camposInputs.forEach(input => {
+            valores.push(input.value);
         });
+        camposCorrectas.forEach(input => {
+            if (input.checked) {
+                valorCorrecto.push(input.value);
+            }
 
+        });
+        if (!valorCorrecto[0]) {
+            return alert("Por favor, seleccione la respuesta correcta");
+        }
+        if (!preguntas) {
+            return alert("Por favor, Digite la pregunta");
+        }
+        const opcion = [valores];
+        const queryString1 = JSON.stringify(opcion);
+        const objectForm = {
+            pregunta: btoa(preguntas),
+            idCuestionario: btoa(localStorage.getItem("idCuestionario")),
+            nombreUsuario: btoa(localStorage.getItem("nombreUsuario")),
+            correcta: btoa(valorCorrecto[0])
+        };
+        const opcion2 = [objectForm];
+
+        const queryString2 = buildQueryString(opcion2);
+        const imageObjets = [JSON.parse(localStorage.getItem("imageObject"))];
+        const imageObjet = buildQueryString(imageObjets);
+        const base64String = localStorage.getItem('image');
+        const url = `https://api.compucel.co/v4/?accion=registrarPregunta&models=${queryString1}&${queryString2}&${imageObjet}`;
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify(base64String),
+            headers: {
+                'enctype': 'multipart/form-data',
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+
+                localStorage.removeItem('image');
+                localStorage.removeItem('imageObject');
+                Swal.fire("" + data.data[0].message + "");
+
+
+            })
+            .catch((error) => {
+                console.error("Error al enviar la solicitud:", error);
+            }).finally(() => {
+                setTimeout(function () {
+                    window.location.href = "http://prueba.tecnica.compucel.co";
+                }, 3000);
+            });
+
+    });
 
     const agregarCampoBtn = document.querySelector('#agregarCampo');
     const inputsContainer = document.querySelector('#inputsContainer');
@@ -100,140 +96,5 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
         });
     });
-
-    function generarTablaCuestionario(datos) {
-        const tabla = document.createElement('table');
-        tabla.classList.add('tabla-cuestionarios');
-
-        // Crear encabezado de la tabla
-        const encabezado = tabla.createTHead();
-        const encabezadoFila = encabezado.insertRow();
-        for (const propiedad in datos[0]) {
-            const th = document.createElement('th');
-            th.textContent = propiedad;
-            encabezadoFila.appendChild(th);
-        }
-        encabezadoFila.appendChild(document.createElement('th')); // Columna vacía para los botones
-
-        // Crear filas de la tabla
-        const cuerpo = tabla.createTBody();
-        datos.forEach((cuestionario) => {
-            const fila = cuerpo.insertRow();
-            for (const propiedad in cuestionario) {
-                const celda = fila.insertCell();
-                celda.textContent = cuestionario[propiedad];
-            }
-
-            // Agregar botón de eliminar,agregar preguntas
-            const celdaBoton = fila.insertCell();
-            const botonEliminar = document.createElement('button');
-            botonEliminar.classList.add("list-btn");
-            botonEliminar.textContent = 'Eliminar';
-            botonEliminar.addEventListener('click', () => {
-                Swal.fire({
-                    title: 'ELIMINAR ENCUESTA',
-                    text: "Esta seguro que desea eliminar el registro?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Si'
-                  }).then((result) => {
-                    if (result.isConfirmed) {
-                        eliminarCuestionario(cuestionario.id);
-                    }
-                  })
-                
-            });
-            const celdaBotonModal = fila.insertCell();
-            const botonModal = document.createElement('button');
-            botonModal.textContent = 'Preguntas';
-            botonModal.classList.add("list-btn");
-            botonModal.addEventListener('click', (event) => {
-
-                abrirModal(cuestionario.id);
-            });
-            const celdaBotonVista = fila.insertCell();
-            const botonVista = document.createElement('button');
-            const navLinks = document.createElement("a");
-            navLinks.setAttribute("href", `http://prueba.tecnica.compucel.co/cuestionario.html?id=${cuestionario.id}`);
-            botonVista.appendChild(navLinks);
-            botonVista.textContent = 'Detalles';
-            botonVista.classList.add("list-btn");
-            botonVista.addEventListener('click', () => {
-
-                window.location.href = `http://prueba.tecnica.compucel.co/cuestionario.html?id=${cuestionario.id}`;
-            });
-            celdaBotonModal.appendChild(botonModal);
-            celdaBoton.appendChild(botonEliminar);
-            celdaBotonVista.appendChild(botonVista);
-        });
-
-        return tabla;
-    }
-
-    function abrirModal(id) {
-        localStorage.removeItem("idCuestionario");
-        localStorage.setItem("idCuestionario", id);
-        $('#exampleModal').modal('show')
-    }
-
-    function eliminarCuestionario(id) {
-
-        const url = `https://api.compucel.co/v4/?accion=eliminarCuestionario&id=${id}&usuario=${btoa(localStorage.getItem("nombreUsuario"))}`;
-        fetch(url, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
-            .then((response) => response.json())
-            .then((data) => {
-
-                Swal.fire("" + data.data[0].message + "");
-                if (data.data[0].status === '202') {
-                    localStorage.removeItem("Cuestionarios");
-                    localStorage.setItem("Cuestionarios", data.data.Cuestionarios);
-                }
-            })
-            .catch((error) => {
-                console.error("Error al enviar la solicitud:", error);
-            });
-
-    }
-    function consultarAllCuestionarios(callback) {
-
-        const url = `https://api.compucel.co/v4/?accion=consultaAllCuestionario&usuario=${btoa(localStorage.getItem("nombreUsuario"))}`;
-        fetch(url, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
-            .then((response) => response.json())
-            .then((data) => {
-
-                localStorage.removeItem("Cuestionarios");
-                localStorage.setItem("Cuestionarios", JSON.stringify(data.data.Cuestionarios));
-                callback();
-
-            })
-            .catch((error) => {
-                console.error("Error al enviar la solicitud:", error);
-            });
-
-    }
-    if (localStorage.getItem("rol")) {
-        consultarAllCuestionarios(() => {
-            let datos = localStorage.getItem("Cuestionarios");
-            let Cuestionarios = JSON.parse(datos);
-            // Generar la tabla y agregarla al contenedor
-            if (Array.isArray(Cuestionarios)) {
-                const contenedorTabla = document.querySelector('#contenedor-tabla');
-                const tablaGenerada = generarTablaCuestionario(Cuestionarios);
-                contenedorTabla.appendChild(tablaGenerada);
-            }
-        });
-    }
 
 });

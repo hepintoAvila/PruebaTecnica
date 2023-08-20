@@ -216,8 +216,17 @@ strong {
     margin-bottom: 1rem;
     padding: 0.8rem;
     margin-left: 0rem;
+	&::-webkit-outer-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+	&::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
 }
-.list-btn{
+ 
+.list-btn {
 	display: inline-block;
 	padding: 1.1875rem 1.875rem 1.1875rem 1.875rem;
 	border: 0.125rem solid #14bf98;
@@ -228,12 +237,200 @@ strong {
 	text-decoration: none;
 	transition: all 0.2s;
 }
-.list-btn:hover {
-	background-color: transparent;
-	color: #14bf98;
+.list-presentar {
+	display: inline-block;
+	padding: 1.1875rem 1.875rem 1.1875rem 1.875rem;
+	border: 0.125rem solid #14bf98;
+	border-radius: 0.25rem;
+	background-color: #14bf98;
+	color: #1b1b1b;
+	font: 700 0.75rem/0 "Montserrat", sans-serif;
 	text-decoration: none;
-	cursor:pointer;
+	transition: all 0.2s;
+	&:before {
+		content: url(https://prueba.tecnica.compucel.co/images/presentar.svg);
+		font-size: 16px;
+		color: #f9f9fa;
+		margin-left: -1rem;
+		white-space: pre-line;
+		width: 4px;
+		height: 4px;
+	}
 }
+.list-eliminar{
+	display: inline-block;
+	border: 0.125rem solid transparent !important;
+	transition: all 0.2s;
+	font-size: 0;
+	&:before {
+		content: url(https://prueba.tecnica.compucel.co/images/icon-trash.svg);
+	}
+}
+.list-eliminar:hover {
+	cursor:pointer;
+	&:before {
+		content: 'ELIMINAR EVALUACIÓN';
+		color: #737375;
+		font-size: 12px;
+		line-height: 26px;
+	}
+}
+.list-preguntas{
+	display: inline-block;
+	border: 0.125rem solid transparent !important;
+	transition: all 0.2s;
+	font-size: 0;
+	&:before {
+		content: url(https://prueba.tecnica.compucel.co/images/preguntas-config.svg);
+		font-size: 16px;
+		margin-right: -1rem;
+		white-space: pre-line;
+	}
+}
+.list-preguntas:hover {
+	cursor:pointer;
+	&:before {
+		content: 'REGISTRAR PREGUNTAS Y RSPUESTAS';
+		color: #737375;
+		font-size: 12px;
+		line-height: 26px;
+	}
+}
+
+.list-detalles{
+	display: inline-block;
+	border: 0.125rem solid transparent !important;
+	transition: all 0.2s;
+	font-size: 0;
+	&:before {
+		content: url(https://prueba.tecnica.compucel.co/images/detalles.svg);
+		font-size: 16px;
+		margin-left: 0.5rem;
+		margin-right: 0.9rem;
+		white-space: pre-line;
+	}
+}
+.list-detalles:hover {
+	cursor:pointer;
+	&:before {
+		content: 'VER DETALLES DE LA EVALUACIÓN';
+		color: #737375;
+		font-size: 12px;
+		line-height: 26px;
+		margin-left: 0.9rem;
+		margin-right: 0.5rem;
+	}
+}
+
+.list-pendientes{
+	display: inline-block;
+	border: 0.125rem solid transparent !important;
+	transition: all 0.2s;
+	font-size: 0;
+	&:before {
+		content: url(https://prueba.tecnica.compucel.co/images/pendientes.svg);
+		font-size: 16px;
+		margin-right: 2rem;
+		white-space: pre-line;
+	}
+}
+.list-pendientes:hover {
+	cursor:pointer;
+	&:before {
+		content: 'PRESENTAR';
+		color: #737375;
+		font-size: 12px;
+		line-height: 26px;
+	}
+}
+
+.cart-template.full-cart {
+	.cart {
+		.table.cart-items {
+			.product-item {
+				td.product-image {
+					position: relative;
+				}
+				td.quantity {
+					width: 100%;
+					float: left;
+					margin: 0 1em 3em 1em;
+					clear: both;
+					.comotegusta {
+						top: 45px;
+					}
+					.swapUnit {
+						top: 45px;
+					}
+				}
+				td.quantity-price {
+					top: inherit;
+					position: relative;
+					float: left;
+					right: inherit;
+					align-items: flex-end;
+					justify-content: flex-end;
+					width: 45%;
+				}
+				td.product-price {
+					.best-price {
+						margin-bottom: 1em;
+					}
+				}
+				td.item-remove {
+					position: relative;
+					right: 0;
+					left: 0;
+					bottom: 0;
+					margin: 0 1.4em 0 0;
+					float: right;
+				}
+			}
+		}
+	}
+}
+.full-cart {
+	.cart {
+		table {
+			tbody {
+				tr {
+					td.product-price {
+						float: inherit;
+					}
+					padding-bottom: 0 !important;
+				}
+			}
+		}
+	}
+}
+
+.card-inferior{
+	position: relative;
+	float: left;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 26px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 9;
+	background: #FCE7A3 0% 0% no-repeat padding-box;
+	color: #333D49;
+	font-size: 10px;
+	&::before{
+	  content: "";
+	  position: absolute;
+	  left: 50px;
+	  top: -8px;
+	  display: block;
+	  width: 15px;
+	  height: 15px;
+	  background-color: #FCE7A3;
+	  transform: rotate(-45deg);
+	}
+  }
+ 
 .contador {
     display: table-cell;
 	margin: 1.5%;

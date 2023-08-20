@@ -1,6 +1,4 @@
 
-
-
 function obtenerNumeroDeID() {
     const urlParams = new URLSearchParams(window.location.search);
     const idParam = urlParams.get('id');
@@ -15,45 +13,11 @@ function obtenerNumeroDeID() {
     return null;
 }
 
-function consultaCuestionario(id, callback) {
-
-    if(Number(id)>0){
-    const url = `https://api.compucel.co/v4/?accion=consultaCuestionario&id=${id}`;
-    fetch(url, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    })
-        .then((response) => response.json())
-        .then((data) => {
-            localStorage.removeItem("CuestionariosById");
-            localStorage.removeItem("datosBasicosCuestionario");
-            localStorage.removeItem("Cuestionarios");
-            localStorage.setItem("CuestionariosById", JSON.stringify(data.data.Preguntas));
-            localStorage.setItem("datosBasicosCuestionario", JSON.stringify(data.data.Cuestionario));
-            localStorage.setItem("timer", data.data.Cuestionario.tiempoPrueba);
-            callback();
-        })
-        .catch((error) => {
-            console.error("Error al enviar la solicitud:", error);
-        });
-    }   
-}
-
-
 function loadQuestions(callback) {
-
     // Load questions dynamically
-
     const quizForm = document.querySelector('#quiz-form');
-
     const numeroID = obtenerNumeroDeID();
-    console.log('numeroID', numeroID);
-    if (Number(numeroID) > 0) {
-
-
-        consultaCuestionario(numeroID, () => {
+     if (Number(numeroID) > 0) {
             // Questions and options - You can load these from a JSON file as well
             let CuestionariosById = localStorage.getItem("CuestionariosById");
             let rol = localStorage.getItem("rol");
@@ -84,11 +48,11 @@ function loadQuestions(callback) {
           `;
                 quizForm.appendChild(questionElement);
             }
-            callback()
-        });
 
+        }
+        callback();
     }
-}
+
 function datosBasicosTitulo() {
     let datosBasicos = localStorage.getItem("datosBasicosCuestionario");
     const basicos = JSON.parse(datosBasicos);
@@ -118,4 +82,5 @@ function datosBasicosTiempoPrueba(datosBasicos) {
     h1s.appendChild(spans);
     return h1s;
 }
+
  

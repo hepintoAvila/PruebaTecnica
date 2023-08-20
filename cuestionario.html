@@ -119,14 +119,11 @@
         </div> <!-- end of container -->
     </div> <!-- end of ex-basic-1 -->
     <!-- end of breadcrumbs -->
-
-
     <!-- Terms Content -->
     <div class="ex-basic-2">
         <div class="container">
             <div class="row">
- 
-                <div class="col-lg-12">
+                 <div class="col-lg-12">
                        <p class="text-container" id="descripcion"></p>
                        <script>
                         //SE TOMA EL TIEMPO DEL localStore en caso de rest la página
@@ -135,9 +132,7 @@
                         const basicos = JSON.parse(datosBasicos);
                         const tiempoLimiteEnSegundos = Number(basicos.tiempoPrueba * 60); // 5 minutos en segundos
                         
-  
                         let tiempoRestante = tiempoLimiteEnSegundos;
-                       
                         if (timerLocal) {
                             tiempoRestante = timerLocal;
                         }
@@ -146,7 +141,6 @@
                             const segundos = tiempoRestante % 60;
                             document.querySelector('#contador').textContent = `${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
                         }
-
                         function decrementarTiempo() {
                             if (tiempoRestante > 0) {
                                 tiempoRestante--;
@@ -160,13 +154,11 @@
                                     window.location.href = `http://prueba.tecnica.compucel.co/resultados.html?id=${numeroID}`;
                             }
                         }
-
                         const temporizador = setInterval(decrementarTiempo, 1000);
                         updateContador();
 
                     </script>
                     <div class="quiz-container">
-                           
                                 <div class="col-lg-12">
                                     <form id="quiz-form">
                                         <script>
@@ -178,10 +170,6 @@
                                                 let descripcion = datosBasicosDescripcion();
                                                 const descripcionCuestionario = document.querySelector("#descripcion");
                                                 descripcionCuestionario.appendChild(descripcion);
-
-                                                let calificaciones = datosPuntuacion();
-                                                const datosPuntuaciones = document.querySelector("#datosPuntuaciones");
-                                                datosPuntuaciones.appendChild(calificaciones);
 
                                                 let tiempo = datosBasicosTiempoPrueba(localStorage.getItem("datosBasicosCuestionario"));
                                                 const tiempoPruebaCuestionario = document.querySelector("#tiempoPrueba");
@@ -217,7 +205,6 @@
     </div> <!-- end of ex-basic -->
     <!-- end of terms content -->
 </div> <!-- end of ex-basic -->
-
     <!-- Breadcrumbs -->
     <div class="ex-basic-1">
         <div class="container">
@@ -232,7 +219,6 @@
         </div> <!-- end of container -->
     </div> <!-- end of ex-basic-1 -->
     <!-- end of breadcrumbs -->
-
     <!-- Scripts -->
     <script src="js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
     <script src="js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
@@ -244,7 +230,6 @@
     <script src="js/isotope.pkgd.min.js"></script> <!-- Isotope for filter -->
     <script src="js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
     <script src="js/scripts.js"></script> <!-- Custom scripts -->
-
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 

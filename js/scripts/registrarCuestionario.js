@@ -1,14 +1,15 @@
 
-  function buildQueryString(opcion) {
-    let datos = opcion;
-    let queryString = datos[0]
+function buildQueryString(opcion) {
+  let datos = opcion;
+  let queryString = datos[0]
       ? Object.keys(datos[0])
           .map((key) => `${key}=${datos[0][key]}`)
           .join("&")
       : "";
-  
-    return queryString;
-  }
+
+  return queryString;
+}
+
   
   document.addEventListener("DOMContentLoaded", async () => {
 
