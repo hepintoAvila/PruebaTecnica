@@ -167,10 +167,10 @@ function generarTablaCuestionario(datos) {
         });
         /*FIN*/
 
-        celdaBotonModalPregunta.appendChild(botonModalPregunta).join('');
-        celdaBotonModalHorarios.appendChild(botonModalHorarios).join('');
-        celdaBotonVista.appendChild(botonVista).join('');
-        celdaBotonEliminar.appendChild(botonEliminar).join('');
+        celdaBotonModalPregunta.appendChild(botonModalPregunta);
+        celdaBotonModalHorarios.appendChild(botonModalHorarios);
+        celdaBotonVista.appendChild(botonVista);
+        celdaBotonEliminar.appendChild(botonEliminar);
     });
 
     return tabla;

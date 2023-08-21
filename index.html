@@ -46,6 +46,11 @@
     <script src="js/scripts/registrarCuestionario.js"></script> <!-- Custom scripts -->
     <script src="js/scripts/updateCuestionario.js"></script> <!-- Custom scripts -->
     <script src="js/scripts/imagenCargada.js"></script> <!-- Custom scripts -->
+    <script src="js/scripts/opcionesRespuestas/opcionesDesplegables.js"></script> <!-- Custom scripts -->
+    <script src="js/scripts/opcionesRespuestas/opcionesLikert.js"></script> <!-- Custom scripts -->
+    <script src="js/scripts/opcionesRespuestas/opcionesMatriz.js"></script> <!-- Custom scripts -->
+    <script src="js/scripts/opcionesRespuestas/opcionesPromoter.js"></script> <!-- Custom scripts -->
+    <script src="js/scripts/opcionesRespuestas/opcionesRango.js"></script> <!-- Custom scripts -->
     <!-- Favicon  -->
     <link rel="icon" href="images/favicon.png">
 </head>
@@ -115,32 +120,33 @@
             <div class="col-lg-12">
 
 
-    <div id="bienvenido" class="bienvenido">
-        <script>
-            function Bienvenida() {
-                let nombreUsuario = localStorage.getItem("nombreUsuario");
-                let rol = localStorage.getItem("rol");
-                const hItem = document.createElement("h1");
-                const sLink = document.createElement("span");
-                sLink.classList.add("text-container");
-                if (token = localStorage.getItem("token")) {
-                    sLink.textContent = "Bienvenido, " + rol + ". " + nombreUsuario;
-                } else {
-                    sLink.textContent = "";
-                }
-                hItem.appendChild(sLink);
-                return hItem;
-            }
-            // Llamar a la función para obtener el elemento <li> adecuado
-            const hElement = Bienvenida();
-            // Agregar el elemento <li> al contenedor de la lista <ul>
-            const hList = document.querySelector("#bienvenido");
-            hList.appendChild(hElement);
-        </script>
+                <div id="bienvenido" class="bienvenido">
+
+                    <script>
+                        function Bienvenida() {
+                            let nombreUsuario = localStorage.getItem("nombreUsuario");
+                            let rol = localStorage.getItem("rol");
+                            const hItem = document.createElement("h1");
+                            const sLink = document.createElement("span");
+                            sLink.classList.add("text-container");
+                            if (token = localStorage.getItem("token")) {
+                                sLink.textContent = "Bienvenido, " + rol + ". " + nombreUsuario;
+                            } else {
+                                sLink.textContent = "";
+                            }
+                            hItem.appendChild(sLink);
+                            return hItem;
+                        }
+                        // Llamar a la función para obtener el elemento <li> adecuado
+                        const hElement = Bienvenida();
+                        // Agregar el elemento <li> al contenedor de la lista <ul>
+                        const hList = document.querySelector("#bienvenido");
+                        hList.appendChild(hElement);
+                    </script>
+                </div>
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
     </div>
-</div> <!-- end of row -->
-</div> <!-- end of container -->
-</div> 
     <!-- Intro -->
     <div id="intro" class="basic-1">
         <div class="container">
@@ -187,7 +193,7 @@
                 </div> <!-- end of row -->
                 <div class="cart-template.full-cart"></div>
                 <div class="card-inferior"></div>
-                
+
             </div> <!-- end of container -->
         </div> <!-- end of form-1 -->
         <!-- end of call me -->
@@ -241,7 +247,7 @@
     <!-- Call Me -->
     <div id="registrarse" class="basic-1">
         <script>
-        if (localStorage.getItem("rol")) {
+            if (localStorage.getItem("rol")) {
                 const registrarseDiv = document.querySelector('#registrarse');
                 registrarseDiv.style.display = registrarseDiv.style.display === 'none' ? 'block' : 'none';
             }
@@ -318,62 +324,62 @@
                 </div> <!-- end of col -->
                 <div class="col-lg-6">
                     <div class="cart-form">
-                    <!-- Contact Form -->
-                    <form id="registrarCuestionarioForm" data-toggle="validator" data-focus="false">
-                        <div class="form-group">
-                            <input type="text" class="form-control-input" id="Titulo" required>
-                            <label class="label-control" for="cname">Titulo</label>
-                            <div class="help-block with-errors"></div>
-                        </div>
-                        <div class="form-group">
-                            <p>Fecha Inicial de la evaluación </p>
-                            <input type="datetime-local" class="form-control-input" id="fechaInicio" required
-                                value="2023-08-01T19:30">
+                        <!-- Contact Form -->
+                        <form id="registrarCuestionarioForm" data-toggle="validator" data-focus="false">
+                            <div class="form-group">
+                                <input type="text" class="form-control-input" id="Titulo" required>
+                                <label class="label-control" for="cname">Titulo</label>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                            <div class="form-group">
+                                <p>Fecha Inicial de la evaluación </p>
+                                <input type="datetime-local" class="form-control-input" id="fechaInicio" required
+                                    value="2023-08-01T19:30">
 
-                            <div class="help-block with-errors"></div>
-                        </div>
-                        <div class="form-group">
-                            <p>Fecha Final de la evaluación </p>
-                            <input type="datetime-local" class="form-control-input" id="fechaFinal" required
-                                value="2023-08-01T19:30">
+                                <div class="help-block with-errors"></div>
+                            </div>
+                            <div class="form-group">
+                                <p>Fecha Final de la evaluación </p>
+                                <input type="datetime-local" class="form-control-input" id="fechaFinal" required
+                                    value="2023-08-01T19:30">
 
-                            <div class="help-block with-errors"></div>
-                        </div>
+                                <div class="help-block with-errors"></div>
+                            </div>
 
-                        <div class="form-group">
-                            <input type="range" id="tiempoPrueba" name="tiempoPrueba" min="0" max="90" value="15"
-                                step="1" />
-                            <p>Tiempo de la Evaluación en Minutos : <output id="value"></output></p>
-                            <div class="help-block with-errors"></div>
+                            <div class="form-group">
+                                <input type="range" id="tiempoPrueba" name="tiempoPrueba" min="0" max="90" value="15"
+                                    step="1" />
+                                <p>Tiempo de la Evaluación en Minutos : <output id="value"></output></p>
+                                <div class="help-block with-errors"></div>
 
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control-input" id="Tema" name="Tema" required>
-                            <label class="label-control" for="cname">Tema o Nivele de Dificultad</label>
-                            <div class="help-block with-errors"></div>
-                        </div>
-                        <script>
-                            const value = document.querySelector("#value");
-                            const input = document.querySelector("#tiempoPrueba");
-                            value.textContent = input.value;
-                            input.addEventListener("input", (event) => {
-                                value.textContent = event.target.value;
-                            });
-                        </script>
-                        <div class="form-group">
-                            <textarea class="form-control-textarea" id="Descripcion" required></textarea>
-                            <label class="label-control" for="cmessage">Descripción</label>
-                            <div class="help-block with-errors"></div>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" id="btnRegistrarCuestionario"
-                                class="form-control-submit-button">REGISTRAR</button>
-                        </div>
-                        <div class="form-message">
-                            <div id="cmsgSubmit" class="h3 text-center hidden"></div>
-                        </div>
-                    </form>
-                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control-input" id="Tema" name="Tema" required>
+                                <label class="label-control" for="cname">Tema o Nivele de Dificultad</label>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                            <script>
+                                const value = document.querySelector("#value");
+                                const input = document.querySelector("#tiempoPrueba");
+                                value.textContent = input.value;
+                                input.addEventListener("input", (event) => {
+                                    value.textContent = event.target.value;
+                                });
+                            </script>
+                            <div class="form-group">
+                                <textarea class="form-control-textarea" id="Descripcion" required></textarea>
+                                <label class="label-control" for="cmessage">Descripción</label>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" id="btnRegistrarCuestionario"
+                                    class="form-control-submit-button">REGISTRAR</button>
+                            </div>
+                            <div class="form-message">
+                                <div id="cmsgSubmit" class="h3 text-center hidden"></div>
+                            </div>
+                        </form>
+                    </div>
                     <!-- end of contact form -->
 
                 </div> <!-- end of col -->
@@ -381,115 +387,210 @@
 
         </div> <!-- end of container -->
         <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="text-container">
-                            <div class="section-title">LISTA DE EVALUACIONES</div>
-                            <h2 class="black">En esta lista, podrás encontrar todas las evaluaciones registradas bajo tu
-                                usuario.</h2>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-container">
+                        <div class="section-title">LISTA DE EVALUACIONES</div>
+                        <h2 class="black">En esta lista, podrás encontrar todas las evaluaciones registradas bajo tu
+                            usuario.</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="contenidoExterno" id="contenidoExterno"></div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12"><div class="contenidoExterno" id="contenidoExterno"></div></div>
+                    </div>
+                    <table id="contenedor-tabla" class="table table-striped">
+                    </table>
+                    <!-- Modal of modalCrearPreguntas-->
+                    <div class="modal fade" id="modalCrearPreguntas" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalCrearPreguntasLabel">Crear Pregunta</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div id="inputsContainer">
+                                            <div class="mb-3">
+                                                <label for="message-text" class="col-form-label">Pregunta:</label>
+                                                <textarea class="form-control" id="pregunta"></textarea>
+                                            </div>
+                                            <div class="mb-3">
+                                                <input type="file" id="imagenInput" class="form-imagenInput">
+                                                <img id="imagenCargada" src="#" alt="Imagen Cargada">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="message-text" class="col-form-label">Tipo de Respuestas</label>
+                                            <div class="form-group">
+                                                <select class="form-select" id="tipoRespuestas"
+                                                    aria-label="Default select">
+                                                    <option selected>Seleccione el tipo de respuesta</option>
+                                                    <option value="1">Escala de Selección múltiple</option>
+                                                    <option value="2">Escala de Likert</option>
+                                                    <option value="3">Escala de Respuestas Dropdown</option>
+                                                    <option value="4">Escala de Tipo matriz</option>
+                                                    <option value="5">Escala de Orden de rangos</option>
+                                                    <option value="6">Escala de Net Promoter Score</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="formularios">
+                                            <div class="formulario formulario-1" id="inputsContainerRespuestas">
+                                                <label for="message-text" class="col-form-label">Agregar Respuestas para  Selección  múltiple</label>
+                                                <div class="form-group">
+                                                    <div class="form-group">
+                                                        <button type="button" id="agregarCampo"
+                                                            class="agregar-campo">+</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class=" formulario formulario-2" id="inputsContainerLikert">
+                                                <label for="message-text" class="col-form-label">Agregar Respuestas para
+                                                    Likert </label>
+                                                <div class="form-group">
+                                                    <div class="form-group">
+                                                        <button type="button" id="agregarCampoLikert"
+                                                            name="agregarCampoLikert" class="agregar-likert">+</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class=" formulario formulario-3" id="inputsContainerDesplegable">
+                                                <label for="message-text" class="col-form-label">Agregar Respuestas para
+                                                    Desplegable </label>
+                                                <div class="form-group">
+                                                    <div class="form-group">
+                                                        <button type="button" id="agregarCampoDesplegable"
+                                                            name="agregarCampoDesplegable"
+                                                            class="agregar-desplegable">+</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class=" formulario formulario-4" id="inputsContainerMatriz">
+                                                <label for="message-text" class="col-form-label">Agregar Respuestas para
+                                                    Matrizx </label>
+                                                <div class="form-group">
+                                                    <div class="form-group">
+                                                        <button type="button" id="agregarCampoMatriz"
+                                                            name="agregarCampoMatriz" class="agregar-matrix">+</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class=" formulario formulario-5" id="inputsContainerRangos">
+                                                <label for="message-text" class="col-form-label">Agregar Respuestas para
+                                                    Orden de Rango </label>
+                                                <div class="form-group">
+                                                    <div class="form-group">
+                                                        <button type="button" id="agregarCampoRango"
+                                                            name="agregarCampoRango" class="agregar-rango">+</button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class=" formulario formulario-6" id="inputsContainerPromoter">
+                                                <label for="message-text" class="col-form-label">Agregar Respuestas para
+                                                    Orden de Rango Promoter </label>
+                                                <div class="form-group">
+                                                    <div class="form-group">
+                                                        <button type="button" id="agregarCampoPromoter"
+                                                            name="agregarCampoPromoter"
+                                                            class="agregar-promoter">+</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <script>
+                                                const tipoRespuestas = document.getElementById('tipoRespuestas');
+                                                const formularios = document.querySelectorAll('.formulario');
+                                                // Ocultar todos los formularios
+                                                formularios.forEach(formulario => {
+                                                    formulario.style.display = 'none';
+                                                });
+
+                                                tipoRespuestas.addEventListener('change', function () {
+                                                    const opcionSeleccionada = parseInt(this.value);
+
+                                                    // Ocultar todos los formularios
+                                                    formularios.forEach(formulario => {
+                                                        formulario.style.display = 'none';
+                                                    });
+
+                                                    // Mostrar el formulario correspondiente a la opción seleccionada
+                                                    if (opcionSeleccionada > 0 && opcionSeleccionada <= formularios.length) {
+                                                        formularios[opcionSeleccionada - 1].style.display = 'block';
+                                                    }
+                                                });
+                                            </script>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" id="enviarPregunta" class="btn btn-primary">Enviar</button>
+                                </div>
+
+                            </div>
+
                         </div>
-                        <table id="contenedor-tabla" class="table table-striped">
-                        </table>
-                        <!-- Modal of modalCrearPreguntas-->
-                        <div class="modal fade" id="modalCrearPreguntas" tabindex="-1" role="dialog"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    </div><!-- end of modalCrearPreguntas-->
+                </div>
+            </div>
+        </div>
+        <div class="card-inferior"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-container">
+                        <!-- Modal of ModalHorarioLabe-->
+                        <div class="modal fade" id="modalHorario" tabindex="-1" role="dialog"
+                            aria-labelledby="modalHorarioLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="modalCrearPreguntasLabel">Crear Pregunta</h5>
+                                        <h5 class="modal-title" id="modalHorarioLabel">Actualizar horarios</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
                                         <form>
-                                            <div id="inputsContainer">
-                                                <div class="mb-3"> 
-                                            
-                                                    
-                                                    <label for="message-text" class="col-form-label">Pregunta:</label>
-                                                    <textarea class="form-control" id="pregunta"></textarea>
-                                                
-                                                </div>
-                                                <div class="mb-3"> 
-                                            
-                                                <input type="file" id="imagenInput"  class="form-imagenInput">
-                                                    <img id="imagenCargada" src="#" alt="Imagen Cargada">
-                                                </div>
-                                                <div class="mb-3"> 
-                                                </div>
+                                            <div id="fechasContainer">
                                                 <div class="form-group">
-                                                    <label for="message-text" class="col-form-label">Agregar
-                                                        Respuestas</label>
-                                                    <div class="form-group">
-                                                        <button
-                                                            type="button" id="agregarCampo" class="agregar-campo">+</button>
-                                                    </div>
+                                                    <p>Fecha Final de la evaluación </p>
+                                                    <input type="datetime-local" class="form-control-input"
+                                                        id="updateFecha" required value="2023-08-01T19:30">
+
+                                                    <div class="help-block with-errors"></div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <p>Tiempo en minutos:</p>
+                                                    <input type="number" id="updateTiempo" name="updateTiempo" min="0"
+                                                        max="90" value="15" step="1" />
+                                                    <div class="help-block with-errors"></div>
+
                                                 </div>
                                         </form>
                                     </div>
+
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" id="enviarPregunta" class="btn btn-primary">Enviar</button>
+                                    <button type="button" id="btnActualizaCuestionario"
+                                        class="btn btn-primary">Actualizar</button>
                                 </div>
                             </div>
-                        </div><!-- end of modalCrearPreguntas-->
+                        </div><!-- end of ModalHorarioLabe-->
                     </div>
                 </div>
             </div>
-            <div class="card-inferior"></div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="text-container">
-                                    <!-- Modal of ModalHorarioLabe-->
-                                    <div class="modal fade" id="modalHorario" tabindex="-1" role="dialog"aria-labelledby="modalHorarioLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="modalHorarioLabel">Actualizar horarios</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form>
-                                                        <div id="fechasContainer">
-                                                            <div class="form-group">
-                                                                <p>Fecha Final de la evaluación </p>
-                                                                <input type="datetime-local" class="form-control-input" id="updateFecha" required
-                                                                    value="2023-08-01T19:30">
-                                    
-                                                                <div class="help-block with-errors"></div>
-                                                            </div>
-                                    
-                                                            <div class="form-group">
-                                                                <p>Tiempo en minutos:</p>
-                                                                <input type="number" id="updateTiempo" name="updateTiempo" min="0" max="90" value="15"
-                                                                    step="1" />
-                                                                <div class="help-block with-errors"></div>
-                                    
-                                                            </div>
-                                                    </form>
-                                                </div>
-                       
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="button" id="btnActualizaCuestionario" class="btn btn-primary">Actualizar</button>
-                                            </div>
-                                        </div>
-                                    </div><!-- end of ModalHorarioLabe--> 
-                        </div>
-                    </div>
-                </div>
-            </div>       
+        </div>
     </div>
-</div> <!-- end of registrarCustionario-->
+    </div> <!-- end of registrarCustionario-->
 
     <!-- Scripts -->
 

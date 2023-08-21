@@ -79,22 +79,24 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     const agregarCampoBtn = document.querySelector('#agregarCampo');
-    const inputsContainer = document.querySelector('#inputsContainer');
+    const inputsContainer = document.querySelector('#inputsContainerRespuestas');
     agregarCampoBtn.addEventListener('click', () => {
         const newInputContainer = document.createElement('div');
         newInputContainer.className = 'input-container';
         newInputContainer.innerHTML = `
-        <input type="checkbox" class="resp-correcta" name="correcta[]" id="${inputsContainer.childElementCount - 1}" value="${inputsContainer.childElementCount - 1}"><button type="button" class="eliminar-campo">-</button><input type="textarea" class="respuestaInput" name="respuesta[]" placeholder="Respuesta ${inputsContainer.childElementCount - 1}" required></textarea>
-      
+        <input type="checkbox" class="resp-correcta" name="correcta[]" id="${inputsContainer.childElementCount}" value="${inputsContainer.childElementCount - 1}"><button type="button" class="eliminar-campo">-</button><input type="textarea" class="respuestaInput" name="respuesta[]" placeholder="Respuesta ${inputsContainer.childElementCount-1}" required></textarea>
     `;
         inputsContainer.appendChild(newInputContainer);
 
         const eliminarCampoBtns = document.querySelectorAll('.eliminar-campo');
         eliminarCampoBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                inputsContainer.removeChild(btn.parentNode);
+                setTimeout(function(){ 
+                    inputsContainer.removeChild(btn.parentNode);
+            }, 1500);
             });
         });
     });
-
 });
+
+

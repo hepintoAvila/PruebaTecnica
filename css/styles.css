@@ -155,7 +155,7 @@ strong {
 	text-decoration: none;
 	transition: all 0.2s;
 }
-.resp-correcta{
+.resp-correcta .resp-correcta-likert{
 	display: inline-block;
 	padding: 1.1875rem 1.875rem 1.1875rem 1.875rem;
 	border: 0.125rem solid #14bf98;
@@ -166,7 +166,7 @@ strong {
 	text-decoration: none;
 	transition: all 0.2s;
 }
-.eliminar-campo{
+.eliminar-campo .eliminar-likert{
 	display: inline-block;
 	padding: 0.1875rem 0.875rem 0.1875rem 0.875rem;
 	border: 0.125rem solid #14bf98;
@@ -178,7 +178,7 @@ strong {
     height: 29px;
     margin-left: 21rem;
 }
-.agregar-campo{
+.agregar-campo .agregar-likert{
 	display: inline-block;
 	padding: 0.1875rem 0.875rem 0.1875rem 0.875rem;
 	border: 0.125rem solid #14bf98;
@@ -189,7 +189,7 @@ strong {
     width: 10px;
     height: 29px;
 }
-.respuestaInput{
+.respuestaInput .respuestaInput-likert{
 	display: block; /* needed for proper display of the label in Firefox, IE, Edge */
 	border: 1px solid #dadada;
     border-radius: 0.25rem;
