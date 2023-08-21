@@ -1,7 +1,5 @@
-
-						
+	
 <?php
-include_once "funciones.php";
 /**
  *
  * @About:      API Interface
@@ -11,18 +9,19 @@ include_once "funciones.php";
  * @Developer:  Hosmmer Pinto (@gmail.com)
  **/
 							// Hacer algo con el resultado
-
 						$consulta = $conexion->prepare("INSERT INTO tab_respuestas( 
 						idCuestionario, 
 						pregunta,
 						respuestas, 
 						correcta, 
-						usuario) VALUES ( 
+						usuario,
+						imagen) VALUES ( 
 						:idCuestionario, 
 						:pregunta, 
 						:respuestas, 
 						:correcta, 
-						:usuario)
+						:usuario,
+						:imagen)
 						");
 
 						// Vincular los valores a los marcadores de posición
@@ -31,8 +30,6 @@ include_once "funciones.php";
 						$consulta->bindParam(':respuestas', $respuestas, PDO::PARAM_STR);
 						$consulta->bindParam(':correcta', $correcta, PDO::PARAM_STR);
 						$consulta->bindParam(':usuario', $nombreUsuario, PDO::PARAM_STR);
-
-
-						// Ejecutar la consulta de actualización
-						$resultado = $consulta->execute();						
+						$consulta->bindParam(':imagen', $imagen, PDO::PARAM_STR);
+						$id = $consulta->execute();						
 ?>

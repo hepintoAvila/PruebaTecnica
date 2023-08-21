@@ -130,7 +130,7 @@
                         let timerLocal = localStorage.getItem("timer");
                         let datosBasicos = localStorage.getItem("datosBasicosCuestionario");
                         const basicos = JSON.parse(datosBasicos);
-                        const tiempoLimiteEnSegundos = Number(basicos.tiempoPrueba * 60); // 5 minutos en segundos
+                        const tiempoLimiteEnSegundos = Number(basicos.timer * 60); // 5 minutos en segundos
                         
                         let tiempoRestante = tiempoLimiteEnSegundos;
                         if (timerLocal) {

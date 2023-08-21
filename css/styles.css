@@ -237,6 +237,19 @@ strong {
 	text-decoration: none;
 	transition: all 0.2s;
 }
+.contenidoExterno {
+	display: inline-block;
+	padding: 1.1875rem -2.125rem 1.1875rem 1.875rem;
+	border: 0.1rem solid #14bf98;
+	border-radius: 0.25rem;
+	background-color: #fdffff;
+	color: #1b1b1b;
+	font: 700 0.75rem/0 "Montserrat", sans-serif;
+	text-decoration: none;
+	transition: all 0.2s;
+	margin-left: 46rem;
+}
+
 .list-presentar {
 	display: inline-block;
 	padding: 1.1875rem 1.875rem 1.1875rem 1.875rem;
@@ -257,93 +270,153 @@ strong {
 		height: 4px;
 	}
 }
-.list-eliminar{
+.list-eliminar {
 	display: inline-block;
 	border: 0.125rem solid transparent !important;
 	transition: all 0.2s;
 	font-size: 0;
-	&:before {
-		content: url(https://prueba.tecnica.compucel.co/images/icon-trash.svg);
-	}
 }
+
+.list-eliminar:before {
+	content: url(https://prueba.tecnica.compucel.co/images/eliminar.svg);
+	font-size: 16px;
+	white-space: pre-line;
+}
+
 .list-eliminar:hover {
-	cursor:pointer;
-	&:before {
-		content: 'ELIMINAR EVALUACIÓN';
-		color: #737375;
-		font-size: 12px;
-		line-height: 26px;
-	}
+	cursor: pointer;
+	width: 50px;
+	height: 45px;
+	background-color: #14bf98;
+	border-radius: 50%;
 }
-.list-preguntas{
+
+.list-eliminar:hover:before {
+	content: url(https://prueba.tecnica.compucel.co/images/eliminar.svg);
+	font-size: 16px;
+	white-space: pre-line;
+
+}
+
+.list-preguntas {
 	display: inline-block;
 	border: 0.125rem solid transparent !important;
 	transition: all 0.2s;
 	font-size: 0;
-	&:before {
-		content: url(https://prueba.tecnica.compucel.co/images/preguntas-config.svg);
-		font-size: 16px;
-		margin-right: -1rem;
-		white-space: pre-line;
-	}
 }
+
+.list-preguntas:before {
+	content: url(https://prueba.tecnica.compucel.co/images/preguntas.svg);
+	font-size: 16px;
+	margin-right: -1rem;
+	white-space: pre-line;
+}
+
 .list-preguntas:hover {
-	cursor:pointer;
-	&:before {
-		content: 'REGISTRAR PREGUNTAS Y RSPUESTAS';
-		color: #737375;
-		font-size: 12px;
-		line-height: 26px;
-	}
+	cursor: pointer;
+	width: 50px;
+	height: 45px;
+	background-color: #14bf98;
+	border-radius: 50%;
 }
 
-.list-detalles{
+.list-preguntas:hover:before {
+	content: url(https://prueba.tecnica.compucel.co/images/preguntas.svg);
+	font-size: 16px;
+	margin-right: -1rem;
+	white-space: pre-line;
+}
+
+.list-detalles {
 	display: inline-block;
 	border: 0.125rem solid transparent !important;
 	transition: all 0.2s;
 	font-size: 0;
-	&:before {
-		content: url(https://prueba.tecnica.compucel.co/images/detalles.svg);
-		font-size: 16px;
-		margin-left: 0.5rem;
-		margin-right: 0.9rem;
-		white-space: pre-line;
-	}
 }
+
+.list-detalles:before {
+	content: url(https://prueba.tecnica.compucel.co/images/detalles.svg);
+	font-size: 16px;
+	margin-right: 2rem;
+    margin-left: 0rem;
+	white-space: pre-line;
+}
+
 .list-detalles:hover {
-	cursor:pointer;
-	&:before {
-		content: 'VER DETALLES DE LA EVALUACIÓN';
-		color: #737375;
-		font-size: 12px;
-		line-height: 26px;
-		margin-left: 0.9rem;
-		margin-right: 0.5rem;
-	}
+	cursor: pointer;
+	width: 50px;
+	height: 45px;
+	background-color: #14bf98;
+	border-radius: 50%;
 }
-
-.list-pendientes{
+.list-detalles:hover:before {
+	content: url(https://prueba.tecnica.compucel.co/images/detalles.svg);
+	font-size: 16px;
+	margin-right: 2rem;
+    margin-left: 0rem;
+	white-space: pre-line;
+}
+ 
+.list-pendientes {
 	display: inline-block;
 	border: 0.125rem solid transparent !important;
 	transition: all 0.2s;
 	font-size: 0;
-	&:before {
-		content: url(https://prueba.tecnica.compucel.co/images/pendientes.svg);
-		font-size: 16px;
-		margin-right: 2rem;
-		white-space: pre-line;
-	}
-}
-.list-pendientes:hover {
-	cursor:pointer;
-	&:before {
-		content: 'PRESENTAR';
-		color: #737375;
-		font-size: 12px;
-		line-height: 26px;
-	}
 }
 
+.list-pendientes:before {
+	content: url(https://prueba.tecnica.compucel.co/images/pendientes.svg);
+	font-size: 16px;
+	margin-right: 2rem;
+	white-space: pre-line;
+}
+
+.list-pendientes:hover {
+	cursor: pointer;
+	width: 50px;
+	height: 45px;
+	background-color: #14bf98;
+	border-radius: 50%;
+}
+
+.list-pendientes:hover:before {
+	content: url(https://prueba.tecnica.compucel.co/images/pendientes.svg);
+	font-size: 16px;
+	margin-right: 2rem;
+	white-space: pre-line;
+}
+ 
+ 
+.list-horarios {
+	display: inline-block;
+	border: 0.125rem solid transparent !important;
+	transition: all 0.2s;
+	font-size: 0;
+}
+
+.list-horarios:before {
+	content: url(https://prueba.tecnica.compucel.co/images/horarios.svg);
+	font-size: 16px;
+	margin-right: 2rem;
+	white-space: pre-line;
+}
+
+.list-horarios:hover {
+	cursor: pointer;
+	width: 50px;
+	height: 45px;
+	background-color: #14bf98;
+	border-radius: 50%;
+}
+
+.list-horarios:hover:before {
+	content: url(https://prueba.tecnica.compucel.co/images/horarios.svg);
+	font-size: 16px;
+	margin-right: 2rem;
+	white-space: pre-line;
+}
+ 
+ 
 .cart-form {
 	display: flex;
 	flex-direction: column;

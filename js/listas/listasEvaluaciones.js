@@ -17,7 +17,7 @@ function loadCuestionario(urlId, callback) {
                 localStorage.removeItem("Cuestionarios");
                 localStorage.setItem("CuestionariosById", JSON.stringify(data.data.Preguntas));
                 localStorage.setItem("datosBasicosCuestionario", JSON.stringify(data.data.Cuestionario));
-                localStorage.setItem("timer", data.data.Cuestionario.tiempoPrueba);
+                localStorage.setItem("timer", data.data.Cuestionario.timer);
             }).finally(() => {
                 callback();
             })
@@ -25,6 +25,30 @@ function loadCuestionario(urlId, callback) {
                 console.error("Error al enviar la solicitud:", error);
             });
     }
+}
+/* ELIMINAR CUESTIONARIO*/
+function eliminarCuestionario(id) {
+
+    const url = `https://api.compucel.co/v4/?accion=eliminarCuestionario&id=${id}&usuario=${btoa(localStorage.getItem("nombreUsuario"))}`;
+    fetch(url, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .then((response) => response.json())
+        .then((data) => {
+
+            Swal.fire("" + data.data[0].message + "");
+            if (data.data[0].status === '202') {
+                localStorage.removeItem("Cuestionarios");
+                localStorage.setItem("Cuestionarios", data.data.Cuestionarios);
+            }
+        })
+        .catch((error) => {
+            console.error("Error al enviar la solicitud:", error);
+        });
+
 }
 /* GENERA LA TABLA DEL CUESTIONARIO DE  EVALUACION*/
 function generarTablaCuestionario(datos) {
@@ -59,31 +83,72 @@ function generarTablaCuestionario(datos) {
             celda.textContent = cuestionario[propiedad];
         }
 
-
-        const celdaBotonModal = fila.insertCell();
-        const botonModal = document.createElement('button');
-        botonModal.textContent = '';
-        botonModal.classList.add("list-preguntas");
-        botonModal.addEventListener('click', (event) => {
-            abrirModal(cuestionario.id);
+        /**BOTON REGISTRAR PREGUNTAS*/
+        const celdaBotonModalPregunta = fila.insertCell();
+        const botonModalPregunta = document.createElement('button');
+        const contenidoExterno = document.getElementById('contenidoExterno');
+        
+        botonModalPregunta.addEventListener('mouseenter', function() {
+            contenidoExterno.textContent = 'REGISTRAR PREGUNTAS Y RESPUESTAS';
         });
+        botonModalPregunta.addEventListener('mouseleave', function() {
+            contenidoExterno.textContent = '';
+        });        
+        botonModalPregunta.textContent = '';
+        botonModalPregunta.classList.add("list-preguntas");
+        botonModalPregunta.addEventListener('click', (event) => {
+            modalCrearPreguntas(cuestionario.id);
+        });
+        /*FIN*/
 
 
+        /**BOTON ACTUALIZAR FECHA*/
+        const celdaBotonModalHorarios = fila.insertCell();
+        const botonModalHorarios = document.createElement('button');
+        botonModalHorarios.textContent = '';
+        botonModalHorarios.classList.add("list-horarios");
+        botonModalHorarios.addEventListener('mouseenter', function() {
+            contenidoExterno.textContent = 'ACTUALIZAR FECHA Y TIEMPO DE LA EVALUACIÓN';
+        });
+        botonModalHorarios.addEventListener('mouseleave', function() {
+            contenidoExterno.textContent = '';
+        });  
+        botonModalHorarios.textContent = '';       
+        botonModalHorarios.addEventListener('click', (event) => {
+            abrirModalHorario(cuestionario.id);
+        });
+        /*FIN*/
+
+
+        /**BOTON VISTA PREVIA*/
         const celdaBotonVista = fila.insertCell();
         const botonVista = document.createElement('button');
-        botonVista.textContent = '';
+        botonVista.addEventListener('mouseenter', function() {
+            contenidoExterno.textContent = 'VER VISTA PREVIA DE LA EVALUACION';
+        });
+        botonVista.addEventListener('mouseleave', function() {
+            contenidoExterno.textContent = '';
+        }); 
+        botonVista.textContent = '';  
         botonVista.classList.add("list-detalles");
         botonVista.addEventListener('click', (event) => {
             loadCuestionario(cuestionario.id,()=>{
                 window.location.href = `http://prueba.tecnica.compucel.co/cuestionario.html?id=${cuestionario.id}`;
             })
         });
+        /*FIN*/
 
-        // Agregar botón de eliminar,agregar preguntas
+         /**BOTON ELIMINAR EVALUACION*/
         const celdaBotonEliminar = fila.insertCell();
         const botonEliminar = document.createElement('button');
         botonEliminar.classList.add("list-eliminar");
-        botonEliminar.textContent = '';
+        botonEliminar.addEventListener('mouseenter', function() {
+            contenidoExterno.textContent = 'ELIMINAR EVALUACION';
+        });
+        botonEliminar.addEventListener('mouseleave', function() {
+            contenidoExterno.textContent = '';
+        });  
+        botonEliminar.textContent = '';        
         botonEliminar.addEventListener('click', () => {
             Swal.fire({
                 title: 'ELIMINAR ENCUESTA!',
@@ -100,9 +165,12 @@ function generarTablaCuestionario(datos) {
             })
 
         });
-        celdaBotonModal.appendChild(botonModal);
-        celdaBotonVista.appendChild(botonVista);
-        celdaBotonEliminar.appendChild(botonEliminar);
+        /*FIN*/
+
+        celdaBotonModalPregunta.appendChild(botonModalPregunta).join('');
+        celdaBotonModalHorarios.appendChild(botonModalHorarios).join('');
+        celdaBotonVista.appendChild(botonVista).join('');
+        celdaBotonEliminar.appendChild(botonEliminar).join('');
     });
 
     return tabla;
@@ -131,35 +199,18 @@ function consultarAllCuestionarios(callback) {
         });
 
 }
-function abrirModal(id) {
+function modalCrearPreguntas(id) {
     localStorage.removeItem("idCuestionario");
     localStorage.setItem("idCuestionario", id);
-    $('#exampleModal').modal('show')
+    $('#modalCrearPreguntas').modal('show')
 }
 
-function eliminarCuestionario(id) {
-
-    const url = `https://api.compucel.co/v4/?accion=eliminarCuestionario&id=${id}&usuario=${btoa(localStorage.getItem("nombreUsuario"))}`;
-    fetch(url, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    })
-        .then((response) => response.json())
-        .then((data) => {
-
-            Swal.fire("" + data.data[0].message + "");
-            if (data.data[0].status === '202') {
-                localStorage.removeItem("Cuestionarios");
-                localStorage.setItem("Cuestionarios", data.data.Cuestionarios);
-            }
-        })
-        .catch((error) => {
-            console.error("Error al enviar la solicitud:", error);
-        });
-
+function abrirModalHorario(id) {
+    localStorage.removeItem("idCuestionario");
+    localStorage.setItem("idCuestionario", id);
+    $('#modalHorario').modal('show')
 }
+
 
 (function($) {
     "use strict"; 

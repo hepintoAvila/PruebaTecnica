@@ -25,7 +25,7 @@ function consultaResultados(id) {
             }else{
                 localStorage.setItem("CuestionariosById", JSON.stringify(data.data.Preguntas));
                 localStorage.setItem("datosBasicosCuestionario", JSON.stringify(data.data.Cuestionario));
-                localStorage.setItem("timer", data.data.Cuestionario.tiempoPrueba);
+                localStorage.setItem("timer", data.data.Cuestionario.timer);
                 window.location.href = `http://prueba.tecnica.compucel.co/cuestionario.html?id=${id}`;
             }
 

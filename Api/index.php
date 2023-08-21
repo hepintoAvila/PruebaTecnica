@@ -13,7 +13,10 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Methods: *");
 header("Content-Type: text/html; charset=utf-8");
- 
+ 	header("Expires: 0");
+	header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+	header("Cache-Control: no-cache, must-revalidate");
+	header("Pragma: no-cache");
 // Si no se han enviado encabezados, enviar uno
  
 if (headers_sent()) {
@@ -215,20 +218,42 @@ function limpiarEspaciosEnBlanco($cadena)
  					
 				break;
 				case "registrarPregunta":
-				include_once "base_de_datos.php";
-				$datosArray = convertirJSONtoArray($_GET['models']);
-				$respuestas = limpiarEspaciosEnBlanco(implode("|", $datosArray[0]));
-				$pregunta = limpiarEspaciosEnBlanco(base64_decode($_GET["pregunta"]));
-				$idCuestionario = limpiarEspaciosEnBlanco(base64_decode($_GET["idCuestionario"]));
-				$nombreUsuario = limpiarEspaciosEnBlanco(base64_decode($_GET["nombreUsuario"]));
-				$correcta = limpiarEspaciosEnBlanco(base64_decode($_GET["correcta"]));
-				include_once "registrarPregunta.php";
-						// Paso 2: Preparar y ejecutar la consulta
+						include_once "base_de_datos.php";
+				//GUARDE LA IMAGEN EN E SERVIDOR
+						$idCuestionario = limpiarEspaciosEnBlanco(base64_decode($_GET["idCuestionario"]));
+						
+						if(!isset($_GET['type']) or empty($_GET['type'])){
+							$imagen='';
+						}else{
+								$type=$_GET['type'];
+								$dir_img='../IMG/pruebaTecnica/';
+								$datos = json_decode(file_get_contents('php://input'), true);
+								$decodedImage = base64_decode($datos);	
+								$num_preguntas = "SELECT COUNT(*) AS num FROM tab_respuestas WHERE idCuestionario='".$idCuestionario."'";
+								$preguntas = $conexion->prepare($num_preguntas);
+								$preguntas->execute();
+								$num = $preguntas->fetchAll(PDO::FETCH_ASSOC);
+								
+								$extension = str_replace("image/", '', $type);
+								$filename = 'C'.$idCuestionario.'P'.$num[0]['num'].'.'.$extension;				
+								$destino=$dir_img.$extension.'/'.$filename ;		
+								file_force_contents($destino,$decodedImage , LOCK_EX );	
+								$dir_img='https://'.$_SERVER["SERVER_NAME"].'/IMG/pruebaTecnica/'.$extension;
+								$imagen=$dir_img.'/'.$filename;		
+							
+						}
+						
+						$datosArray = convertirJSONtoArray($_GET['models']);
+						$respuestas = limpiarEspaciosEnBlanco(implode("|", $datosArray[0]));
+						$pregunta = limpiarEspaciosEnBlanco(base64_decode($_GET["pregunta"]));
+						$nombreUsuario = limpiarEspaciosEnBlanco(base64_decode($_GET["nombreUsuario"]));
+						$correcta = limpiarEspaciosEnBlanco(base64_decode($_GET["correcta"]));
+						include_once "registrarPregunta.php";
+						
 						$consulta = "SELECT * FROM tab_respuestas WHERE idCuestionario='".$idCuestionario."'";
 						$stmt = $conexion->prepare($consulta);
 						$stmt->execute();
-						// Paso 3: Obtener los resultados
-						$resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);				 
+						$resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			 if (!is_null($resultado)) {
 				 	$message[] = array(
 							'id'=>1,
@@ -248,50 +273,63 @@ function limpiarEspaciosEnBlanco($cadena)
 				}	 
 				break;
 				case "consultaCuestionario":
-				$idCuestionario = limpiarEspaciosEnBlanco($_GET["id"]);
+						$idCuestionario = limpiarEspaciosEnBlanco($_GET["id"]);
 						include_once "base_de_datos.php";
-						$consulta_cuestionarios = "SELECT * FROM tab_cuestionarios WHERE id='".$idCuestionario."'";
-						$stmt_cuestionarios = $conexion->prepare($consulta_cuestionarios);
-						$stmt_cuestionarios->execute();
-						// Paso 3: Obtener los resultados
-						$cuestionario = $stmt_cuestionarios->fetchAll(PDO::FETCH_ASSOC);	
-						
-						$datosCuestionario =array("idCuestionario"=>$cuestionario[0]['id'],"Titulo"=>$cuestionario[0]['titulo'],"Descripcion"=>$cuestionario[0]['descripcion'],"tiempoPrueba"=>$cuestionario[0]['tiempoPrueba']);
-						
-						$consulta_respuest = "SELECT * FROM tab_respuestas WHERE idCuestionario='".$idCuestionario."'";
-						$stmt_respuest = $conexion->prepare($consulta_respuest);
-						$stmt_respuest->execute();
-						// Paso 3: Obtener los resultados
-						$datosrespuestas = $stmt_respuest->fetchAll(PDO::FETCH_ASSOC);						
-					foreach($datosrespuestas as $a => $value){
-						$preg[]=array(
-						 "id"=>$value["id"],
-						 "idCuestionario"=>$value["idCuestionario"],
-						 "question"=>$value["pregunta"],
-						 "options"=>explode('|',$value["respuestas"]),
-						 "answer"=>$value["correcta"]);
-						}						
-						
-						$Cuestionarios= array("Cuestionario"=>$datosCuestionario);
-						$Preguntas= array("Preguntas"=>$preg);
-						$data = array("data"=>array_merge($Cuestionarios,$Preguntas));	
+						$data = consultaCuestionarioById($idCuestionario,$conexion);
 						$var = var2js($data);	
 						echo $var;
 						
 				break;
 				case "consultaAllCuestionario":
-						$usuario  = limpiarEspaciosEnBlanco(base64_decode($_GET["usuario"]));
-						$ids=array();
 						include_once "base_de_datos.php";
+						$ids=array();
+						$usuario  = limpiarEspaciosEnBlanco(base64_decode($_GET["usuario"]));
+						$resp_res = "SELECT COUNT(*) AS existe FROM tab_cuestionarios WHERE usuario='".$usuario."'";
+						$stmt_res = $conexion->prepare($resp_res);
+						$stmt_res->execute();
+						$resp = $stmt_res->fetchAll(PDO::FETCH_ASSOC);
+	   				      foreach($resp as $b => $val){
+							$existe = $val["existe"];
+						}						
+						
+					 if ($existe==0) {
+						$Cuestionarios= array("Cuestionarios"=>array(
+						 "id"=>1,
+						 "Título"=>'NO EXISTEN REGISTROS',
+						 "Descripción"=>'',
+						 "Fechas"=>'',
+						 "Tiempo"=>'',
+						 "Tema"=>'',
+						 "Responsable"=>'',
+						 "status"=>'303'));
+						$data = array("data"=>$Cuestionarios);
+						$var = var2js($data);	
+						echo $var;	
+					}else{
 						$consulta_cuestionarios = "SELECT * FROM tab_cuestionarios WHERE usuario='".$usuario."'";
 						$stmt_cuestionarios = $conexion->prepare($consulta_cuestionarios);
 						$stmt_cuestionarios->execute();
 						$datosrespuestas = $stmt_cuestionarios->fetchAll(PDO::FETCH_ASSOC);
-						// Paso 3: Obtener los resultados
-						$Cuestionarios= array("Cuestionarios"=>$datosrespuestas);
-						$data = array("data"=>$Cuestionarios);	
+					foreach($datosrespuestas as $a => $value){
+								$cuestions[]=array(
+								 "id"=>$value["id"],
+								 "Título"=>utf8_encode($value["titulo"]),
+								 "Descripción"=>utf8_encode($value["descripcion"]),
+								 "Fechas"=>$value["fechaInicio"].''.$value["fechaFinal"],
+								 "Tiempo"=>$value["tiempoPrueba"],
+								 "Tema"=>$value["tema"],
+								 "Responsable"=>$value["usuario"],
+								 "status"=>'202');
+						}
+						
+						$Cuestionarios= array("Cuestionarios"=>$cuestions);
+						$data = array("data"=>$Cuestionarios);
 						$var = var2js($data);	
-						echo $var;				
+						echo $var;						
+                            
+					}						
+	
+			
 				break;
 				case "enviarCuestionario":
 				include_once "base_de_datos.php";
@@ -320,89 +358,176 @@ function limpiarEspaciosEnBlanco($cadena)
 						$idCuestionario = limpiarEspaciosEnBlanco($_GET["id"]);
 						$nombreUsuario = limpiarEspaciosEnBlanco(base64_decode($_GET["nombreUsuario"]));
 						include_once "base_de_datos.php";
-						$consulta_cuestionarios = "SELECT * FROM tab_cuestionarios WHERE id='".$idCuestionario."'";
-						$stmt_cuestionarios = $conexion->prepare($consulta_cuestionarios);
-						$stmt_cuestionarios->execute();
-						// Paso 3: Obtener los resultados
-						$cuestionario = $stmt_cuestionarios->fetchAll(PDO::FETCH_ASSOC);	
-						
-						$datosCuestionario =array("idCuestionario"=>$cuestionario[0]['id'],"Titulo"=>$cuestionario[0]['titulo'],"Descripcion"=>$cuestionario[0]['descripcion'],"tiempoPrueba"=>$cuestionario[0]['tiempoPrueba']);
-						
-						$consulta_respuest = "SELECT * FROM tab_respuestas WHERE idCuestionario='".$idCuestionario."'";
-						$stmt_respuest = $conexion->prepare($consulta_respuest);
-						$stmt_respuest->execute();
-						// Paso 3: Obtener los resultados
-						$datosrespuestas = $stmt_respuest->fetchAll(PDO::FETCH_ASSOC);
-
-					foreach($datosrespuestas as $a => $value){
-						//BUSCAR RESPUESTA ENCUESTADO
-						$resp_user = "SELECT * FROM tab_respuestasUsuarios WHERE idCuestionario='".$value["idCuestionario"]."' AND idPregunta ='".$value["id"]."' AND usuario ='".$nombreUsuario."'";
-						$stmt_correct = $conexion->prepare($resp_user);
-						$stmt_correct->execute();
-						$correct = $stmt_correct->fetchAll(PDO::FETCH_ASSOC);
-	   				      foreach($correct as $b => $val){
-							$respuesta = (isset($val["respuesta"]) OR empty($val["respuesta"])) ? $val["respuesta"] : '0';
-						}
-						$totalCorrectas[] = ($respuesta==$value["correcta"]) ? 1:0;
-						
-						$preg[]=array(
-						 "id"=>$value["id"],
-						 "idCuestionario"=>$value["idCuestionario"],
-						 "question"=>$value["pregunta"],
-						 "options"=>explode('|',$value["respuestas"]),
-						 "answer"=>$value["correcta"],
-						 "respuesta"=>$respuesta);
+						/**/
+					//BUSCAR RESPUESTA ENCUESTADO
+						$resp_res = "SELECT COUNT(*) AS num FROM tab_respuestasUsuarios WHERE idCuestionario='".$idCuestionario."' AND usuario ='".$nombreUsuario."'";
+						$stmt_res = $conexion->prepare($resp_res);
+						$stmt_res->execute();
+						$resp = $stmt_res->fetchAll(PDO::FETCH_ASSOC);
+	   				      foreach($resp as $b => $val){
+							$encuatado = $val["num"];
 						}						
-						 
-						$Cuestionarios= array("Cuestionario"=>$datosCuestionario);
-						$CalificacionPorcentual= array("CalificacionPorcentual"=>(array_sum($totalCorrectas)+ count($totalCorrectas))/2);
-						$CalificacionPromedio= array("CalificacionPromedio"=>(array_sum($totalCorrectas)/count($totalCorrectas))*100);
-						$NumeroCorrectas= array("NumeroCorrectas"=>(array_sum($totalCorrectas).'/'.count($totalCorrectas)));
-						$Preguntas= array("Preguntas"=>$preg);
-						$data = array("data"=>array_merge($Cuestionarios,$Preguntas,$CalificacionPorcentual,$CalificacionPromedio,$NumeroCorrectas));	
-						$var = var2js($data);	
-						echo $var;
+						
+						if($encuatado>=1){
+									$consulta_cuestionarios = "SELECT * FROM tab_cuestionarios WHERE id='".$idCuestionario."'";
+									$stmt_cuestionarios = $conexion->prepare($consulta_cuestionarios);
+									$stmt_cuestionarios->execute();
+									// Paso 3: Obtener los resultados
+									$cuestionario = $stmt_cuestionarios->fetchAll(PDO::FETCH_ASSOC);	
+									
+									$datosCuestionario =array("idCuestionario"=>$cuestionario[0]['id'],"Titulo"=>$cuestionario[0]['titulo'],"Descripcion"=>$cuestionario[0]['descripcion'],"tiempoPrueba"=>$cuestionario[0]['tiempoPrueba'],"status"=>'202');
+									
+									$consulta_respuest = "SELECT * FROM tab_respuestas WHERE idCuestionario='".$idCuestionario."'";
+									$stmt_respuest = $conexion->prepare($consulta_respuest);
+									$stmt_respuest->execute();
+									// Paso 3: Obtener los resultados
+									$datosrespuestas = $stmt_respuest->fetchAll(PDO::FETCH_ASSOC);
+
+								foreach($datosrespuestas as $a => $value){
+									$imagen ='';
+									//BUSCAR RESPUESTA ENCUESTADO
+									$resp_user = "SELECT COUNT(*) AS existe FROM tab_respuestasUsuarios WHERE idCuestionario='".$value["idCuestionario"]."' AND idPregunta ='".$value["id"]."' AND usuario ='".$nombreUsuario."'";
+									$stmt_correct = $conexion->prepare($resp_user);
+									$stmt_correct->execute();
+									$correct = $stmt_correct->fetchAll(PDO::FETCH_ASSOC);
+									  foreach($correct as $l => $vals){
+										$respuesta = $vals["existe"]>=1 ? consultaRespuestaPregunta($value["idCuestionario"],$value["id"],$nombreUsuario,$conexion) : '0';
+									}
+									//$totalCorrectas[] = ($respuesta==$value["correcta"]) ? 1:0;
+									
+									$imagen = (!isset($value["imagen"]) OR empty(!$value["imagen"])) ? ''.$value["imagen"].'' : 'SIMG';
+									$question = $value["pregunta"];
+									$preg[]=array(
+									 "id"=>$value["id"],
+									 "idCuestionario"=>$value["idCuestionario"],
+									 "question"=>utf8_encode($question),
+									 "options"=>explode('|',$value["respuestas"]),
+									 "answer"=>$value["correcta"],
+									 "imagen"=>$imagen,
+									 "respuesta"=>$respuesta
+									 ); 
+									}						
+									 
+									
+									$Cuestionarios= array("Cuestionario"=>$datosCuestionario);
+
+									$Preguntas= array("Preguntas"=>$preg);
+									$data = array("data"=>array_merge($Cuestionarios,$Preguntas));	
+									$var = var2js($data);	
+									echo $var;
+						}else{
+
+							$idCuestionario = limpiarEspaciosEnBlanco($_GET["id"]);
+							include_once "base_de_datos.php";
+							$data = consultaCuestionarioById($idCuestionario,$conexion);
+							$var = var2js($data);	
+							echo $var;						
+						}
 				
 				break;
 				case "consultaAllCuestionarioPendientes":
+						include_once "base_de_datos.php";
 						
+						$existe = consultaCuestionariosIfExist($conexion);
+						if($existe==0){
+							$Pendientes= array("Pendientes"=>array(
+									 "id"=>1,
+									 "Titulo"=>'NO EXISTEN EVALUACIONES REGISTRADAS',
+								     "PorVencer"=>'',
+									 "Tiempo"=>'0',
+									 "Fechas"=>date('y-m-d'),
+									 "Responsable"=>'INSTRUCTOR',
+									 "Resuelta"=>'0',
+									 "Porcentual"=>'0',
+									 "Promedio"=>'0',
+									 "Correctas"=>'0'));
+							$data = array("data"=>$Pendientes);	
+							$var = var2js($data);	
+							echo $var;								
+						}else{
+							
 						$nombreUsuario = limpiarEspaciosEnBlanco(base64_decode($_GET["nombreUsuario"]));
 						$ids=array();
 						$preg=array();
-						include_once "base_de_datos.php";
+						//1. CONSULTA SI EXISTEN EVALUACIONES HABILITADAS
 						$consulta_cuestionarios = "SELECT * FROM tab_cuestionarios";
+						$stmt_cuestionarios = $conexion->prepare($consulta_cuestionarios);
+						$stmt_cuestionarios->execute();
+						$response = $stmt_cuestionarios->fetchAll(PDO::FETCH_ASSOC);
+						 foreach($response as $b => $value){						
+							list($horas,$minutos)= calcularTiempoEncuesta($value["fechaFinal"]);
+							if($horas<=0){
+								$ids[]=$value["id"];
+							}
+						 }
+						 
+						 if (is_null($ids)) {
+									$Pendientes= array("Pendientes"=>array(
+									 "id"=>1,
+									 "Titulo"=>'NO EXISTEN EVALUACIONES REGISTRADAS',
+								     "PorVencer"=>'',
+									 "Tiempo"=>'0',
+									 "Fechas"=>date('y-m-d'),
+									 "Responsable"=>'INSTRUCTOR',
+									 "Resuelta"=>'0',
+									 "Porcentual"=>'0',
+									 "Promedio"=>'0',
+									 "Correctas"=>'0'));
+									$data = array("data"=>$Pendientes);	
+									$var = var2js($data);	
+									echo $var;	
+						 }else{
+						 
+						 
+						$consulta_cuestionarios = "SELECT * FROM tab_cuestionarios WHERE id IN (".implode($ids).")";
 						$stmt_cuestionarios = $conexion->prepare($consulta_cuestionarios);
 						$stmt_cuestionarios->execute();
 						$datosrespuestas = $stmt_cuestionarios->fetchAll(PDO::FETCH_ASSOC);
 						 foreach($datosrespuestas as $b => $value){
-							 
 								//BUSCAR RESPUESTA ENCUESTADO
 								$resp_user = "SELECT COUNT(*) AS num FROM tab_respuestasUsuarios WHERE idCuestionario='".$value["id"]."' AND usuario ='".$nombreUsuario."'";
+								
 								$stmt_correct = $conexion->prepare($resp_user);
 								$stmt_correct->execute();
 								$correct = $stmt_correct->fetchAll(PDO::FETCH_ASSOC);
 								  foreach($correct as $b => $val){
 									$Resuelta = $val["num"];
 								}
+								$rol = consultaRol($nombreUsuario,$conexion);
+								if($rol=='Aprendiz'){
+									if(consultaRespuestasUsuariosIfExist($nombreUsuario,$conexion)==0){
+										$califica = array("CalificacionPorcentual"=>0,"CalificacionPromedio"=>0,"NumeroCorrectas"=>0);
+									}else{
+										$califica = consultaRespCuestionario($value["id"],$nombreUsuario,$conexion);
+									}
+									
+								}else{
+									$califica = array("CalificacionPorcentual"=>0,"CalificacionPromedio"=>0,"NumeroCorrectas"=>0);
+								}
+								
+								
 								$lista = 0;	 
 								$anioVar2 = obtenerAnioDeFecha($value["fechaFinal"]);
 								if($anioVar2>0){
-									$tiempo = calcularDiferenciaEnHorasYMinutos($value["fechaInicio"],$value["fechaFinal"]);
 									$lista = 1;
-								  $porVencer = "".$tiempo["horasVar2"].' Horas : '.$tiempo["minutosVar2"]." Minutos";
+								  $porVencer = "".$horas.' Horas : '.$minutos." Minutos";
 								 }else{
 									$porVencer = "00 Horas : 00 Minutos"; 
 									$lista = 0;
 								 }
 								 if($lista==1){
+									 
 									$preg[]=array(
 									 "id"=>$value["id"],
-									 "Titulo"=>$value["titulo"],
+									 "Titulo"=>utf8_encode($value["titulo"]),
 								     "PorVencer"=>$porVencer,
-									 "TiempoPrueba"=>$value["tiempoPrueba"],
-									 "FechaFinal"=>$value["fechaFinal"],
+									 "Tiempo"=>$value["tiempoPrueba"],
+									 "Fechas"=>$value["fechaInicio"].'-'.$value["fechaFinal"],
 									 "Responsable"=>$value["usuario"],
-									 "Resuelta"=>$Resuelta > 0 ? 'S':'N');
+									 "Resuelta"=>$Resuelta > 0 ? 'S':'N',
+									 "Porcentual"=>$Resuelta > 0 ? $califica['CalificacionPorcentual']:0,
+									 "Promedio"=>$Resuelta > 0 ? $califica['CalificacionPromedio']:0,
+									 "Correctas"=>$Resuelta > 0 ? $califica['NumeroCorrectas']:0);
 									 }
 								  
 										unset($tiempo);
@@ -427,6 +552,9 @@ function limpiarEspaciosEnBlanco($cadena)
 							$var = var2js($data);						 
 							 
 						 }
+						 
+					}
+				}
 				break;
 		}
 
