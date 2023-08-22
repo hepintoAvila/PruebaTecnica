@@ -10,12 +10,13 @@ function buildQueryString(opcion) {
     return queryString;
 }
 
-function enviarCuestionario(valores) {
+function enviarCuestionario(valores,numeroID) {
 
             const opcion = [valores];
             const queryString1 = JSON.stringify(opcion);
             const objectForm = {
                 nombreUsuario: btoa(localStorage.getItem("nombreUsuario")),
+                idCuestionario:btoa(numeroID)
             };
             const opcion2 = [objectForm];
             const queryString2 = buildQueryString(opcion2);
@@ -41,9 +42,22 @@ function getCuestionario() {
     const questions = JSON.parse(CuestionariosById);
     const quizForm = document.getElementById('quiz-form');
     const formData = new FormData(quizForm);
-
     for (let i = 0; i < questions.length; i++) {
-        valores.push(formData.get(`respondidas${i}`));
+        const id = questions[i].id;
+        switch (questions[i].tipoRespuesta) {
+            case '1':
+                valores.push([
+                    questions[i].options.map((option, index) =>
+
+                    document.querySelector(`#respondidas${id}-${i}-${index}`).checked ? 1:0),
+                    id
+                ])
+            break
+            case '6':
+                valores.push([[formData.get(`respondidas${i}`)],id]);
+            break
+        }
+
     }
-    return valores;
+      return valores;
 }

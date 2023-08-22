@@ -45,9 +45,8 @@ function buildQueryString(opcion) {
           })
             .then((response) => response.json())
             .then((data) => {
-              
-              Swal.fire("" + data.data[0].message + "");
-              if(data.data[0].status==='202'){
+              Swal.fire("" + data.message[0].message + "");
+              if(data.message[0].status==='202'){
                   localStorage.removeItem("Cuestionarios");
                   localStorage.setItem("Cuestionarios",data.data.Cuestionarios);   
               }
@@ -56,7 +55,7 @@ function buildQueryString(opcion) {
               console.error("Error al enviar la solicitud:", error);
             }).finally(() => {
                 setTimeout(function () {
-                   window.location.href = "http://prueba.tecnica.compucel.co";
+                   ///window.location.href = "http://prueba.tecnica.compucel.co";
                 }, 3000);
             });
          

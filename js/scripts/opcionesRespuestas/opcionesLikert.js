@@ -14,8 +14,18 @@ document.addEventListener("DOMContentLoaded", async () => {
                     ]; 
         const newInputContainerLikert = document.createElement('div');
         newInputContainerLikert.className = 'input-container-likert';
-        newInputContainerLikert.innerHTML = `<input type="radio" class="resp-likert" name="correctaLikert[]" id="Likert_${inputsContainerLikert.childElementCount - 2}" value="${inputsContainerLikert.childElementCount - 2}"><button type="button" class="eliminar-campo-likert">-</button><input type="text" class="respuestaInput-likert" name="correctaLikert[]" value="${respuestasArray[inputsContainerLikert.childElementCount -3]}" required>`;
+        newInputContainerLikert.innerHTML = `<button type="button" class="eliminar-campo-likert">-</button><input type="text" class="respuestaInput" name="respuestaLikert[]" value="${respuestasArray[inputsContainerLikert.childElementCount -2]}" required>`;
         inputsContainerLikert.appendChild(newInputContainerLikert);
+        
+        /*Eliminar*/
+        const eliminarLikert = document.querySelectorAll('.eliminar-campo-likert');
+        eliminarLikert.forEach(btnLikert=> {
+            btnLikert.addEventListener('click', () => {
+                setTimeout(function(){ 
+                    inputsContainerLikert.removeChild(btnLikert.parentNode);
+            }, 1500);
+            });
+        });
     }, 1500);
     });
 });

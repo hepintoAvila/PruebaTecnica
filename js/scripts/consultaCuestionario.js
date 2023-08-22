@@ -26,26 +26,41 @@ function loadQuestions(callback) {
                 const question = questions[i];
                 const answer = questions[i].answer;
                 const id = questions[i].id;
-                const idCuestionario = questions[i].idCuestionario;
-                
-      
                 const questionElement = document.createElement('div');
                 questionElement.classList.add('question');
-                questionElement.innerHTML = `
-              <p class ="questionTitle"><strong>${question.question}</strong></p>
-              ${question.imagen ==='SIMG' ? '<img class="rounded float-start" src="http://api.compucel.co/IMG/pruebaTecnica/SIMG.png"  width="2" height="4"></img>' : `<img class="rounded float-start" src="${question.imagen}"  width="200" height="250"></img>`}
-              
-              <ul>
-                  ${question.options.map((option, index) =>
-
-                    `
-                      <li >
-                          <input type="radio" class="form-check-input" name="respondidas${i}" value="${id}-${idCuestionario}-${Number(index + 1)}"  ${index === Number(answer - 1) && (rol ==='instructor') ? 'checked' : ''}>
-                          <label>${option}</label>
-                      </li>
-                  `).join('')}
-              </ul>
-          `;
+                switch (questions[i].tipoRespuesta) {
+                    case '1': 
+                    questionElement.innerHTML = `
+                  <p class ="questionTitle"><strong>${question.question}</strong></p>
+                  ${question.imagen ==='SIMG' ? '<img class="rounded float-start" src="http://api.compucel.co/IMG/pruebaTecnica/SIMG.png"  width="2" height="4"></img>' : `<img class="rounded float-start" src="${question.imagen}"  width="200" height="250"></img>`}
+                  
+                  <ul>
+                      ${question.options.map((option, index) =>
+    
+                        `
+                          <li >
+                              <input type="checkbox" class="form-check-input" id="respondidas${id}-${i}-${index}" name="respondidas${id}-${i}-${index}" value="${index}"  ${index === Number(answer - 1) && (rol ==='instructor') ? 'checked' : ''}>
+                              <label>${option}</label>
+                          </li>
+                      `).join('')}
+                  </ul>`;
+                    break
+                    case '6': 
+                    questionElement.innerHTML = `
+                    <p class ="questionTitle"><strong>${quizForm.childElementCoun} --${question.question}</strong></p>
+                    ${question.imagen ==='SIMG' ? '<img class="rounded float-start" src="http://api.compucel.co/IMG/pruebaTecnica/SIMG.png"  width="2" height="4"></img>' : `<img class="rounded float-start" src="${question.imagen}"  width="200" height="250"></img>`}
+                    <ul>
+                        ${question.options.map((option, index) =>
+      
+                          `
+                            <li >
+                                <input type="radio" class="form-check-input" id="respondidas${i}" name="respondidas${i}" value="${index}"  ${index === Number(answer - 1) && (rol ==='instructor') ? 'checked' : ''}>
+                                <label>${option}</label>
+                            </li>
+                        `).join('')}
+                    </ul>`;
+                    break
+                }      
                 quizForm.appendChild(questionElement);
             }
 

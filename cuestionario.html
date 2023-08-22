@@ -150,8 +150,8 @@
                                 clearInterval(temporizador);
                                 const numeroID = obtenerNumeroDeID();
                                 const valores = getCuestionario();
-                                    enviarCuestionario(valores);
-                                    window.location.href = `http://prueba.tecnica.compucel.co/resultados.html?id=${numeroID}`;
+                                    enviarCuestionario(valores,numeroID);
+                                   window.location.href = `http://prueba.tecnica.compucel.co/`;
                             }
                         }
                         const temporizador = setInterval(decrementarTiempo, 1000);
@@ -188,11 +188,11 @@
                         <script>
                             $btnEnviarPreguntas = document.querySelector("#btnEnviarPreguntas"),
                                 btnEnviarPreguntas.addEventListener('click', (event) => {
+                                    const numeroID = obtenerNumeroDeID();
                                     event.preventDefault();
                                     const valores = getCuestionario();
-                                    enviarCuestionario(valores);
-                                    const numeroID = obtenerNumeroDeID();
-                                    window.location.href = `http://prueba.tecnica.compucel.co/resultados.html?id=${numeroID}`;
+                                    enviarCuestionario(valores,numeroID);
+                                    window.location.href = `http://prueba.tecnica.compucel.co/calificaciones.html?id=${numeroID}`;
                                 });
                         </script>
   
